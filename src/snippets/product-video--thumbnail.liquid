@@ -1,0 +1,61 @@
+{% comment %}
+  :: PRODUCT VIDEO -- THUMBNAIL ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Creates a Video player thumbnail for use in a product image gallery
+
+    REQUIRES:
+      1. VIDEO TYPE : "video_type"
+          - Type: String
+          - String to show which type of video. Current Options: "youtube" / "vimeo"
+
+      2. VIDEO ID : "video_id"
+          - Type: String
+          - String of the video's id, used by the ProductVideo.js constructor for video elements
+
+      3. VIDEO THUMBNAIL URL : "video_thumbnail_url"
+          - Type: String
+          - String url for the thumbnail image
+
+    EXAMPLE: (How to include this snippet)
+      {% include 'product-video--thumbnail', 
+          video_type: "vimeo",
+          video_thumbnail_url: 'http://mysite.com/picture.jpg' %}
+{% endcomment %}
+
+
+
+{% comment %} :: SAFETY CHECK + ERROR LOGGING :: {% endcomment %}
+{% assign isSafe = false %}
+{% if video_type == blank %}
+  {% assign missing_prop = 'video_type' %}
+{% elsif video_id == blank %}
+  {% assign missing_prop = 'video_id' %}
+{% elsif video_thumbnail_url == blank %}
+  {% assign missing_prop = 'video_thumbnail_url' %}
+{% else %}
+  {% assign isSafe = true %}
+{% endif %}
+
+
+
+{% comment %} :: TEMPLATE - VIDEO THUMBNAIL :: {% endcomment %}
+{% if isSafe == false %}
+  <script type='text/javascript'>
+    console.log( 'ERROR (Liquid) : [ Snippet : product-video--thumbnail.liquid ] -- Missing proper value for {{ missing_prop }}.' );
+  </script>
+
+{% else %}
+	<div 
+    id="product-video-thumbnail-{{- video_id -}}" 
+    class="product-thumbnail product-video-thumbnail active"
+    data-image-id="{{- video_id -}}">
+
+	  <span class="play-button-text">Play</span>
+	  <span class="play-button-shape"></span>
+	  <img 
+      class="{%- if video_type == 'vimeo' -%} vimeo-thumbnail {%- else -%} lazyload lazyload-fade {%- endif -%} {% if video_type == 'youtube' %} youtube-thumbnail{% endif %}"
+      data-src="{{- video_thumbnail_url -}}"
+      data-video-id="{{- video_id -}}" />
+	</div>
+{% endif %}

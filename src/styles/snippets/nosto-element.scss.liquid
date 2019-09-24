@@ -1,0 +1,129 @@
+#nosto-block {
+    clear: both;
+    margin: 60px 1.04166667%;
+    padding-top: 60px;
+    padding-bottom: 30px;
+
+    #cartpage-nosto-1 & {
+      margin-top: 0;
+    }   
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+
+      #categorypage-nosto-2 & {
+        max-width: 1000px;
+      }
+    }
+
+    .slick-track {
+      #cartpage-nosto-1 & {
+        width: 200px !important;
+      }
+    }
+       
+    .slick-initialized .slick-slide {
+      display: block;
+      padding: 0;
+      margin-bottom: 0;
+      width: 100%;
+
+      #cartpage-nosto-1 & {
+        width: 200px !important;
+      }
+    }
+
+    .slick-slide {
+      margin: 3px;
+
+        img {
+          width: 100%;
+          padding-bottom: 7px;
+          border-bottom: 1px solid #000;
+        }
+    }
+
+    .item {
+      position:relative;
+      float: left;
+      padding-left: 3px;
+      padding-right: 3px;
+      width: 100%;
+      margin-bottom: 25px;
+    }
+
+    .title {
+      font-family: sans-serif, serif;
+      font-size: 28px;
+      text-transform: capitalize;
+      text-align: center;
+      padding: 10px 0;
+
+        .index-section--nosto-element & {
+          font-size: 38px;
+        }
+        #cartpage-nosto-1 & {
+          font-size: 20px;
+        }
+    }
+
+    .product-info {
+       .name {
+        font-family: sans-serif, serif;
+        font-size: 18px;
+        margin-bottom: 2px;
+        letter-spacing: initial;
+       }
+
+       .price {
+          font-family: serif, sans-serif;
+          font-size: 16px;
+       }
+    }
+
+/* CONTROLS : Arrows and slider dots
+ * ------------------------------------------ */
+
+  .slick-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 2;
+    // font-family: 'FontAwesome';
+    font-size: 20px;
+
+    &:hover { text-decoration: none; }
+
+    &.prev {
+      left: -20px;
+
+      &:before {
+        content: "<";
+      }
+      @media only screen and (max-width: 713px) {
+        left: 20px;
+      }
+    }
+
+    &.next {
+      right: -20px;
+        
+      &:before{
+        content: ">";
+      }
+      @media only screen and (max-width: 713px) {
+        right: 20px;
+      }
+    }
+
+    .label { display: none; }
+
+    .icon-caret_right,
+    .icon-caret_left { width: 25px; }
+  }
+
+  .nosto-ribbon {
+   display: none !important;
+  }
+}

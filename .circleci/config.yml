@@ -1,0 +1,133 @@
+# Javascript Node CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.16.0-browsers
+
+ # list of branches to build 
+general:
+  branches:
+    only:
+      - develop
+      - release
+jobs:
+
+  # TASK : BUILD THEME
+  build:
+    <<: *defaults
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      # Store NPM Token so we can access the private BOL Slate Tools
+      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}-bootstrapped
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      # NPM Install (Just runs 'npm i' but if we ever need more use again..)
+      - run: npm run bootstrap
+
+      # Save the cached setup
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}-bootstrapped
+
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in deploy job.
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a  
+          # directory on the container which is taken to be the root directory of the workspace.
+          root: .
+          # Must be relative path from root
+          paths:
+            - .
+
+  # TASK : DEPLOY - DEVELOP
+  deploy_develop:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ~/repo
+        
+        #Install BOL Slate deployment / build tool
+      - run: sudo npm i -g @branded-online/slate
+      - run:
+          name: Generate dev env setting
+          command: | #Change theme ID for each level 
+            echo '
+            development:
+              password:' $SLATE_PASSWORD '
+              theme_id: "50143625270" # Temp, will change back once validated. This is a dev theme ID.
+              store: thefryecompany.myshopify.com
+              ignore_files:
+                # - settings_data.json #This is commented out so we keep in sync with repo' > ./config.yml
+      - run:
+          name: Deploy
+          command: npm run deploy
+
+  # TASK : DEPLOY - RELEASE
+  deploy_release:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ~/repo
+
+        #Install BOL Slate deployment / build tool
+      - run: sudo npm i -g @branded-online/slate
+      - run:
+          name: Generate prod env setting
+          command: | #Change theme ID for each level
+            echo '
+            production:
+              password:' $SLATE_PASSWORD '
+              theme_id: "live"
+              store: bol-seed.myshopify.com
+              ignore_files:
+                - settings_data.json
+                - en.default.json' > ./config.yml
+      - run:
+          name: Deploy
+          command: slate deploy -e production
+
+
+# WORKFLOW : Execution Order of Tasks & When they run
+workflows:
+  version: 2
+  build_deploy_dev:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy_develop:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+
+  build_deploy_release:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - release
+      - deploy_release:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - release

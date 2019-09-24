@@ -1,0 +1,121 @@
+{% comment %}
+  :: PRODUCT VIDEO (DATA BUILDER) ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Builds liquid data array 'video_data' for templates to later iterate over
+        in order to build the various UI pieces for displaying video Players & Thumbs
+
+    REQUIRES:
+      1. PRODUCT TAGS : "productTags"
+          - Type: Array
+          - Array of all tags on the product, referenced from a var due to PDP merge compatability 
+
+    EXAMPLE: 
+     (This snippet builds liquid vars required to use the product-video child components *Like 'product-video--thumbnail' )
+      
+      1. PARENT COMPONENT (This) 
+        {% include 'product-video', productTags: arrayOfTags %}  <-- (Only need 'productTags' var if using somewhere other than product-template.liquid)
+
+      2. CHILD COMPONENTS (UI Elements)
+        You would include the child components later on in your liquid template in the places
+        you would like the ui elements.
+
+        {% include 'product-video--thumbnail' %}
+      
+{% endcomment %}
+
+
+
+{% comment %} :: PRODUCT VIDEO - SAFETY CHECK :: {% endcomment %}
+{% if productTags == blank %}
+  {% assign productTags = product.tags %}
+{% endif %}
+
+
+
+
+{% comment %} :: DATA STORE :: (Vars that hold all the video information for usage in other parts of the UI) {% endcomment %}
+{% assign video_data = blank %}
+
+
+{% comment %} :: PRODUCT VIDEO - DATA PARSER :: {% endcomment %}
+{% for tag in productTags %}
+
+  {% comment %} :: BUILD VIDEO :: {% endcomment %}
+  {% if tag contains 'product_video_url_' %}
+    {% assign video_url = tag | remove: 'product_video_url_' %}
+
+
+
+    {% comment %} :: DATA -- TYPE = YOUTUBE :: {% endcomment %}
+    {% if video_url contains 'youtu' %}
+      {% assign video_type = 'youtube' %}
+
+      {% comment %} :: PARSE ID (Various Formats for Youtube URL) :: {% endcomment %}
+      {% if video_url contains '?v=' %}
+
+        {% comment %} FORMAT A: https://www.youtube.com/watch?v=dfDIvsmYla8 {% endcomment %}
+        {% assign product_vid_array = video_url | split: '=' %}
+        {% assign video_id = product_vid_array[1] %}
+
+      {% elsif video_url contains '.be/' %}
+
+        {% comment %} FORMAT B: https://youtu.be/dfDIvsmYla8 {% endcomment %}
+        {% assign product_vid_array = video_url | split: '/' %}
+        {% assign video_id = product_vid_array[3] %}
+      {% endif %}
+
+      {% comment %} :: THUMBNAIL - Grab image for thumbnail gallery :: {% endcomment %}
+      {% assign video_thumbnail_url = "//img.youtube.com/vi/" | append: video_id | append: '/0.jpg' %}
+
+
+
+    {% comment %} :: DATA -- TYPE = VIMEO :: {% endcomment %}
+    {% elsif video_url contains 'vimeo' %}
+      {% assign video_type = 'vimeo' %}
+      {% assign product_vid_array = video_url | split: '/' %}
+      
+      {% comment %} :: PARSE ID (Various formats for url) :: {% endcomment %}
+      {% if video_url contains 'player' %}
+
+        {% comment %} FORMAT A: https://player.vimeo.com/video/29180101 {% endcomment %}
+        {% assign video_id = product_vid_array[4] %} 
+
+      {% else %}
+
+        {% comment %} FORMAT B: https://vimeo.com/291801018 {% endcomment %}
+        {% assign video_id = product_vid_array[3] %}
+      {% endif %}
+
+      {% comment %} :: NOTE : Vimeo thumbnail has to be fetched via API, so we set it as the ID :: {% endcomment %}
+      {% assign video_thumbnail_url = video_id %}
+
+    {% endif %}
+
+
+
+    {% comment %} :: DATA - BUILD VIDEO DATA ARRAY :: (Store data sets of videos as array in case there are multiple videos in a merge PDP scenario) {% endcomment %}
+    {% if video_url != blank 
+        and video_type != blank 
+        and video_id != blank 
+        and video_thumbnail_url != blank %}
+
+      {% comment %} :: BUILD - SINGLE VIDEO PROPERTIES :: (string, using "|" to store all 3 props needed to build video){% endcomment %}
+      {%- capture video_props -%} {{ video_id }}|{{ video_type }}|{{ video_url }}|{{ video_thumbnail_url }} {%- endcapture -%}
+
+      {% comment %} :: STORE - VIDEO PROPS :: (Create or concat array of video_data so later templates can build all found video elements in case there are multiple) {% endcomment %}
+      {% if video_data == blank %}
+        {% assign video_data = video_props | split: ',' %}
+      {% else %}
+        {% assign new_props_array = video_props | split: ',' %}
+        {% assign video_data = video_data | concat: new_props_array %}
+      {% endif %}
+
+    {% endif %}
+
+
+
+  {% endif %}
+  {% comment %} END : 'product_video_url_ tagging check {% endcomment %}
+
+{% endfor %}

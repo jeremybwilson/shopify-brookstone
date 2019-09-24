@@ -1,0 +1,53 @@
+{% comment %}
+  :: PRODUCT VIDEO -- PROPS EXTRACTOR ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Place this snippet inside loops on the video_data array to extract and 
+        create the required vars for the various video components in liquid
+
+    REQUIRES:
+      1. VIDEO PROPS : "video_props"
+        - Type: String
+        - String of video props delinated by "|" character between props 
+        - 'VIDEO_DATA' is built by 'product-video.liquid' 
+
+    EXAMPLE: 
+			{% if video_data != blank %}
+				{% for video_props in video_data %}
+
+        	{% include 'product-video--props' %}
+
+        	// Then include whichever video component you wanted to add in that UI location
+        	{% include 'product-video--thumbnail' %}
+
+        {% endfor %}
+      {% endif %}
+      
+{% endcomment %}
+
+
+
+{% comment %} :: SAFETY CHECK :: {% endcomment %}
+{% assign isSafe = false %}
+{% if video_props != blank %}
+  {% assign isSafe = true %}
+{% endif %}
+
+
+
+{% comment %} :: DATA - VIDEO PROPS EXTRACTOR :: {% endcomment %}
+{% if isSafe == false %}
+  <script type='text/javascript'>
+    console.log( 'ERROR (Liquid) : [ Snippet : product-video--props.liquid ] -- Missing proper value for video_props' );
+  </script>
+
+{% else %}
+
+	{% comment %} CONVERT - String to Liquid Vars for Video + Build liquid variables for component ingestion {% endcomment %}
+	{% assign props_array = video_props | split: "|" %}
+	{% assign video_id = props_array[0] %}
+	{% assign video_type = props_array[1] %}
+	{% assign video_url = props_array[2] %}
+	{% assign video_thumbnail_url = props_array[3] %}
+
+{% endif %}

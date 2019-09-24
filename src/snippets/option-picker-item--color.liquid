@@ -1,0 +1,82 @@
+{% comment %}
+  :: OPTION SWATCH TEMPLATE - COLOR ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Single swatch item template for color type swatches (ONLY color swatches)
+
+    HOW:
+      - For use only with option-picker.liquid snippet
+
+    REQUIRES: 
+      Liquid Variables:
+        "option_sku"
+            - Sku for this specific option (built in parent component option-picker.liquid)
+            - EX: "80253"
+
+        "value"
+            - Name for the current swatch item to display 
+            - EX: "7" for the size Options
+
+        "option_id"
+            - ID created from the option-picker.liquid template to identify individual swatch items
+            - EX: "swatch-{{ option_position }}-{{ value | handle }}"
+
+        "radio_button"
+            - Liquid template for a radio button created on the option-picker parent component
+
+        "sold_out_image"
+            - Liquid template for the sold out image (the X) for showing when an item isn't available
+
+{% endcomment %}
+
+
+{% comment %} :: DATA : PASSED VARS SAFETY CHECK :: {% endcomment %}
+{% assign colorSafetyCheck = false %}
+{% if option_sku == blank %}
+  {% assign option_sku = 'OPTION_SKU MISSING' %}
+{% elsif value == blank %}
+  {% assign value = 'VALUE MISSING' %}
+{% elsif option_id == blank %}
+  {% assign option_id = 'OPTION_ID MISSING' %}
+{% elsif radio_button == blank %}
+  {% assign radio_button = 'RADIO_BUTTON (TEMPLATE VAR) MISSING' %}
+{% elsif sold_out_image == blank %}
+  {% assign sold_out_image = 'SOLD_OUT_IMAGE (TEMPLATE VAR) MISSING' %}
+{% else %}
+  {% assign colorSafetyCheck = true %}
+{% endif %}
+
+{% if colorSafetyCheck == false %}
+  <script>console.log( '::: ERROR : REQUIRED DATA MISSING : [option-picker-item--color.liquid] :\n  option_sku={{ option_sku }}\n  value={{ value }}\n  radio_button={{ radio_button }}\n  sold_out_image={{ sold_out_image }}' );</script>
+{% endif %}
+
+
+
+{% comment %} :: DATA : SWATCH IMAGE URL + FALLBACK COLOR CSS ::  Name schema from Photo Studio dept., adjust as needed. {% endcomment %}
+{% assign css_color = value | split: ' ' | last | handle %}
+{% assign sku_parts = option_sku | split: '-' %}
+{% assign sku_base = sku_parts | first | downcase %}
+{% assign clean_color_name = value | escape | replace: ' ', '_' | replace: '/', '_' | replace: '__', '_' | downcase %}
+{% capture swatch_file_name %}{{ sku_base }}_{{ clean_color_name }}_sw.gif{% endcapture %}
+{% assign swatch_img_url = 'swatch_url_source_do_not_remove.png' | file_url | replace: 'swatch_url_source_do_not_remove.png', swatch_file_name %}
+
+{% comment %} :: DATA : CLASS NAME BUILDER :: {% endcomment %}
+{% assign classes = 'swatch-element color' %}
+{% comment %} NOTE : Brands usually hate X on the color way when not all sizes sold out, just getting rid of this for now. 
+  {% unless available %}
+    {% assign classes = 'swatch-element color soldout' %}
+  {% endunless %}
+{% endcomment %}
+
+
+
+{% comment %} :: TEMPLATE : COLOR - Body :: {% endcomment %}
+<div class="{{ classes }}" data-swatch-value="{{ value | esc }}">
+  <div class="tooltip">{{ value }}</div>
+  
+  {{ radio_button }}
+
+  <label for="{{ option_id }}" style="background-color: {{ css_color }}; {% if settings.use_swatch_images or section.settings.use_swatch_images and swatch_img_url != blank %}background-image: url( {{ swatch_img_url }} ){% endif %}">
+    {% comment %}{{ sold_out_image }}{% endcomment %}
+  </label>
+</div>

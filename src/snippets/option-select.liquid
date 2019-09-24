@@ -1,0 +1,45 @@
+{% comment %}
+  :: OPTION SELECT ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Builds select dropdown for a product variant set
+
+
+    REQUIRES:
+      1. PRODUCT VARIANTS : "productVariants"
+          - Type: Array
+          - Array of all product variants in the template to make selections of
+
+
+    EXAMPLE: (How to include this snippet)
+      {% include 'option-select', 
+          productVariants: arrayOfVariants %} (Only need the variable if using somewhere other than product-form.liquid)
+
+{% endcomment %}
+
+
+
+{% comment %} :: OPTION SELECT - SAFETY CHECK :: {% endcomment %}
+{% assign isSafe = false %}
+{% if productVariants != blank %}
+  {% assign isSafe = true %}
+{% endif %}
+
+{% if isSafe == false %}
+  <script>console.log( 'ERROR : [ option-select.liquid ] -- "productVariants" variable was missing from the template or its parent' );</script>
+{% endif %}
+
+
+
+{% comment %} :: OPTION SELECT - TEMPLATE :: 
+  - The 'display: none' is for UI hide only, this select is what tells the addToCartButton which variant ID to add
+{% endcomment %}
+<div class="select">
+  <select id="product-select-{{ product.id }}" name='id'>
+    {% for variant in productVariants %}
+      <option data-sku="{{ variant.sku }}" value="{{ variant.id }}" {% if variant == current_variant %} selected="selected"{% endif %}>
+        {{ variant.title }} - {{ variant.price | money }}
+      </option>
+    {% endfor %}
+  </select>
+</div>

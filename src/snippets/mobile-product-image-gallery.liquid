@@ -1,0 +1,42 @@
+{% comment %}
+  :: MOBILE PRODUCT IMAGE GALLERY ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Reads productImages array (creating it from product.images if missing)
+        and generates both big image and thumbnail slider pieces
+
+    REQUIRES:
+      1. PRODUCT IMAGES : "productImages"
+          - Type: Array
+          - Array of all product images, be they from the merge or single product
+
+
+    EXAMPLE: (How to include this snippet)
+      {% include 'mobile-product-image-gallery', productImages: arrayOfImages %} (Only need variable if using somewhere other than product-template.liquid)
+{% endcomment %}
+
+
+
+{% comment %} :: IMAGE GALLERY - SAFETY CHECK :: {% endcomment %}
+{% if productImages == blank %}
+  {% assign productImages = product.images %}
+{% endif %}
+
+
+
+{% comment %} :: IMAGE GALLERY - COMPONENT :: {% endcomment %}
+{% for image in productImages %}
+  {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+
+  <div class="mthumb" data-image-id="{{ image.id }}" data-color="{{ image.alt }}">
+    <img id="{{ product.id }}"
+      class="product__image lazyload lazyload-fade"
+      data-src="{{ img_url }}"
+      data-sizes="auto"
+      alt="{{ image.alt | escape }}">
+
+    <noscript>
+      <img src="{{ image | img_url: '800x' }}" alt="{{ image.alt | escape }}">
+    </noscript>
+  </div>
+{% endfor %}

@@ -1,0 +1,40 @@
+{% comment %}
+  :: PRODUCT-MERGER : UTIL - Size Value Cleaner::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Util lives in child values loop, adds a 0 before single digit sizes as 
+        string sorting the sizes puts "10" before "5" so we add preceeding 0's.
+        (0's removed in JS via theme.ProductForm function)
+
+    HOW:
+      1. Loops through child values array and checks length ("size" in liquid)
+         for single digits
+
+      2. Converts string list of fixed size names back into the 'newValuesArray'
+
+{% endcomment %}
+
+{% comment %} :: UTIL - SIZE VALUE SORT FIX :: {% endcomment %}
+{% if lowercaseName == 'size' %}
+
+  {% for value in newValuesArray %}
+    {% assign editableValue = value %}
+
+    {% if editableValue.size == 1 %}
+      {% assign editableValue = editableValue | prepend: '0' %}
+    {% endif %}
+
+    {% comment %} :: BUILD ARRAY OF CLEAN VALUES :: {% endcomment %}
+    {% if newValuesString == nil %}
+      {% assign newValuesString = editableValue %}
+    {% else %}
+      {% assign newValuesString = newValuesString | append: ',' | append: editableValue %}
+    {% endif %}
+  {% endfor %}
+
+  {% comment %} :: UPDATE : newValuesArray - Since we had to mod for size sorting, update it with our constructed string :: {% endcomment %}
+  {% if newValuesString %}
+    {% assign newValuesArray = newValuesString | split: ',' %}
+  {% endif %}
+
+{% endif %}

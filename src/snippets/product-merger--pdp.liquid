@@ -1,0 +1,141 @@
+{% comment %}
+  :: PRODUCT MERGER -- PDP ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Scans product for PDP merge tags and merges variant arrays 
+        sourced from other products via the parsed handle from the tag.
+
+    FOR: 
+      - Single Product merging, pass or place snippet on a place with "product"
+        exposed as a liquid variable in order to creat a merge dataset.
+
+    HOW:
+      1. Scans parent tags for 'pdp_merge_ADDENDUM-HANDLE-NAME' type tags, then
+         uses the handle portion to lookup the additional product using the
+         'all_products[ HANDLE-NAME ]' liquid object
+
+      2. If product options are congruent, uses concat to merge the two arrays
+         from original and additional product variants together into single 
+         liquid variable.
+
+      3. Product-Form and other places then check if the "productVariants" 
+         var exists, and if so they will use that instead of "product.variants"
+         (We map even non-merge product.variants into the productVariants var, 
+          so using it always if present is safe).
+
+{% endcomment %}
+
+{% comment %} :: PARENT - FULL PRODUCT OBJECT :: {% endcomment %}
+{% assign productObj = product %}
+
+{% comment %} :: PARENT - VARIANTS :: Gather the current variants on the parent product {% endcomment %}
+{% assign productVariants = product.variants %}
+
+{% comment %} :: PARENT - IMAGES :: Gather the images on the current parent product {% endcomment %}
+{% assign productImages = product.images %}
+
+{% comment %} :: PARENT - TAGS :: Gather array of tags (Used by product-video component for now) {% endcomment %}
+{% assign productTags = product.tags %}
+
+{% comment %} :: PARENT - INFO (Title, Description) :: Gather description/title for product & build data object lihnking info w/ variant IDs {% endcomment %}
+{%- capture unclosedProductInfoObj -%}
+  {
+    {%- for variant in productVariants -%}
+      {{- variant.id -}}:{
+        "description":{{ product.description | json }},
+        "title":{{ product.title | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+{%- endcapture -%}
+
+
+
+{% comment %} :: PARENT - OPTION NAMES :: Used to ensure all products have same options otherwise things get strange.. {% endcomment %}
+{% assign parentOptionNames = product.options | json %}
+
+{% comment %} :: PARENT - OPTION DATA :: Builds option1_values to use with product-form later on (2,3, & extra also) {% endcomment %}
+{% include 'product-merger-util--option-values' %}
+
+
+{% comment %} :: PARENT - CHILD CHECK :: Find child product handles via searching for tag prefix "pdp_merge_" {% endcomment %}
+{%- capture childHandles -%}
+  {%- for tag in productTags -%}
+    {%- if tag contains 'pdp_merge_' -%}
+      {{- tag | remove: 'pdp_merge_' -}},
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+
+{% comment %} :: MERGE - VARIANTS :: Gather each child handle's variants and merge them into one {% endcomment %}
+{% assign childHandles = childHandles | replace: ' ', '-' | split: ',' %}
+{% if childHandles.size > 0 %}
+  {% for handle in childHandles %}
+
+    {% comment %} :: CHILD - VARS :: {% endcomment %}
+    {% assign childProduct = all_products[handle] %}
+    {% assign childOptionNames = childProduct.options | json %}
+
+    {% comment %} :: CHECK - CONGRUENT OPTIONS :: "continue" (skip) this item if options don't match, things get weird in the template {% endcomment %}
+    {% unless childOptionNames == parentOptionNames %}{% continue %}{% endunless %}
+
+
+
+    {% comment %} :: MERGE - VARIANTS + IMAGES + TAGS :: {% endcomment %}
+    {% assign productVariants = productVariants | concat: childProduct.variants %}
+    {% assign productImages = productImages | concat: childProduct.images %}
+    {% assign productTags = productTags | concat: childProduct.tags | uniq %}
+
+    {% comment %} :: MERGE - PRODUCT INFO :: (Variant ID as key, Description / Title values in objects) {% endcomment %}
+    {%- capture tempProductInfoObj -%}
+      {{ unclosedProductInfoObj }},
+      {%- for variant in childProduct.variants -%}
+        {{- variant.id -}}:{
+          "description":{{ childProduct.description | json }},
+          "title":{{ childProduct.title | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {% assign unclosedProductInfoObj = tempProductInfoObj %}
+
+
+    {% comment %} :: MERGE - OPTION VALUES :: Can't do flat concat, have to de-duplicate values {% endcomment %}
+    {% for optionObj in childProduct.options_with_values %}
+
+
+      {% comment %} :: PREP : LOGIC VARIABLES :: {% endcomment %}
+      {% assign lowercaseName = optionObj.name | downcase %}
+      {% assign newValuesArray = optionObj.values %}
+
+      {% comment %} :: PREP : SIZE VALUE PREFIXER :: (Must add 0's to 1-digit sizes so sort tag works, 0's removed later in theme.js > ProductForm) {% endcomment %}
+      {% include 'product-merger-util--size-handler' %}
+
+
+
+      {% comment %} :: OPTION #1 :: {% endcomment %}
+      {% if optionObj.position == 1 %}
+        {% assign option1_values = option1_values | concat: newValuesArray | uniq | sort %}
+
+      {% comment %} :: OPTION #2 :: {% endcomment %}
+      {% elsif optionObj.position == 2 %}
+        {% assign option2_values = option2_values | concat: newValuesArray | uniq | sort %}
+
+      {% comment %} :: OPTION #3 :: {% endcomment %}
+      {% elsif optionObj.position == 3 %}
+        {% assign option3_values = option3_values | concat: newValuesArray | uniq | sort %}
+
+      {% comment %} :: EXTRA OPTIONS :: {% endcomment %}
+      {% else %}
+        {% assign extraOption_values = extraOption_values | concat: optionObj.values %}
+      {% endif %}
+
+
+    {% endfor %}{% comment %} :: END : MERGE - OPTION VALUES :: {% endcomment %}
+
+  {% endfor %}
+{% endif %}
+
+{% comment %} :: CLOSE PRODUCT-INFO OBJECT (DESCRIPTION / TITLE) :: {% endcomment %}
+{% capture productInfo %}
+  {{ unclosedProductInfoObj }} }
+{% endcapture %}

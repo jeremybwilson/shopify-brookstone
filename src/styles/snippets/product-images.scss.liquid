@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+/*
+  MOBILE PRODUCT PHOTOS
+  -----------------------------
+*/
+
+.mobile-product-photos--wrapper {
+  @include mq('tablet-and-up') {
+    display: none;
+  }
+}
+
+#mobile-product-photos {
+  width: 100%;
+  margin-bottom: 20px;
+
+  @include mq('tablet-and-up') {
+    display: none;
+  }
+
+  .owl-nav {
+    display: block;
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      outline: none;
+
+      &.disabled {
+        opacity: .3;
+      }
+    }
+    svg {
+      width: 18px;
+
+      @include mq('tablet-and-up') {
+        width: 20px;
+      }
+    }
+  }
+  .owl-prev {
+    left: 20px;
+  }
+  .owl-next {
+    right: 20px;
+  }
+
+  .owl-next:before {
+    display: none;
+  }
+  .owl-prev:before {
+    display: none;
+  }
+
+  .owl-item {
+    .video-wrapper {
+      padding-bottom: 100%; // So video is centered in the slide space
+    }
+
+    img {
+      margin: 0 auto;
+    }
+  }
+}
+
+.mobile-product-carousel--prev,
+.mobile-product-carousel--next {
+  svg {
+    width: 18px;
+
+    * {
+      fill: $color--primary-1;
+    }
+  }
+}
+
+/*
+  PRODUCT PHOTOS (Desktop Photos)
+  -------------------------------- */
+#product-photos {
+  width: 856 / 1350 * 100%;
+
+  @include mq( 'phone' ) {
+    display: none;
+  }
+
+  .product-video {
+    .video-wrapper {
+      padding: 0 0 100% 0;
+    }
+  }
+}
+
+.product-main-images {
+  width: 724 / 856 * 100%;
+}
+
+#thumbnail-gallery {
+  position: relative;
+  width: 76 / 856 * 100%;
+
+
+  // THUMBNAIL
+  .product-thumbnail {
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
+    width: 100%;
+    opacity: .5;
+
+    &.selected,
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+
+  // VIDEO : THUMBNAILS
+  .product-video-thumbnail {
+    @include flexbox;
+    @include align-items( center );
+    @include justify-content( center );
+    position: relative;
+    background: #f7f5f1;
+
+    &:before {
+      content: "";
+      padding-bottom: 100%; // Square thumbnail regardless of video thumbnail image ratio
+      position: relative;
+      display: block;
+    }
+  }
+
+  .play-button-text {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    color: $color--white;
+    @include fontDim(8px,8px,.2em);
+    font-weight: $font-weight--black;
+    text-transform: uppercase;
+    text-align: center;
+    z-index: 3;
+  }
+
+  .play-button-shape {
+    position: absolute;
+    content: '';
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    border-left: 21px solid $color--accent-1;
+
+
+  }
+}
+
+
+
+
+.product__image {
+  max-width: 600px;
+}

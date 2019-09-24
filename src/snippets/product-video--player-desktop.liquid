@@ -1,0 +1,57 @@
+{% comment %}
+  :: PRODUCT VIDEO -- PLAYER ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Creates a Video Player based on Type + ID passed in, 
+        use with 'product-video--player-mobile' for mobile component
+
+    REQUIRES:
+      1. VIDEO TYPE : "video_type"
+          - Type: String
+          - String to show which type of video. Current Options: "youtube" / "vimeo"
+
+      2. VIDEO ID : "video_id"
+          - Type: String
+          - String to show which type of video. Current Options: "youtube" / "vimeo"
+
+    EXAMPLE: (How to include this snippet)
+      {% include 'product-video--player', 
+          video_type: "vimeo",
+          video_id: 123456789 %}
+{% endcomment %}
+
+
+
+{% comment %} :: SAFETY CHECK + ERROR LOGGING :: {% endcomment %}
+{% assign isSafe = false %}
+{% if video_type == blank %}
+  {% assign missing_prop = 'video_type' %}
+{% elsif video_id == blank %}
+  {% assign missing_prop = 'video_id' %}
+{% else %}
+  {% assign isSafe = true %}
+{% endif %}
+
+
+
+{% comment %} :: TEMPLATE - VIDEO PLAYER :: {% endcomment %}
+{% if isSafe == false %}
+  <script type='text/javascript'>
+    console.log( 'ERROR (Liquid) : [ Snippet : product-video--player.liquid ] -- Missing proper value for {{ missing_prop }}.' );
+  </script>
+
+{% else %}
+  <div id="product-video-desktop-{{- video_id -}}" class="product-main-image product-video" data-image-id="{{- video_id -}}">
+    <div class="video-wrapper">
+
+      {% if video_type == "youtube" %}
+        <div id="product-video--youtube-{{ video_id }}" data-src="{{ video_id }}"></div>
+      {% endif %}
+
+      {% if video_type == "vimeo" %}
+        <div id="product-video--vimeo-{{ video_id }}"></div>
+      {% endif %}
+
+    </div>
+  </div>
+{% endif %}

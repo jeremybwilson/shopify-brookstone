@@ -1,0 +1,3 @@
+[submodule "shopify_modules/gift-with-purchase"]
+	path = shopify_modules/gift-with-purchase
+	url = git@github.com:onestopinternet/shopify-module-gwp.git

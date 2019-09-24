@@ -1,0 +1,64 @@
+{% comment %}
+  :: PRODUCT MERGER -- PLP ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Iterates over all items in 'collection' liquid object and builds 
+        globally accessable 'collectionMergeData' dataset on Shopify global object
+
+    FOR:
+      - The PLP is rendered by the Product Filter & Search app, which uses JS and 
+        its own api to read collection data. This saves us needing to do individual
+        API fetches for each product with merge data, taking advantage of liquid
+
+    HOW:
+      1. Creates an object by scanning all products in collection, identifying 
+          productings needing merge data built by their 'pdp_merge_HANDLE' tag.
+
+      2. For any product with that tag, it passes that product object to our
+          'product-merger--pdp' snippet to build the merge data
+
+      3. Uses merge data values to create an object with its key being the 
+          parent product ID.
+
+      4. Finally, the JS layer will check each product ID as it renders it
+          for a value in this global object, and will display swatches with
+          its merged data.
+
+{% endcomment %}
+
+
+
+{% comment %} :: COLLECTION ITEM MERGE PREP :: Build json of product IDs with merge data bundled in for bc-sf-filter.js setup {% endcomment %}
+{%- capture collectionMergeData -%}
+  {
+    {%- for product in collection.products -%}
+      {% assign productObj = false %}
+      {% assign hasMergeTag = false %}
+
+      {% comment %} :: CHECK - Merge Tag Presence :: {% endcomment %}
+      {% for tag in product.tags %}
+        {% if tag contains 'pdp_merge_' %}
+          {% assign hasMergeTag = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% comment %} :: BUILD - Add to our merged data object if tag is present :: {% endcomment %}
+      {%- if hasMergeTag == true -%}
+        {% include 'product-merger--pdp', product: product %}
+        {{- product.id -}}:{
+          'product': {{ productObj | json }},
+          'variants': {{ productVariants | json }},
+          'images': {{ productImages | json }},
+          'option1Values': {{ option1_values | json }},
+          'option2Values': {{ option2_values | json }},
+          'option3Values': {{ option3_values | json }}
+        },
+      {%- endif -%}
+    {%- endfor -%}
+  }
+{%- endcapture -%}
+
+{% comment %} :: STORE ITEM MERGE DATA :: {% endcomment %}
+<script type="text/javascript">
+  window.Shopify.collectionMergeData = {{ collectionMergeData }};
+</script>

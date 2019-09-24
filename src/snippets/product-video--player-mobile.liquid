@@ -1,0 +1,64 @@
+{% comment %}
+  :: PRODUCT VIDEO -- MOBILE PLAYER ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Creates a mobile video player based on Type + ID given, 
+        use with 'product-video--player' for desktop component.
+
+      - Technically, on mobile this is a "thumbnail" but all thumbnails 
+        and fullsize images are one in the same.
+
+    REQUIRES:
+      1. VIDEO TYPE : "video_type"
+          - Type: String
+          - String to show which type of video. Current Options: "youtube" / "vimeo"
+
+      2. VIDEO ID : "video_id"
+          - Type: String
+          - String to show which type of video. Current Options: "youtube" / "vimeo"
+
+    EXAMPLE: (How to include this snippet)
+      {% include 'product-video--player-mobile', 
+          video_type: "vimeo",
+          video_id: 123456789 %}
+{% endcomment %}
+
+
+
+{% comment %} :: SAFETY CHECK :: {% endcomment %}
+{% assign isSafe = false %}
+{% if video_type == blank %}
+  {% assign missing_prop = 'video_type' %}
+{% elsif video_id == blank %}
+  {% assign missing_prop = 'video_id' %}
+{% else %}
+  {% assign isSafe = true %}
+{% endif %}
+
+
+
+{% comment %} :: TEMPLATE - VIDEO THUMBNAIL :: {% endcomment %}
+{% if isSafe == false %}
+  <script type='text/javascript'>
+    console.log( 'ERROR (Liquid) : [ Snippet : product-video--player-mobile.liquid ] -- Missing proper value for {{ missing_prop }}.' );
+  </script>
+
+{% else %}
+  <div class="mthumb">
+
+    {% comment %} :: VIMEO SLIDE :: Vimeo Renders iframe inside div, so okay to keep as single unit {% endcomment %}
+    {% if video_type == 'vimeo' %}
+      <div id="mobile-product-video--{{ video_type }}-{{ video_id }}"
+        class="video-wrapper {{ video_type }}-mobile"
+        data-video-id="{{ video_id }}">
+      </div>
+
+    {% comment %} :: YOUTUBE SLIDE :: (Rendering iframe consumes given div element, so give it a nested element) {% endcomment %}
+    {% else %}
+      <div class="video-wrapper {{ video_type }}-mobile" data-video-id="{{ video_id }}">
+        <div id="mobile-product-video--{{ video_type }}-{{ video_id }}"></div>
+      </div>
+    {% endif %}
+
+  </div>
+{% endif %}

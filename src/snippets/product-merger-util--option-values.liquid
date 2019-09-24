@@ -1,0 +1,58 @@
+{% comment %}
+  :: PRODUCT-MERGER : UTIL - Option Values Filler ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Creates initial variables for option1, 2, 3 values, needed to play nice
+        with PDP merging product-form data.
+
+      - Can't overwrite nested objects in liquid so have to save each piece of
+        the object individually as values var in order to merge w/ child values.
+
+    HOW:
+      1. Loop through options_with_values liquid object and save out the
+         relevant data based on position.
+
+    EXAMPLE: 
+      - This is what you see inside of "product.options_with_values",
+
+        [
+          { 
+            "name":"Size",
+            "position":1,
+            "values":["7","8","9","10","11","12"]
+          },
+          { 
+            "name":"Color",
+            "position":2,
+            "values":["Wheat", "Cognac"]
+          }
+        ] 
+{% endcomment %}
+
+
+{% comment %} :: UTIL - OPTION VARS INIT :: {% endcomment %}
+{% for optionObj in product.options_with_values %}
+  {% assign lowercaseName = optionObj.name | downcase %}
+  {% assign newValuesArray = optionObj.values %}
+
+  {% comment %} :: PREP : SIZE VALUE PREFIXER :: (Must add 0's to 1-digit sizes so liquid string sort works, 0's removed later in theme.js > ProductForm) {% endcomment %}
+  {% include 'product-merger-util--size-handler' %}
+
+  {% if optionObj.position == 1 %}
+    {% assign option1_name = optionObj.name %}
+    {% assign option1_values = newValuesArray %}
+
+  {% elsif optionObj.position == 2 %}
+    {% assign option2_name = optionObj.name %}
+    {% assign option2_values = newValuesArray %}
+
+  {% elsif optionObj.position == 3 %}
+    {% assign option3_name = optionObj.name %}
+    {% assign option3_values = newValuesArray %}
+
+  {% else %}
+    {% assign extraOption_name = optionObj.name %}
+    {% assign extraOption_values = newValuesArray %}
+  {% endif %}
+
+{% endfor %}

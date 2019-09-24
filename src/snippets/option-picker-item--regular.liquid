@@ -1,0 +1,66 @@
+{% comment %}
+  :: OPTION SWATCH TEMPLATE - REGULAR ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Single swatch item template for non-color type swatches (size, etc)
+
+    HOW:
+      - For use only with option-picker.liquid snippet
+
+    REQUIRES: 
+      Liquid Variables:
+        "value"
+            - Name for the current swatch item to display 
+            - EX: "7" for the size Options
+
+        "option_id"
+            - ID created from the option-picker.liquid template to identify individual swatch items
+            - EX: "swatch-{{ option_position }}-{{ value | handle }}"
+
+        "radio_button"
+            - Liquid template for a radio button created on the option-picker parent component
+
+        "sold_out_image"
+            - Liquid template for the sold out image (the X) for showing when an item isn't available
+
+{% endcomment %}
+
+
+
+{% comment %} :: DATA : PASSED VARS SAFETY CHECK :: {% endcomment %}
+{% assign regSafetyCheck = false %}
+{% if value == blank %}
+  {% assign value = 'VALUE MISSING' %}
+{% elsif option_id == blank %}
+  {% assign option_id = 'OPTION_ID MISSING' %}
+{% elsif radio_button == blank %}
+  {% assign radio_button = 'RADIO_BUTTON (TEMPLATE VAR) MISSING' %}
+{% elsif sold_out_image == blank %}
+  {% assign sold_out_image = 'SOLD_OUT_IMAGE (TEMPLATE VAR) MISSING' %}
+{% else %}
+  {% assign regSafetyCheck = true %}
+{% endif %}
+
+{% if regSafetyCheck == false %}
+  <script>console.log( '::: ERROR : REQUIRED DATA MISSING : [option-picker-item--regular.liquid] :\n   value={{ value }}\n  radio_button={{ radio_button }}\n  sold_out_image={{ sold_out_image }}' );</script>
+{% endif %}
+
+
+
+
+{% comment %} :: REGULAR - LABEL LENGTH CLASS :: {% endcomment %}
+{% if value.size > 4 %}
+  {% assign sizeClass = 'long-label' %}
+{% else %}
+  {% assign sizeClass = 'short-label' %}
+{% endif %}
+
+{% comment %} :: REGULAR - BODY :: {% endcomment %}
+<div class="swatch-element {{ sizeClass }} {% unless available %}soldout{% endunless %}">
+  {{ radio_button }}
+
+  <label for="{{ option_id }}">
+    {{ value }}
+    {{ sold_out_image }}
+  </label>
+</div>

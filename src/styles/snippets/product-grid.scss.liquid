@@ -1,0 +1,323 @@
+/*  PRODUCT-GRID : Core Variables
+ * ---------------------------------------------- */
+$quickviewBtnBg: {{ settings.quickview_button_bg }};
+$quickviewBtnText: {{ settings.quickview_button_text }};
+
+$catalogItemTextColor: {{ settings.catalog_item_text_color }};
+$catalogItemPriceColor: {{ settings.catalog_item_price_color }};
+$catalogItemAccentColor: {{ settings.catalog_item_accent_color }};
+
+$loadMoreTextColor: {{ settings.collection_load_more_text }};
+$loadMoreBg: {{ settings.collection_load_more_bg }};
+$loadMoreBgHover: {{ settings.collection_load_more_bg_hover }};
+
+
+
+// CATALOG : Wrapper to the catalog items
+#product-loop {
+    @include flexbox;
+    @include flex-wrap( wrap );
+    position: relative;
+    padding-top: 0; // Topmost spacing extra if needed
+    width: 110%; //Design has this wider than page edges, but the max-width will prevent page bound breakage
+    left: 50%;
+    transform: translateX( -50% );
+    max-width: 99vw; // Prevent breaking viewport bounds
+
+    .product-index {
+        width: 50%;
+        margin-bottom: 10px;
+        float: none;
+        margin: 0 0 10px;
+
+        @include mq( 'tablet-and-up' ) {
+            width: 33%;
+        }
+
+
+        // QUICKVIEW BUTTON : Button to show the quickview
+        .product-modal {
+            @include h7;
+            @include flexbox;
+            @include fontSize( 14px );
+            @include align-items( center );
+            @include justify-content( center );
+
+            transition: opacity 0.25s ease-in-out;
+            font-weight: $font-weight--medium;
+            background: $quickviewBtnBg;
+            color: $quickviewBtnText;
+            padding: 6px 10px 4px;
+            letter-spacing: 2px;
+            border-radius: 0;
+            top: -21px;
+            opacity: 0;
+        }
+
+        @include mq( 'lap-and-up' ) {
+            &:hover .product-modal {
+                opacity: 1;
+                display: block;
+                pointer-events: all;
+            }
+        }
+    }
+
+    // IMAGE : Product Image containment and layers
+    .prod-container {
+        position: relative;
+        height: 190px; // Adjust for mobile probs...
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include mq( 'tablet-and-up' ){
+            height: 230px;
+        }
+
+        @include mq( 'lap-and-up' ) {
+            height: 310px;
+        }
+
+        @include mq( 'desk-and-up' ) {
+            height: 370px;
+        }
+
+        // IMAGE WRAPPER - OUTER : Extra layers to power some of UI features
+        .prod-image {
+            width: 100%;
+            height: 100%;
+
+            // IMAGE WRAPPER - INNER : inner wrap around the actual images themselves
+            .reveal {
+                position: relative;
+                width: 100%;
+                height: 100%;
+
+                img {
+                    max-height: 100%;
+                }
+            }
+        }
+
+        // PRODUCT BADGES : React-Badges component rendering badges based on product tags
+        .react-badge {
+
+            // ICON type badges (like waterproof logo)
+            .item-badge-icon {
+                display: none;
+                width: 55px;
+                right: 5px;
+                top: 5px;
+
+                @include mq( 'tablet-and-up' ) {
+                    top: 20px;
+                }
+
+                @include mq( 'lap-and-up' ) {
+                    top: 30px;
+                    width: 84px;
+                }
+            }
+
+            .item-badge {
+                top: 10px; //Adjustments for collection grid
+                right: 20px;
+
+                &.diamond {
+                    top: 20px;
+                }
+
+                // TABLET : Portrait
+                @include mq( 'tablet-and-up' ) {
+                    top: 30px;
+                    right: 40px;
+
+                    &.diamond {
+                        top: 40px;
+                    }
+                }
+
+                // TABLET : Landscape +
+                @include mq( 'tablet-and-up' ) {
+                    top: 20px;
+                    right: 40px;
+
+                    &.diamond {
+                        top: 30px;
+                    }
+                }
+
+                // DESKTOP : 1220px
+                @include mq( 'desk-and-up' ) {
+                    top: 40px;
+                    right: 50px;
+
+                    &.diamond {
+                        top: 50px;
+                    }
+                }
+
+                // WIDESCREEN : Big Displays
+                @include mq( 'wide-and-up' ) {
+                    top: 50px;
+                    right: 70px;
+
+                    &.diamond {
+                        top: 60px;
+                    }
+                }
+            }
+        }
+    }
+    
+
+    .product-info {
+        position: relative;
+        text-align: left;
+        max-width: 150px;
+        margin: 15px auto 0;
+        padding-left: 6px;
+        display: block;
+
+        // Set proper alignment for rest of mobile and up once space allows it
+        @media only screen and ( min-width: 400px ) {
+            padding-left: 0;
+        }
+
+        @include mq( 'lap-and-up' ) {
+            max-width: 230px;
+            margin: 20px auto 0; // extra spacing for quickview button
+        }
+
+        @include mq( 'desk-and-up' ) {
+            max-width: 260px;
+        }
+
+        @include mq( 'wide-and-up' ) {
+            max-width: 280px;
+        }
+
+        // TITLE : Wrapper around product title
+        .product-title-wrap {
+            text-decoration: none;
+
+            .product-title {
+                @include h6;
+                @include fontDim( 14px, 16px, 3px );
+                display: block;
+                margin-bottom: 5px;
+                width: calc( 100% - 16px );
+                font-weight: $font-weight--medium;
+                color: $catalogItemTextColor;
+                text-transform: uppercase;
+                word-break: break-word;
+
+                @include mq( 'tablet-and-up' ) {
+                    @include fontSize( 16px );
+                }
+
+                @include mq( 'lap-and-up' ) {
+                    @include fontSize( 18px );
+                }
+            }
+        }
+
+        // WISHLIST : Button to add/remove from wishlist
+        .button-wishlist-product {
+            background: transparent;
+            border: none;
+            outline: none;
+            position: absolute;
+            cursor: pointer;
+            height: 16px;
+            width: 16px;
+            padding: 0;
+            margin: 0;
+            right: 0;
+            top: 0;
+
+            svg {
+                width: 100%;
+                display: block;
+                pointer-events: none; // So click event bubbles from parent button elem
+
+                path {
+                    stroke: $color--gray-2;
+                    fill: transparent;
+                }
+            }
+
+            &[data-on-wishlist='true'] {
+                svg path {
+                    stroke: $color--accent-1;
+                    fill: $color--accent-1;
+                }
+            }
+        }
+
+        // PRICE : Wrapper around price block
+        .product-price-wrap {
+            @include fontSize( 16px );
+            font-weight: $font-weight--book;
+            color: $catalogItemPriceColor;
+            margin-left: -1px;
+
+            .was,
+            .onsale {
+                display: inline-block;
+            }
+
+            .was {
+                font-weight: $font-weight--bold;
+                color: $catalogItemPriceColor;
+            }
+
+            .onsale {
+                margin-right: 5px;
+                color: $catalogItemAccentColor;
+                font-weight: $font-weight--medium;
+            }
+        }
+
+        // SWATCHES : Wrapper on swatch list
+        .react-swatch-list {
+            .swatch-list {
+                height: 23px;
+                margin: 5px 0 10px -5px;
+
+                // SINGLE SWATCH :
+                .swatch-item-wrap {
+                    .swatch-item {
+                        width: 11px;
+                        height: 11px;
+                    }
+
+                    .swatch-highlight {
+                        width: 17px;
+                        height: 17px;
+                    }
+                }
+                
+            }
+        } 
+    }
+}
+
+.bc-sf-filter-load-more-button {
+    @include h6;
+    @include fontDim( 16px, 16px, 2px );
+    font-weight: $font-weight--medium;
+    color: $loadMoreTextColor;
+    background: $loadMoreBg;
+    border: none;
+    cursor: pointer;
+    padding: 12px 50px;
+    transition: background 0.25s ease-in-out;
+
+    &:hover {
+        background: $loadMoreBgHover;
+        color: $loadMoreTextColor;
+    }
+}

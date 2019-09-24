@@ -1,0 +1,178 @@
+{% comment %}
+  :: OPTION PICKER ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Builds product options based on given data. Designed to feed from
+        a merge-enhanced product-form setup. 
+
+
+    REQUIRES:
+      1. NAME : "option_name"
+          - Type: String
+          - Name of the option (Ex: "size")
+
+      2. POSITION : "option_position"
+          - Type: Number / String (beyond 3 only)
+          - Option Position (Ex: 1, 2, 3 or 'extra')
+          - Remember, variants are 3 max, infinite "options" available, but we're really talking about "Variant Options" here mostly
+
+      3. VALUES : "option_values"
+          - Type: Array 
+          - Array of values for this option (Ex: ["10", "11", "12"] or ["Blue", "Green"] )
+
+      4. VARIANTS : "product_variants"
+          - Type: Array
+          - Array of variant objects (from the merger or just the lone parent)
+
+
+    EXAMPLE: (How to include this snippet)
+      {% include 'option-picker', 
+          option_name: option1_name, 
+          option_position: 1, 
+          option_values: option1_values %}
+
+{% endcomment %}
+
+
+
+{% comment %} :: OPTION PICKER - SAFETY CHECK :: {% endcomment %}
+{% assign isSafe = false %}
+{% if option_name == blank %}
+  {% assign option_name = 'OPTION-NAME-MISSING' %}
+{% elsif option_position == blank %}
+  {% assign option_position = 'OPTION-POSITION-MISSING' %}
+{% elsif option_values == blank %}
+  {% assign option_values = 'OPTION-VALUES-MISSING' %}
+{% elsif product_variants == blank %}
+  {% assign product_variants = 'PRODUCT-MISSING' %}
+{% else %}
+  {% assign isSafe = true %}
+{% endif %}
+
+{% if isSafe == false %}
+  <script>console.log( 'ERROR : option-picker.liquid\n   option_name={{ option_name }}\n   option_position={{ option_position }}\n   option_values={{ option_values }}\n   product_variants={{ product_variants }}' );</script>
+{% endif %}
+
+
+
+{% comment %} :: OPTION PICKER - SETUP VARS :: {% endcomment %}
+{% assign lowercase_option_name = option_name | downcase %}
+{% assign current_option = "option" | append: option_position %}
+{% assign other_options = "option1 option2 option3" | remove: current_option | strip | split: " " %}
+
+{% comment %} :: FLAG - COLOR SWATCH :: {% endcomment %}
+{% assign is_color_swatch = false %}
+{% assign color_swatch_names = "color, colour" | split: ", " %}
+{% if color_swatch_names contains lowercase_option_name %}
+  {% assign is_color_swatch = true %}
+{% endif %}
+
+
+
+{% comment %} :: OPTION PICKER - TEMPLATE :: {% endcomment %}
+<div class="swatch clearfix {{ lowercase_option_name }}" 
+  data-option-name="{{ option_name }}"
+  data-option-position="{{ option_position }}"
+  data-other-options='{{ other_options | json }}'>
+  
+
+  {% comment %} :: HEADER :: {% endcomment %}
+  <div class="swatch-header">
+    
+    {% comment %} :: HEADER - NAME :: (CSS decides casing) {% endcomment %}
+    <h5>{{ option_name }}</h5>
+    
+    {% comment %} :: HEADER - SELECTED OPTION :: {% endcomment %}
+    <h6 class="current-option">{{ current_variant[current_option] }}</h6>
+
+    {% comment %} :: HEADER - SIZE CHART :: {% endcomment %}
+    {% if lowercase_option_name contains 'size' and template != 'product.quick' %}
+      <a href="#size-chart--popup" class="fancybox size-chart--trigger">Size Chart</a>
+    {% endif %}
+
+  </div><!-- .swatch-header-->
+
+
+  {% comment %} :: LIST :: (Values on this option) {% endcomment %}
+  {% for val in option_values %}
+    {% assign value = val %}
+    {% assign option_sku = blank %}
+
+
+    {% comment %} :: SIZE - Remove preceeding 0's on single digit items, were added to ensure proper sort order in product-merger :: {% endcomment %}
+    {% if lowercase_option_name == 'size' and value.size == 2 %}
+      {% assign firstChar = value | slice: 0 %}
+      {% if firstChar == '0' %}
+        {% assign value = value | slice: 1 %}
+      {% endif %}
+    {% endif %}
+
+
+    {% comment %} :: OPTION ITEM - Single Option Item in List :: {% endcomment %}
+    {% unless value contains 'Gift Item' or value contains 'Free Gift' %}
+
+      {% comment %} :: OPTION - Data Properties ::{% endcomment %}
+      {% capture option_id %}swatch-{{ option_position }}-{{ value | handle }}{% endcapture %}
+      {% assign available = false %}
+
+      {% comment %} :: OPTION - Availability Check + SKU Grab :: {% endcomment %}
+      {% for variant in product_variants %}
+
+        {% comment %} SKU : Color Swatch URL Usage : Grab sku from matching color variant, we don't care about size specific sku part as its cut off later anyway. Just need color match. {% endcomment %}
+        {% if variant[current_option] == value and option_sku == blank %}
+          {% assign option_sku = variant.sku %}
+        {% endif %}
+
+        {% comment %} AVAILABLE : If variant is NOT available, skip to next variant {% endcomment %}
+        {% unless variant.available %}
+          {% continue %}
+        {% endunless %}
+
+        {% comment %} CURRENT MATCH : If variant's current option (ie: Color->Black) does NOT match current value of this cycle, skip{% endcomment %}
+        {% unless variant[current_option] == value %}
+          {% continue %}
+        {% endunless %}
+
+        {% comment %} OPTION CONGRUENCY : If variant's other options (as defined by "option1", "option2", and "option3" in the variant's JSON) do not match the currently selected variant's other options, then skip {% endcomment %}
+        {% unless variant[other_options[0]] == current_variant[other_options[0]] %}
+          {% continue %}
+        {% endunless %}
+        {% unless variant[other_options[1]] == current_variant[other_options[1]] %}
+          {% continue %}
+        {% endunless %}
+
+        {% comment %} AVAILABLE - If we got here, the item is available! {% endcomment %}
+        {% assign available = true %}
+      {% endfor %}
+
+      {% comment %} :: OPTION - SELECTED STATE :: {% endcomment %}
+      {% assign checked = "" %}
+      {% if current_variant[current_option] == value %}
+        {% assign checked = 'checked="checked"' %}
+      {% endif %}
+
+      {% capture radio_button %}
+        <input 
+          id="{{ option_id }}"
+          type="radio"
+          name="{{ lowercase_option_name }}" 
+          value="{{ value | escape }}" 
+          option-position="{{ option_position }}" 
+          {{ checked }} />
+      {% endcapture %}
+
+      {% capture sold_out_image %}
+        <img class="crossed-out" src="{{ 'soldout.png' | asset_url }}" />
+      {% endcapture %}
+
+
+      {% comment %} :: ITEM TEMPLATE :: (Uses 'regular' or 'color' snippet based on what type of option we're filling) {% endcomment %}
+      {% if color_swatch_names contains lowercase_option_name %}
+        {% include 'option-picker-item--color' %}
+      {% else %}
+        {% include 'option-picker-item--regular' %}
+      {% endif %}
+
+    {% endunless %}
+  {% endfor %}
+</div>

@@ -1,0 +1,250 @@
+@charset "UTF-8";
+
+.slideshow-section {
+  margin-bottom: 0;
+
+
+
+  /* IMAGE HOLDER : For lazy loading images
+   * ------------------------------------------ */
+  .box-ratio {
+    &.slideshow__image__mobile {
+      @include mq('tablet-and-up') {
+        display: none;
+      }
+    }
+    &.slideshow__image__desktop {
+      display: none;
+      @include mq('tablet-and-up') {
+        display: inherit;
+      }
+    }
+  }
+
+
+  /* TEXT BOX : Wrapper around text portion
+   * ------------------------------------------ */
+  .flex-caption {
+    @include flexbox;
+    @include justify-content(center);
+    transform: translateY(-50%);
+
+    // ALIGNMENT : Text Box
+    @include mq('tablet-and-up') {
+
+      &.caption-box-align-left {
+        @include justify-content(flex-start);
+      }
+      &.caption-box-align-right {
+        @include justify-content(flex-end);
+      }
+    }
+
+    // ALIGNMENT : Text Content Itself
+    &.caption-text-align-left .buttons-row {
+      @include justify-content( flex-start );
+    }
+    &.caption-text-align-center .buttons-row {
+      @include justify-content( center );
+    }
+    &.caption-text-align-right {
+      .buttons-row {
+        @include justify-content( flex-end );
+      }
+
+      // Right Align, Light / Dark Theme
+      &.caption-theme-light,
+      &.caption-theme-white, // Legacy name support
+      &.caption-theme-dark {
+        .buttons-row {
+          right: -5px;
+
+          > .cta:last-child.show-lines--right,
+          > .cta:last-child.show-lines--both {
+            padding-right: 12px;
+          }
+        }
+      }
+
+      // Right Align, Custom Buttons Showing
+      &.caption-theme-custom {
+        .buttons-row {
+          right: 5px;
+        }
+      }
+    }
+
+    .caption-inners {
+      display: inline-block;
+      padding: 0;
+      max-width: 700px;
+      text-align: center;
+
+      @include mq( 'lap-and-up' ) {
+        padding: 10px 20px;
+      }
+    }    
+  }
+
+  /* HEADING : Primary text for slide
+   * ------------------------------------------ */
+  .slide-title {
+    border-bottom: 0 !important;
+    font-weight: $font-weight--medium;
+    @include fontSize( 30px );
+    text-transform: uppercase;
+    letter-spacing: 8px; 
+
+    @include mq('lap-and-up') {
+      @include fontSize( 30px );
+    }
+
+    &:after {
+      display: none !important;
+    }
+  }
+  
+  /* SUB-HEADING : Smaller text under header
+   * ------------------------------------------ */
+  .caption {
+    margin-top: 5px;
+    padding-right: 5px;
+    font-weight: $font-weight--medium;
+    @include fontDim(14px,22px,0);
+
+    @include mq('lap-and-up') {
+      @include fontDim(16px,26px,0);
+    }
+  }
+
+  /* BUTTONS : CTA Button in text box
+   * ------------------------------------------ */
+  .buttons-row {
+    position: relative;
+    @include inline-flex;
+    margin-top: 5px;
+    width: 100%;
+
+    > .cta {
+      margin: 0;
+
+      &:not(:first-child) {
+        margin-left: 15px;
+      }
+
+      // CTA LINES : Hidden by default
+      .cta-line-left,
+      .cta-line-right {
+        height: 1px;
+        width: 0;
+        opacity: 0.6;
+      }
+
+      .cta-line-left {
+        margin-right: 10px;
+      }
+      .cta-line-right {
+        margin-left: 10px;
+      }
+
+      &.show-lines--left,
+      &.show-lines--both {
+        .cta-line-left {
+          width: 25px;
+        }
+      }
+
+      &.show-lines--right,
+      &.show-lines--both {
+        .cta-line-right {
+          width: 25px;
+        }
+      }
+
+      a {
+        @include inline-flex;
+        @include align-items( center );
+        @include fontDim(15px, 15px, 3px);
+        border: none;
+        border-radius: 0;
+        font-weight: $font-weight--medium;
+        text-transform: uppercase;
+        transition: opacity 0.25s ease-in-out;
+
+        &:hover {
+          text-decoration: none;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+
+  /* NAVIGATION : Arrows and counter setup
+   * ------------------------------------------ */
+  .flexslider.one-image-only .slider--nav {
+    display: none;
+  }
+
+  .slider--nav {
+    @include flexbox;
+    @include justify-content(space-between);
+    @include align-items(center);
+    position: absolute;
+    z-index: 2;
+    bottom: 40px;
+    left: 50%;
+    width: 100%;
+    max-width: 220px;    
+    transform: translateX(-50%);
+    color: $color--white;
+
+    &.hide-nav {
+      display: none;
+    }
+
+    @include mq('lap-and-up') {
+      bottom: 55px;
+    }
+
+    .hide-pagination & {
+      @include mq('tablet-and-up') {
+        display: none;
+      }
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-top: 7px;
+
+      * {
+        fill: $color--white;
+      }
+    }    
+
+    /* PAGINATION : Page counter 
+     * ------------------------------------------ */
+    .pagination {
+      @include flexbox;
+      @include justify-content(center);
+      position: relative;
+      padding: 10px;
+      background: $color--white;
+      color: $color--accent-1;
+      font-weight: $font-weight--black;
+      @include fontDim(14px,14px,0);
+      text-align: center;
+
+      @include mq('lap-and-up') {
+        @include fontSize(14px);
+      }
+
+      span {
+        display: inline;
+        text-align: center;
+        margin: 0 2px;
+      }
+    }
+  }
+}

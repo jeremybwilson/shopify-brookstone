@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {% comment %} :: LIBRARY SCRIPTS :: {% endcomment %}
+    {{ 'jquery-2.2.4.min.js' | asset_url | script_tag }}
+
+  <!-- Data Layer for GTM
+  ================================================== -->
+    {% include 'script-google-tag-head' %}
+    
+    {%- if settings.enable_script_data_layer -%}
+      {% include 'script-data-layer' %}
+    {%- endif -%}
+
+  </head>
+
+  <body>
+    {% include 'script-google-tag-body' %}
+
+    <p>
+      {{ content_for_header }}
+      {{ checkout_stylesheets }}
+      {{ checkout_scripts }}
+    </p>
+
+    {{ skip_to_content_link }}
+
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main" role="main">
+          <div class="main__header">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </div>
+          <div class="main__content">
+            {{ content_for_layout }}
+          </div>
+          <div class="main__footer">
+            {{ content_for_footer }}
+          </div>
+        </div>
+        <div class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sr_logic">{% include 'shoprunner-logic', isCheckout: true %}</div>
+
+    {{ tracking_code }}
+
+    {% comment %} :: BOL - Checkout Customizations :: {% endcomment %}
+    {{ 'checkout.js' | asset_url | script_tag }}
+  </body>
+</html>

@@ -1,0 +1,1673 @@
+// HEADER.SCSS
+// -- sections/header.liquid
+// -- snippets/header-announcement-bar.liquid
+
+
+/*  HEADER : Core Styles
+ * ---------------------------------------------- */
+$navBoxShadow: 0px 1px 9px #8d8d8d;
+$navShadowAni: box-shadow 0.25s ease-in-out, background 0.25s ease-in-out;
+$navMobileBarGutter: 15px;
+$navMinorBorder: 1px solid {{ settings.nav_minor_border_color }};
+$zIndexBackingShadow: -1;
+$zIndexMobileMenu: 5;
+$zIndexBarBG: 25;
+$zIndexButtons: 50;
+$zIndexUserBtns: 65;
+$zIndexLogo: 75;
+$navBarDesktopHeight: 80px;
+$navHeaderColor: {{ settings.nav_header_color }};
+$navSubHeaderColor: {{ settings.nav_sub_header_color }};
+$navListItemColor: {{ settings.nav_list_item_color }};
+$navHoverColor: {{ settings.nav_hover_color }};
+$transparentLandingFontColor: {{ settings.nav_transparent_landing_color }};
+
+#header-section {
+    position: relative;
+    margin-top: 0 !important; //The sticky nav plugin adds margin to the parent but isn't necessary, this prevents it. 
+}
+
+
+/* SNIPPET : Header-Announcement-Bar 
+ *           (Promos bar on top of nav bar)
+ * ---------------------------------------------- */
+ @import url('../snippets/header-announcement-bar.scss.liquid');
+
+
+/* TRANSPARENT LANDING : 
+ *  When setting 'nav_transparent_landing' is enabled, we set navbar colorations to 
+ *  be transparent when idle on ONLY the homepage, can use the classing on body
+ *  to add more pages by classnames when needed. 
+ * 
+ * NOTE : The show-transparent-landing is for COLLECTION PAGE HEADERS with BANNERS
+ * --------------------------------------------- */
+body {
+    &.index, // Always on homepage
+    &.show-transparent-landing { // Apply this class via js to enable transparent landing on other pages
+        @import url('../snippets/header-transparent-landing.scss.liquid');
+    }
+
+    // COLLECTION : Mobile Banner image present only
+    &.show-transparent-landing-mobile {
+        @include mq( 'phone-and-tablet' ) {
+            @import url('../snippets/header-transparent-landing.scss.liquid');
+        }
+    }
+
+    // COLLECTION : Desktop Banner image present only
+    &.show-transparent-landing-desktop {
+        @include mq( 'lap-and-up' ) {
+            @import url('../snippets/header-transparent-landing.scss.liquid');
+        }
+    }
+}
+
+
+
+/*
+ * Hide the zEwidget chat thingy
+ * ---------------------------------------------- */
+body.js-drawer-open {
+    .zEWidget-launcher {
+        display: none;
+    }
+}
+#bfx-cc-wrapper {
+    display: none;
+}
+
+
+/*  NAV : Styles for the Nav-Bar portion
+ * ---------------------------------------------- */
+#nav-bar-wrapper {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    padding: 0;
+    z-index: 50; //entire wrapper, this relates to the header to rest of site so no need var
+    border-bottom-width: 0;
+    transition: $navShadowAni;
+
+    @include mq( 'lap-and-up' ){
+        height: $navBarDesktopHeight;
+    }
+    
+    /*
+     * SHADING : Add shadows for the sticky navigation states
+     * ---------------------------------------------- */
+    @import url('../snippets/header-sticky-shading.scss.liquid'); //Layer this before the transparent landing overrides
+
+
+    // For Borderfree
+    &.isStuck {
+        @include mq( 'lap-and-up' ) {
+            #nav-modal-borderfree {
+                top: 0;
+            }
+        }
+    }
+    
+    /* NAV BG :
+     * 
+     * Why? Because it lets use use rotated, box-shadows on logo
+     * to make a mobile sticky nav with a nice minor box shadow
+     * ---------------------------------------------- */
+    #nav-bar-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: $zIndexBarBG; // 25
+        background: {{ settings.header_background }};
+    }
+
+    #nav-bar {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        max-width: 1000px; //iPad spacing help
+        padding: 0;
+
+        // 1220px is bootstrap break apparently, not 1240 like we setup in our MQ include, might change it?
+        @include mq( 'desk-and-up' ){
+            max-width: 1200px;
+        }
+
+        @include mq( 'wide-and-up' ){
+            max-width: 1400px;
+        }
+    }
+
+
+    /*  NAV : LOGO :
+     * ---------------------------------------------- */
+    #nav-logo,
+    #nav-logo-backing {
+        position: absolute;
+        @include flexbox;
+        @include justify-content( center );
+        @include align-items( center );
+        width: 130px;
+        height: 100%;
+        left: 50%;
+        transform: translateX( -50% );
+        top: 0;
+        z-index: $zIndexLogo;
+
+        @include mq( 'tablet-and-up' ) {
+            width: 160px;
+        }
+
+        a, svg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            path {
+                color: $navHeaderColor; 
+                fill: $navHeaderColor;
+            }
+        }
+
+        // DESKTOP ( 1024+ )
+        @include mq( 'lap-and-up' ) {
+            top: 0;
+            left: 0;
+            width: 160px;
+            transform: translateX( 0 );
+        }
+
+        @include mq( 'desk-and-up' ) {
+            width: 170px;
+        }
+    }
+
+    // SHADOW : This gives the sticky nav a box shadow on the logo point
+    #nav-logo-backing {
+        display: none !important; // Comment out to use this layer as a backing shadow for an over-the-bounds logo
+        transition: $navShadowAni;
+        transform: translateX( -50% ) rotateZ( 45deg );
+        background: {{ settings.header_background }};
+        z-index: $zIndexBackingShadow; // -1, Relative to #nav-bar-wrapper, so its -1 on inner layer of nav-bar.
+    }
+
+
+
+    /*  NAV : ACCOUNT + CART + SEARCH + SITE PICKER (Right Elements)
+     * ---------------------------------------------- */
+    #nav-user {
+
+        // Account / Cart / Site Picker List
+        ul#nav-user-list {
+            @include inline-flex;
+            @include justify-content( flex-end );
+            position: absolute;
+            right: $navMobileBarGutter;
+            height: 100%;
+            list-style: none;
+            text-align: right;
+            z-index: $zIndexUserBtns; //50
+
+            @include mq( 'lap-and-up' ) {
+                right: 0;
+            }
+
+            .nav-item {
+                @include inline-flex;
+                @include align-items( center );
+                @include justify-content( center );
+                font-weight: $font-weight--book;
+                cursor: pointer;
+
+                a,
+                .inner-center {
+                    @include inline-flex;
+                    @include align-items( center );
+                    @include justify-content( center );
+                    width: 100%;
+                    height: 100%;
+                    padding: 0 7px;
+                    text-decoration: none;
+                }
+
+                // Account, Cart, etc icons all congruent size
+                svg {
+                    width: 17px;
+                    height: 17px;
+
+                    @include mq( 'desk-and-up' ) {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                i {
+                    @include inline-flex;
+                    @include align-items( center );
+                    font-size: 20px;
+                    height: 100%;
+                }
+            }
+
+            // HIDE : MOBILE : Don't show sites, currency or search nav-items on mobile
+            .nav-sites,
+            .nav-search,
+            .nav-currency,
+            .nav-account,
+            .nav-wishlist,
+            .nav-borderfree {
+                display: none;
+                @include justify-content( center );
+
+                @include mq( 'lap-and-up' ) {
+                    @include inline-flex;
+                }
+            }
+
+
+            // SITE PICKER : Dropdown selector for the other site pickers
+            .nav-sites {
+                @include align-items( flex-start );
+                position: relative;
+                margin-top: -17px;
+                top: 50%;
+
+                @include mq( 'desk-and-up' ) {
+                    margin-right: 3px;
+                }
+
+                ul.sites-picker {
+                    width: 65px;
+                    height: 35px;
+                    list-style: none;
+                    overflow: hidden;
+                    background: {{ settings.header_background }};
+                    transition: height 0.25s ease-in-out;
+
+                    &:hover {
+                        height: auto;
+
+                        li:first-child {
+                            border-bottom: $navMinorBorder;
+                        }
+                    }
+
+                    li {
+                        width: 100%;
+                        height: 35px;
+                        cursor: pointer;
+                        background: {{ settings.header_background }};
+                        transition: background 0.25s ease-in-out;
+
+                        // BORDER : Border on all but first (till hovered) and last 
+                        &:not(:last-child) { border-bottom: $navMinorBorder; }
+                        &:first-child {
+                            border: none;
+
+                            // Hide top item country code, its obvious and makes nice spot for arrow indicator
+                            .site-name { 
+                                opacity: 1;  // Set to 0 when flags are shown to hide the extra text until hovered
+                                margin-right: 9px;
+                            }
+                        }
+
+                        // HOVER : On a country option
+                        &:hover {
+                            background: $color--primary-2;
+
+                            .site-name  { 
+                                color: {{ settings.header_background }}; //Use bg color when swapping 
+                                background: $color--primary-2;
+                            }
+                            .site-arrow { opacity: 0; }
+
+                            &:first-child {
+                                .site-name { opacity: 1; }
+                            }
+                        }
+
+                        .site-flag {
+                            height: 17px;
+                            margin-right: 4px;
+                            display: none;
+                        }
+
+                        .site-name {
+                            background: {{ settings.header_background }};
+                            transition: all 0.25s ease-in-out;
+                            font-weight: $font-weight--medium;
+                            padding: 0 2px;
+                            z-index: 10; // appear on top of arrow
+
+                            @include mq( 'desk-and-up' ) {
+                                @include fontSize( 20px );
+                            }
+                        }
+
+                        .site-arrow {
+                            position: absolute;
+                            width: 9px;
+                            height: 7px;
+                            right: 10px;
+                            top: 13px;
+                            z-index: 5;
+                            transition: opacity 0.25s ease-in-out;
+
+                            @include mq( 'desk-and-up' ) {
+                                width: 10px;
+                                height: 11px;
+                                right: 6px;
+                            }
+
+                            svg {    
+                                position: absolute;
+                                height: 100%;
+                                width: 100%;
+                                left: 0;
+                                top: 0;
+
+                                path {
+                                    fill: $color--primary-2;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            // BORDER-FREE : Nav entry for Border Free country/currency selector
+            .nav-borderfree {
+                width: 35px;
+                cursor: pointer;
+                padding-right: 10px;
+
+                // Normally do mobile first, but this is a bit of a unique case
+                @include mq( 'phone-and-tablet' ) {
+                    position: fixed;
+                    bottom: 0;
+                    left: 50%;
+                    width: 33%;
+                    opacity: 0;
+                    cursor: pointer;
+                    padding: 18px 0;
+                    margin-left: -34%; // Align to left 3rd of blocks
+                    transform: translateX( -50% ); // Center the axis on centerline of el
+                }
+                
+                // BORDER-FREE : NAV LINK BUTTON 
+                .bfx-cc-collapsed {
+                    background: transparent;
+                    height: auto !important;
+                    padding: 0;
+
+                    .bfx-cc-menu {
+                        float: none;
+
+                        // ICON : Flag Icon
+                        .bfx-cc-flag {
+                            @include flexbox; 
+
+                            img {
+                                width: auto;
+                                height: auto;
+                            }
+                        }
+
+                        // NAME : Country Name
+                        .bfx-cc-country-name {
+                            display: none !important; //Override any inline styles
+                        }
+                    }   
+                }
+            }
+
+            // ACCOUNT : User account item
+            .nav-account {
+                width: 40px;
+                
+                // ICON Version
+                &:hover {
+                    .icon-account {
+                        fill: {{ settings.nav_links_hover }};
+                    }
+                }
+
+                // ICON Version
+                .icon-account {
+                    transition: fill 0.35s ease-in-out;
+                    fill: {{ settings.nav_links }};
+                }
+
+                // TEXT Version
+                &.nav-account-text-mode {
+                    width: auto;
+                    max-width: 100px; 
+
+                    .account-text {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        font-weight: $font-weight--medium;
+
+                        @include mq( 'desk-and-up' ) {
+                            @include fontSize( 20px );
+                        }
+                    }
+                }
+            }
+
+
+            // SEARCH : Icon that toggles the search input
+            .nav-search {
+                width: 43px;
+
+                svg path {
+                    fill: {{ settings.nav_links }};
+                }
+            }
+
+
+            // WISHLIST : heart or some other svg icon link to wishlist page
+            .nav-wishlist {
+                width: 40px;
+                padding-right: 10px; 
+
+                // PLACEHOLDER ICON : Heart icon to stub out wishlist image
+                svg .heart-polygon {
+                    fill: rgba( 0, 0, 0, 0 );
+                    stroke: {{ settings.nav_links }};
+                    stroke-miterlimit: 10;
+                    stroke-width: 4px;
+                }
+
+                // WISHLIST KING : button icon from wishlist app
+                .wk-link {
+
+                    // SVG ICON WRAP : wrapping around svg icon
+                    .wk-icon {
+                        margin-top: -3px; // Alignment adjustment
+                    }
+
+                    // Count of wishlist items, hidden on this design
+                    .wk-count {
+                        display: none;
+                    }
+
+                    &.wk-filled svg path {
+                        fill-opacity: 1;
+                        fill: $navHeaderColor;
+                    }
+                }
+            }
+
+
+            // CART 
+            .nav-cart {
+                color: {{ settings.nav_links }}; //Legacy font-icon support for "bag" font icon
+
+                &:hover {
+                    .fa-shopping-bag { color: {{ settings.nav_links_hover }}; }
+                    .icon-cart  { fill:  {{ settings.nav_links_hover }}; }
+                    .cart-count { color: {{ settings.nav_links_hover }}; }
+                }
+
+                a {
+                    padding: 3px 0 0;
+
+                    @include mq( 'tablet-and-up' ) {
+                        padding: 0;
+                    }
+                }
+
+                i.fa, // Support bag font-icon for now..
+                .icon-cart {
+                    margin-right: 8px; // Space icon from cart #
+                    fill: {{ settings.nav_links }};
+                    color: {{ settings.nav_links }}; //For "Bag" insteaed of Cart icon (font icon)
+                    transition: fill 0.35s ease-in-out;
+                }
+
+                // Cart Icon : Text Version
+                .icon-cart-text {
+                    @include fontSize( 16px );
+                    font-weight: $font-weight--medium;
+                    margin-right: 5px;
+
+                    @include mq( 'desk-and-up' ) {
+                        @include fontSize( 20px );
+                    }
+                }
+
+                .cart-count {
+                    @include fontSize( 16px );
+                    font-weight: $font-weight--medium;
+                    color: {{ settings.nav_links }};
+                    transition: color 0.35s ease-in-out;
+                    margin-top: 0;
+
+                    @include mq( 'desk-and-up' ) {
+                        @include fontSize( 20px );
+                    }
+
+                    &.hidden-count {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+
+    /* BORDER-FREE : MODAL : Modal for Nav button
+     * ------------------------------------------------ */
+     #nav-modal-borderfree {
+        position: fixed;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        z-index: 100;
+        padding: 20px;
+        pointer-events: none;
+        transition: opacity 0.25s ease-in-out, bottom 0.25s ease-in-out;
+        background: {{ settings.header_background }};
+        box-shadow: 1px -3px 6px 0px rgba(0, 0, 0, 0.45); //mobile shadow
+
+        @include mq( 'phone-and-tablet' ) {
+            bottom: -400px;
+        }
+
+        @include mq( 'lap-and-up' ) {
+            top: 40px;
+            padding: 30px 20px 0;
+        }
+
+        // BF Wrapper (needs a few important tags to override its jquery animation that is glitchy)
+        .bfx-cc-expanded {
+            display: block !important;
+            height: 222px !important;
+
+            @include mq( 'tablet-and-up' ) {
+                height: 198px !important;
+            }
+
+            @include mq( 'lap-and-up' ) {
+                height: 113px !important;
+            }
+        }
+
+        // LOGO + LABELS : Not needed
+        .bfx-cc-logo-wrapper,
+        #bfx-cc-countries-label,
+        #bfx-cc-currencies-label {
+            display: none;
+        }
+
+        // CLOSE BUTTON
+        #nav-modal-borderfree-close {
+            position: absolute;
+            top: 21px;
+            right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+
+            @include mq( 'tablet-and-up' ) {
+                right: 30px;
+            }
+
+            @include mq( 'lap-and-up' ) {
+                top: 13px;
+                right: 13px;
+            }
+
+
+            [class^='bar-'] {
+                position: absolute;
+                top: 9px;
+                left: 0;
+                width: 20px;
+                height: 1px;
+                background: #000;
+                transform: rotate( 45deg );
+            }
+            .bar-two {
+                transform: rotate( -45deg );
+            }
+        }
+
+        // MODAL FORM CONTENT
+        #bfx-cc-form {
+            position: relative;
+            max-width: 390px;
+            margin: 0 auto;
+
+            @include flexbox;
+            @include flex-wrap( wrap );
+            @include justify-content( space-between );
+
+            @include mq( 'lap-and-up' ) {
+                max-width: 980px;
+                @include align-items( center );
+            }
+
+            // HEADER + BODY TEXT
+            .bfx-cc-text {
+                margin-bottom: 15px;
+                padding-right: 20px;
+                width: 100%;
+
+                @include mq( 'lap-and-up' ) {
+                    width: 300px;
+                    padding-right: 0;
+                }
+
+                .bf-modal-title {
+                    @include fontDim( 16px, 20px, 2px );
+                    font-weight: $font-weight--bold;
+                    margin-bottom: 12px;
+
+                    @include mq( 'desk-and-up' ) {
+                        @include fontDim( 18px, 22px, 2px );
+                    }
+                }
+
+                .bf-modal-body {
+                    @include fontSize( 14px );
+                    font-weight: $font-weight--medium;
+                    color: $color--gray-2;
+                }
+            }
+
+            // SELECTORS : Country + Currency
+            .bfx-cc-select-wrapper {
+                position: relative;
+                width: calc( 50% - 5px );
+                margin-bottom: 15px;
+
+                @include mq( 'lap-and-up' ) {
+                    width: 160px;
+                    height: 40px;
+                    margin-bottom: 0;
+                }
+                
+                // Arrow Icon
+                &:after {
+                    width: 0; 
+                    height: 0; 
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY( -50% );
+                    right: 9px;
+                    content: " "; // undo the preset arrow type
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 8px solid $color--text-1;
+                }
+
+                select {
+                    @include fontSize( 14px );
+                    font-family: $font-stack--default;
+                    outline: none !important; //added via js annoyingly lol
+                    margin-bottom: 0;
+                    border-radius: 0;
+                    padding: 0 20px 0 5px;
+                    border: 1px solid #000;
+                    -moz-appearance: none;
+                    -webkit-appearance: none;
+
+                    &:disabled {
+                        opacity: 0.5;
+                        background: $color--gray-2;
+                    }
+                }
+            }
+
+            // "OK" Button
+            #bfx-cc-btn {
+                width: 100%;
+                background: $color--accent-1;
+
+                @include mq( 'lap-and-up' ) {
+                    @include flex-grow( 0.5 );
+                    margin-bottom: 0;
+                    width: 180px;
+                }
+            }
+        }
+     }
+
+    /*  NAV TOGGLE : BORDER-FREE : Menu Reveal Toggles
+     *    *Since we can only generate one dom node, we
+     *    had to relocate desktop icon into mobile menu
+     * ------------------------------------------------ */
+    &.mobile-nav-open {
+        #nav-user ul#nav-user-list #nav-item-borderfree {
+            @include flexbox;
+            animation: 0.25s borderfreeMobileReveal 0.25s linear 1 forwards;
+        }
+
+        &.borderfree-open {
+
+            @include mq( 'phone-and-tablet' ) {
+                #nav-modal-borderfree {
+                    opacity: 1;
+                    pointer-events: all;
+                    bottom: 60px; // don't let this apply on desktop sizes
+                }
+            }
+        }
+    }
+
+    &.borderfree-open {
+        @include mq( 'lap-and-up' ) {
+            #nav-modal-borderfree {
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+
+
+
+    /*  SEARCH BAR : DESKTOP 
+     * ---------------------------------------------- */
+    // REVEAL : Show/Hide bar on clicking the search icon
+    &.show-search-bar #nav-search-bar-wrapper {
+        @include mq( 'lap-and-up' ) {
+            opacity: 1;
+            z-index: 5;
+            pointer-events: all;
+        }
+    }
+
+    // REVEAL : MOBILE SPECIFIC : had to cover extra case not in variables 
+    &.mobile-nav-open #nav-search-bar-wrapper {
+        @media only screen and ( max-width: 1023px ) {
+            opacity: 1;
+            z-index: 100;
+            pointer-events: all;
+        }
+    }
+
+    // SEARCH BAR
+    #nav-search-bar-wrapper {
+        position: relative;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        opacity: 0;
+        z-index: 0;
+        margin: 0 auto;
+        pointer-events: none;
+        transition: all 0.25s ease-in-out;
+        background: {{ settings.header_background }};
+
+        @include mq( 'lap-and-up' ) {
+            top: -1px;
+            box-shadow: 0px 1px 9px #8d8d8d;
+        }
+
+        &.show-search-bar {
+            opacity: 1;
+            z-index: 5;
+            pointer-events: all;
+        }
+
+        // Form Wrapper before Input
+        form {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            max-width: 500px;
+            padding: 0 35px 20px;
+
+            @include mq( 'lap-and-up' ) {
+                padding: 0 0 20px;
+            }
+        }
+
+        // SEARCH : Actual Input Itself
+        .nav-search-input {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            border: none;
+            border-bottom: $navMinorBorder;
+            padding-right: 29px;
+            outline: none;
+            box-shadow: none; // Hide chrome autofill generated shading..
+            @include fontSize( 16px );
+        }
+
+        .nav-search-icon-wrap {
+            position: absolute;
+            top: 9px;
+            right: 35px;
+
+            @include mq( 'lap-and-up' ) {
+                right: 5px;
+            }
+
+            // Hidden search button on top of the search Icon,
+            // so clicking it submits as well as enter.
+            .nav-search-submit {
+                position: absolute;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                border-radius: 0;
+            }
+
+            svg.icon-search {
+                width: 19px;
+                height: 17px;
+            }
+        }
+
+        .nav-search-bar-close {
+            position: absolute;
+            right: -30px;
+            top: 7px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            display: none;
+
+            @include mq( 'lap-and-up' ) {
+                display: block;
+            }
+
+            .bar {
+                position: absolute;
+                width: 100%;
+                height: 1px;
+                top: 50%;
+                left: 50%;
+                background: $color--text-1;
+                transform: translateX( -50% ) rotate( 45deg );
+
+                &.two {
+                    transform: translateX( -50% ) rotate( -45deg );
+                }
+            }
+        }
+    }
+
+
+
+    /*  NAV : MOBILE MENU ICON
+     * ---------------------------------------------- */
+    .icon-nav-mobile-menu {
+        position: absolute;
+        left: $navMobileBarGutter;
+        width: 30px;
+        height: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: $zIndexButtons; // 50
+
+        @include mq( 'lap-and-up' ) {
+            display: none;
+        }
+
+        .bar {
+            position: absolute;
+            background: $color--primary-2;
+            width: 100%;
+            height: 2px;
+            transition: all 0.25s ease-in-out;
+
+            &.one   { top: 0; }
+            &.two   { 
+                top: 50%;  
+                transform: translateY( -50% ) 
+            }
+            &.three { 
+                width: 100%; //Modify this to shorten a leg on the 3 lines
+                top: 100%; 
+                transform: translateY( -50% ) 
+            }
+        }
+    }
+
+
+
+
+    /*  NAV : MEGA-MENU + SUB-NAV LINKS
+     * ---------------------------------------------- */
+    nav#nav {
+        color: $color--text-1;
+        display: none;
+        height: $navBarDesktopHeight;
+
+        @include mq( 'lap-and-up' ) {
+            display: block;
+        }
+
+        // Nav-Category-Header
+        .nav-category-header {
+            @include h5;
+            height: 100%;
+            font-weight: $font-weight--medium;
+            text-decoration: none;
+            text-transform: capitalize;
+            color: $navHeaderColor;
+        }
+    }
+    #nav-menu-desktop {
+        position: relative;
+        height: 100%;
+
+        #nav-menu-desktop-list {
+            @include inline-flex;
+            @include justify-content( space-around );
+            @include align-items( center );
+            position: absolute;
+            list-style: none;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            padding: 0 415px 0 195px;
+            z-index: $zIndexButtons;
+
+            @include mq( 'desk-and-up' ) {
+                padding: 0 540px 0 210px;
+            }
+
+            @include mq( 'wide-and-up' ) {
+                padding: 0 730px 0 230px;
+            }
+
+            // Clean spacing for 5 items
+            &[data-link-count*='5'] {
+                padding: 0 305px 0 180px; 
+
+                @include mq( 'desk-and-up' ) {
+                    padding: 0 410px 0 230px;
+                }
+
+                @include mq( 'wide-and-up' ) {
+                    padding: 0 610px 0 230px;
+                }
+            }
+
+            // Clean spacing for 6 items
+            &[data-link-count*='6'],
+            &[data-link-count*='7'] {
+                padding: 0 265px 0 180px; 
+
+                @include mq( 'desk-and-up' ) {
+                    padding: 0 300px 0 205px;
+                }
+
+                @include mq( 'wide-and-up' ) {
+                    padding: 0 460px 0 230px;
+                }
+            }
+
+            .nav-primary-link {
+                @include inline-flex;
+                @include justify-content( center ); // Space links to better match mock
+                height: 100%;
+                width: auto;
+
+                // MEGA-MENU REVEAL : Hover state controller for megamenu reveals
+                &:hover > ul.megamenu {
+                    opacity: 1;
+                    pointer-events: all;
+                }
+
+                &.nav-simple-menu {
+                    position: relative;
+                }
+
+                .nav-category-header { //Center the nav link item vertically 
+                    @include inline-flex;
+                    @include align-items( center );
+                    @include fontSize( 16px );
+                    font-weight: $font-weight--medium;
+                    padding-top: 3px; // make up size for 3px bottom border on links
+                    border-bottom: 1px solid transparent;
+
+                    @include mq( 'desk-and-up' ) {
+                        @include fontSize( 20px );
+                    }
+                }
+
+                &:hover > a {
+                    border-bottom: 1px solid {{ settings.nav_links_hover }};
+                }
+
+                &:hover {
+                    .submenu {
+                        display: block;
+                    }
+                }
+
+                .submenu {
+                    position: absolute;
+                    top: 100%;
+                    left: 50%; 
+                    width: 200px;
+                    transform: translateX( -50% );
+                    text-align: center;
+                    list-style: none;
+                    background: {{ settings.header_background }};
+                    display: none;
+                    padding: 15px 20px 5px;
+
+                    li a {
+                        color: $navListItemColor;
+                    }
+
+                    li:hover a {
+                        color: $navHoverColor;
+                    }
+                }
+            }
+
+            .megamenu {
+                position: absolute;
+                left: 50%; // scoot left distance (- spacing) #nav-menu-desktop-list elements over from edge
+                transform: translateX( -50% );
+                top: 80px;
+                z-index: 5;
+                padding: 0;
+                text-align: left;
+                list-style: none;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease-in-out;
+                background: {{ settings.header_background }};
+                box-shadow: 0px 11px 8px 0px rgba(0, 0, 0, 0.3);
+
+                .mega-container {
+                    width: 100%;
+                    height: 100%;
+                    max-width: 1400px;
+                    min-height: 300px;
+                    margin: 0 auto;
+                    left: 0px;
+                    padding-left: 40px;
+                    position: relative;
+                    @include flexbox;
+                    @include justify-content( space-between );
+
+                    @include mq( 'desk-and-up' ) {
+                        padding-left: 120px;
+                    }
+
+                    // MEGA MENU IMAGE : Not Present
+                    &[data-has-mega-image='false'] {
+                        min-height: auto;
+                        padding-left: 123px;
+
+                        @include mq( 'desk-and-up' ) {
+                            padding-left: 10px;
+                        }
+
+                        @include mq( 'wide-and-up' ) {
+                            padding-left: 0;
+                        }
+
+                        .mega-column-content {
+                            margin: 25px auto 10px; // Centrally align and space the nav menu items
+
+                            @include mq( 'wide-and-up' ) {
+                                transform: translateX( -10px ); //Using margin to center, this adjusts it to perfect alignment
+                            }
+                        }
+                    }
+
+                    .mega-column-content {
+                        @include inline-flex;
+                        @include flex-wrap( wrap );
+                        position: relative;
+                        width: 760px;
+                        margin: 70px 0;
+
+                        @include mq( 'desk-and-up' ) {
+                            width: 790px;
+                        }
+
+                        @include mq( 'wide-and-up' ) {
+                            margin: 90px 0;
+                            width: 920px;
+                        }
+
+                        // MEGA MENU LINKS : Ex: "Women > Shoes" -- the shoes part
+                        .nav-sub-item {
+                            margin-bottom: 10px;
+                            cursor: pointer;
+                        }
+
+
+                         // SUB-LIST : Basically a menu item with internal nested links
+                         //     EX: "Women > Shoes" is the parent, then megastack is "Sneakers, Flip Flops, etc"
+                        .mega-stack {
+                          display: block;
+                          line-height: 30px;
+                          margin-bottom: 20px;
+
+                            li {
+                              display: block;
+                              width: 100%;
+                              line-height: 26px;
+                              overflow: hidden;
+                            }
+                        }
+                    }
+
+                    .mega-image {
+                        @include inline-flex;
+                        position: relative;
+                        width: 340px;
+
+                        &:not(.mega-image-with-titles) {
+                            @include align-items( center );
+                        }
+
+                        @include mq( 'wide-and-up' ) {
+                            width: 360px;
+                        }
+
+                        // IMAGE : NO TITLES : Fullsize image in pane
+                        .mega-image-asset {
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                        }
+
+                        // IMAGE : TITLES : Give it a max height and set close to top of pane
+                        $imageWithTitleHeight: 190px;
+                        &.mega-image-with-titles {
+                            .mega-image-asset {
+                                width: 305px;
+                                max-height: $imageWithTitleHeight;
+                                background-size: contain;
+                                top: 26px;
+                                left: 0;
+
+                                @include mq( 'desk-and-up' ) {
+                                    width: 313px;
+                                }
+                            }
+
+                            .mega-image-title,
+                            .mega-image-sub-title {
+                                position: absolute;
+                                top: calc( #{$imageWithTitleHeight} + 15px );
+                                left: 0;
+                                text-transform: uppercase;
+                                font-weight: $font-weight--book;
+                                letter-spacing: 3px;
+
+                                @include mq( 'desk-and-up' ) {
+                                    top: calc( #{$imageWithTitleHeight} + 20px );
+                                }
+                            }
+
+                            .mega-image-sub-title {
+                                top: calc( #{$imageWithTitleHeight} + 45px );
+                                letter-spacing: 0px;
+                                text-decoration: underline;
+                                text-transform: capitalize;
+                                color: $color--gray-2;
+
+                                @include mq( 'desk-and-up' ) {
+                                    top: calc( #{$imageWithTitleHeight} + 50px );
+                                }
+                            }
+                        }
+                    }
+
+                    // Spaces in menu (entries named '-')
+                    .nav-list-space {
+                        height: 26px;
+                    }
+
+                    a { 
+                        text-decoration: none;
+                    }
+
+                    // Sub Menu items
+
+                    // Individual Sub-Sub-items (items inside nested lists)
+                    .nav-sub-sub-item {
+                        float: none;
+                        margin: 8px 0;
+
+                        // "Shop All >" Links in sub-nav
+                        &.shop-all a {
+                            @include h7;
+                            position: relative;
+
+                            // TRAINGLE : CLOSED : Downward arrow in css
+                            &:after {
+                                width: 0; 
+                                height: 0; 
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY( -50% );
+                                right: -20px;
+                                content: ""; // undo the preset arrow type
+                                border-top: 4px solid transparent;
+                                border-bottom: 4px solid transparent;
+                                border-left: 8px solid {{ settings.nav_links_hover }};
+                            }
+                        }  
+
+
+                        // SUB-NAV : Regular Links to sub-collection divisions
+                        a {
+                            @include h8;
+                            color: $navListItemColor;
+                            transition: color 0.25s ease-in-out;
+
+                            &:hover {
+                                color: {{ settings.nav_links_hover }};
+                            }
+                        }
+
+                        
+                        // SALE : Sale gets unique color var from settings
+                        {% if settings.enable_nav_name_styling %}
+                            &.sale a {
+                                color: {{ settings.nav_links_sale }};
+                                font-weight: $font-weight--medium;
+                            }
+                        {% endif %}
+
+                    }
+                }
+
+                .nav-sub-header,
+                .nav-sub-header a {
+                    @include h5;
+                    letter-spacing: 0; // Slightly thinner
+                    margin-bottom: 10px;
+                    text-transform: capitalize;
+                    color: $navSubHeaderColor;
+
+                    &:hover {
+                        font-weight: $font-weight--bold;
+                        color: $navHeaderColor;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+    /*  NAV : MOBILE NAV MENU STYLES 
+     *   (would have combined them, but its all already setup in theme)
+     * ---------------------------------------------- */
+    $navMobileMenuGutter: 35px;
+    $navMobileSitesHeight: 60px;
+
+    #nav-menu-mobile {
+        display: block;
+        pointer-events: none;
+        opacity: 0;
+        position: absolute;
+        color: $color--text-1;
+        top: -200vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        transition: all 0.35s ease-in-out;
+        z-index: $zIndexMobileMenu; // 15
+        // NOTE : HEIGHT IS DONE IN HEADER STYLE BLOCK B/C IT READS PROMO SECTION HEIGHT!! (See: section/header.liquid)
+
+        &.mobile-nav-open {
+            display: block;
+            pointer-events: all;
+            opacity: 1;
+            top: 50px;
+            width: 100%;
+            background: {{ settings.header_background }};
+            z-index: 25; // logo is at 50
+            margin: 0;
+            padding: 70px 0;
+
+            @include mq( 'lap-and-up' ) {
+                display: none;
+            }
+        }
+
+        .nav-search {
+            width: 100%;
+            left: 50%;
+            transform: translateX( -50% );
+            margin-bottom: 20px; 
+            padding: 0 $navMobileMenuGutter;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        // ACCORDION : Top Level
+        #accordion {
+            text-align: left;
+            padding: 0 2px 60px; //Aligns the titles to the left edge matching search underline
+            @include fontSize( 16px );
+
+            li { 
+                position: relative;
+                border-bottom: none; 
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            .accordion-header,
+            .link-header {
+                padding: 0;
+                font-weight: $font-weight--bold;
+                color: $color--text-1;
+                letter-spacing: 4px;
+                padding-left: 35px;
+
+                a { 
+                    color: $color--text-1;
+                    padding: 0;
+                }
+            }
+
+            .accordion-header,
+            .accordion-sub-header {
+                // TRAINGLE : CLOSED : Downward arrow in css
+                &:after {
+                    width: 0; 
+                    height: 0; 
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY( -50% );
+                    right: $navMobileMenuGutter;
+                    content: ""; // undo the preset arrow type
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    border-top: 8px solid {{ settings.nav_links_hover }};
+                    transition: border 0.25s ease-in-out;
+                }
+
+                &.open:after {
+                    border-top: none;
+                    border-bottom: 9px solid {{ settings.nav_links_hover }};
+                }
+            }
+
+            .sub {
+                background: #F7F7F2;
+                padding: 10px 0 0 35px;
+
+                .accordion-sub-header,
+                .link-sub-header {
+                    position: relative;
+                    text-decoration: none;
+                    color: $color--text-1;
+                    font-weight: $font-weight--medium;
+
+                    &.custom-sub-header {
+                        margin-top: 20px;
+                        font-weight: 600;
+                        margin-bottom: -10px;
+                    }
+
+                    a {
+                        color: $color--text-1;
+                    }
+
+                    &.open,
+                    &.open a {
+                        color: {{ settings.nav_links_hover }};
+                    }
+                }
+
+                li {
+                    @include flexbox;
+                    @include align-items( center );
+                    height: 40px;
+                    padding: 0;
+
+                    a {
+                        @include flexbox;
+                        @include align-items( center );
+                        color: $color--text-1;
+                        height: 100%;
+                    }
+
+                    &.shop-all {
+                        font-weight: $font-weight--bold;
+
+                        a {
+                            position: relative;
+
+                            // TRAINGLE : CLOSED : Rightward Arrow
+                            &:after {
+                                width: 0; 
+                                height: 0; 
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY( -50% );
+                                right: -20px;
+                                content: ""; // undo the preset arrow type
+                                border-top: 4px solid transparent;
+                                border-bottom: 4px solid transparent;
+                                border-left: 8px solid {{ settings.nav_links_hover }};
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /* MOBILE MENU : FOOTER : Account + Sites Picker
+         * ---------------------------------------------- */
+        #nav-menu-mobile-footer {
+            position: fixed;
+            width: 100%;
+            height: $navMobileSitesHeight;
+            bottom: 0;
+            left: 0;
+            background: {{ settings.header_background }};
+            @include inline-flex;
+            @include justify-content( space-between );
+
+            // FOOTER ITEMS : Generic class for all footer items
+            .nav-footer-item-mobile {
+                position: relative;
+                width: 100%;
+                border-top: 1px solid $color--light-gray;
+            }
+
+            // Site Picker + Accounts Both Enabled
+            &[data-child-count='2'] {
+                .nav-footer-item-mobile {
+                    width: 50%;
+
+                    &:first-child {
+                        border-right: 1px solid $color--light-gray;
+                    }
+                }
+            }
+
+            // Site Picker + Accounts + Wishlist enabled
+            &[data-child-count='3'] {
+                .nav-footer-item-mobile {
+                    width: 33.33%;
+
+                    &:nth-child(1),
+                    &:nth-child(2) {
+                        border-right: 1px solid $color--light-gray;
+                    }
+                }
+            }
+
+
+            // SITE PICKER : Specific styles for site picker dropdown
+            #nav-sites-picker-mobile {
+
+                // OPEN : Mobile Sites-Picker is open
+                &.open ul.sites-picker {
+                    li.site-picker-item:first-child:after {
+                        transform: translateY( -50% ) rotateZ( -180deg );
+                    }
+
+                    li.site-picker-item:not(:first-child) {
+                        opacity: 1;
+                        height: $navMobileSitesHeight;
+                        pointer-events: all;
+                    }
+                }
+
+                // SITES PICKER : Primary UL Styles
+                ul.sites-picker {
+                    @include flexbox;
+                    @include flex-direction( column-reverse );
+                    @include align-items( center );
+                    position: absolute;
+                    width: 100%;
+                    height: auto;
+                    bottom: 0;
+                    cursor: pointer;
+
+                    li.site-picker-item {
+                        @include flexbox;
+                        @include justify-content( center );
+                        position: relative; // For :after arrow
+                        transition: all 0.25s ease-in-out;
+                        height: $navMobileSitesHeight;
+                        width: 100%;
+                        border-top: $navMinorBorder;
+                        padding-left: 25px;
+                        border-top-color: $color--light-gray;
+                        background: {{ settings.header_background }};
+
+                        &:first-child {
+                            // TRAINGLE : CLOSED : Rightward Arrow
+                            &:after {
+                                width: 0; 
+                                height: 0; 
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY( -50% );
+                                right: $navMobileMenuGutter;
+                                content: ""; // undo the preset arrow type
+                                border-top: 8px solid {{ settings.nav_links_hover }};
+                                border-right: 5px solid transparent;
+                                border-left: 5px solid transparent;
+                                transition: all 0.25s ease-in-out;
+                            }
+                        }
+
+                        &:not(:first-child) {
+                            opacity: 0;
+                            height: 0;
+                            pointer-events: none;
+                        }
+
+                        .inner-center {
+                            @include flexbox;
+                            @include align-items( center );
+                            width: 230px;
+                            height: 100%;
+                            text-decoration: none;
+
+                            .site-flag {
+                                width: 25px;
+                                padding-top: 7px; //Center flag-svg - flexbox doesn't do it quite right
+                                margin-right: 20px;
+                            }
+
+                            .site-name {
+                                @include fontSize( 16px );
+                                font-weight: $font-weight--medium;
+                            }
+
+                            .site-arrow {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // ACCOUNT : Styles specific to the mobile account link footer
+            .nav-account {
+                text-align: center;
+                border-top: 1px solid $color--light-gray;
+                background: {{ settings.header_background }};
+            }
+
+            // WISHLIST : Styles specific to the wishlist block on mobile
+            .nav-wishlist {
+                text-align: center;
+                border-top: 1px solid $color--light-gray;
+                background: {{ settings.header_background }};
+
+                .wk-link {
+                    width: 100%; // increase clickability
+
+                    .wk-icon {
+                        margin-top: 2px;
+                    }
+
+                    .wk-count {
+                        display: none;
+                    }
+
+                    &.wk-filled svg path {
+                            fill: $navHeaderColor;
+                            fill-opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MOBILE MENU OPEN -- Become an X!
+.menu-open #icon-nav-mobile-menu-btn .bar {
+    &.one {
+        transform: rotateZ( 45deg );
+        top: 42%;
+    }
+    &.two {
+        transform: rotateZ( -45deg ) translateY( -50% );
+    }
+    &.three {
+        opacity: 0;
+    }
+}
+
+
+// BORDER-FREE : Hide icon until menu open animation finishes
+@keyframes borderfreeMobileReveal {
+    0%  { opacity: 0; }
+    100%{ opacity: 1; }
+}
+
+
+.shifter {
+    overflow-x: hidden;
+}
