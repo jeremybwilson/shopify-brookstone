@@ -43,10 +43,12 @@
           {% endif %}
 
 
-          {% comment %} ..:: BORDER FREE - Nav Button ::.. {% endcomment %}
+          {% comment %} ..:: BORDER FREE - Nav Button ::.. 
           {% if settings.borderfree_enabled %}
             <li id="nav-item-borderfree" class="nav-item nav-borderfree"></li>
           {% endif %}
+          {% endcomment %}
+
 
           {% comment %} ..:: ACCOUNT ::.. {% endcomment %}
           {% if shop.customer_accounts_enabled %}
@@ -56,12 +58,13 @@
           {% endif %}
 
 
-          {% comment %} ..:: SEARCH ::.. {% endcomment %}
+          {% comment %} ..:: SEARCH ::.. 
           {% if section.settings.show_search %}
             <li class="nav-item nav-search">
               {% include 'svg-icon-search' %}
             </li>
           {% endif %}
+          {% endcomment %}
 
 
           {% comment %} ..:: CURRENCY PICKER (DISABLED) ::.. {% endcomment %}
@@ -70,12 +73,19 @@
           {% endif %}
 
 
+          {% comment %}  ..::User Login::..  {% endcomment %}
+          <li class="nav-item nav-user">
+            <img src="{{ 'profile.png' | file_img_url }}" alt="wishlist-link"> <span>Log In</span>
+          </li>
+
+
           {% comment %} ..:: WISHLIST ::.. {% endcomment %}
           {% if section.settings.show_wishlist %}
             <li class="nav-item nav-wishlist">
               
               {% comment %} :: Wishlist King App :: {% endcomment %}
               {% if settings.app_wk_enabled %}
+                <img src="{{ 'favorites.png' | file_img_url }}" alt="wishlist-link">
                 <!-- include 'wishlist-link' -->
 
               {% else %}
@@ -92,7 +102,9 @@
             <a href="/cart" {% if settings.ajax_cart_method == 'drawer' %} class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false" {% endif %}>
               
               {% if section.settings.cart_icon == 'cart' %}
-                {% include 'svg-icon-cart' %}
+                {% comment %}{% include 'svg-icon-cart' %}{% endcomment %}
+                <img src="{{ 'cart.png' | file_img_url }}" alt="wishlist-link">
+
               
               {% elsif section.settings.cart_icon == 'bag' %}
                 {% include 'svg-icon-shopping-bag' %}
@@ -108,22 +120,41 @@
         </ul>
       </div>
 
-      {% comment %} ..:: NAV : SITE-COLLECTIONS (Left Elements) ::.. {% endcomment %}
-      <div id="nav-collections">
-        {% include 'icon-nav-mobile-menu' %}
-        {% include 'navigation' %}
-        {% include 'mobile-navigation' %}
+
+      {% comment %} ..:: SEARCH INPUT :: Appears when user clicks search button on nav ::.. {% endcomment %}
+      <div id="nav-search-box">
+        <form action="/search" method="get">
+          <div class="nav-search-control-wrapper">
+            <input class="nav-search-input" type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
+            <input type="hidden" name="type" value="product" />
+            <div class="nav-search-icon-wrap">
+              <input class="nav-search-submit" type="submit" value="" />
+              {% include 'svg-icon-search' %}
+            </div>
+          </div>
+        </form>
       </div>
+      
 
     </div>
 
 
-    {% comment %} :: SEARCH INPUT :: Appears when user clicks search button on nav {% endcomment %}
+    {% comment %} ..:: NAV : SITE-COLLECTIONS (Left Elements) ::.. {% endcomment %}
+    <div id="nav-collections">
+      {% include 'icon-nav-mobile-menu' %}
+      {% include 'navigation' %}
+      {% include 'mobile-navigation' %}
+    </div>
+
+
+    {% comment %} :: SEARCH INPUT :: Appears when user clicks search button on nav 
     {% if section.settings.show_search %}
       <div id="nav-search-bar-wrapper">
         {% include 'nav-search-input' %}
       </div>
     {% endif %}
+    {% endcomment %}
+
 
     {% comment %} ..:: BORDER-FREE - Modal (injected via borderfree-script.liquid snippet) ::.. {% endcomment %}
     {% if settings.borderfree_enabled %}
@@ -185,7 +216,7 @@
           - Why? Because we need users to be able to scroll the mobile menu, but not scroll backing content on page.
     */
     #nav-bar-wrapper #nav-menu-mobile {
-        height: calc( 100vh - ( {{ section.settings.announcement_height }}px + 50px ) );  /* Promo + Nav bar (50px) */
+        /* height: calc( 100vh - ( {{ section.settings.announcement_height }}px + 50px ) ); */  /* Promo + Nav bar (50px) */
     }
 
     /* SCROLLING : Nav bar hides promo bar, so adjust menu height if the user opens menu scrolled down page */

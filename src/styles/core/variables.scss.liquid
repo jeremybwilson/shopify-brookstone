@@ -29,7 +29,7 @@ $color--light-primary-1: #e63e57; // Primary color for areas with dark backgroun
 $color--error: {{ settings.error_text }};
 
 // TYPOGRAPHY
-$sans: "Futura-BT", sans-serif;
+$sans: "Helvetica", "Open Sans", Arial, sans-serif;
 $font-stack--default: $sans;
 $font-stack--heading: $sans;
 
@@ -462,3 +462,13 @@ $retina:           "(-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi)
 
 
 
+/* MIXIN : TRANSFORM
+ *    EX : @include transform( value )
+ * ------------------------------------------------------------------------- */
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
