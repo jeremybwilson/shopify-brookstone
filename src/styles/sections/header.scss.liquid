@@ -1695,7 +1695,8 @@ $navLinkColor: #59585d;
         height: auto;
     }
     #nav-bar {
-        padding: 20px 0 10px;
+        padding-top: 20px;
+        padding-bottom: 10px;
         @include flexbox;
         @include justify-content(space-between);
         @include align-items(center);
@@ -1715,6 +1716,13 @@ $navLinkColor: #59585d;
             left: 50%;
             @include transform(translateX(-50%));
         }
+    }
+    #nav-bar,
+    #nav-menu-desktop {
+        padding-left: 50px;
+        padding-right: 50px;
+        max-width: none;
+        width: 100%;
     }
     #nav-logo {
         svg {
@@ -1762,7 +1770,9 @@ $navLinkColor: #59585d;
     } 
 }
 
-
+#top-bar {
+    font-weight: $font-weight--bold;
+}
 
 #nav-search-box {
     width: 400px;
