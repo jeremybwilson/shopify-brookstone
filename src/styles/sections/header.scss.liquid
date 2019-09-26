@@ -1684,6 +1684,16 @@ $mainColor: #079ccd;
 $logoColor: #59595c;
 $navLinkColor: #59585d;
 
+#top-bar {
+    font-weight: $font-weight--bold;
+    padding: 6px 0 4px;
+    #single-promo-wrapper {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+
 #nav-bar-wrapper {
     height: auto;
     border-bottom: 1px solid $logoColor;
@@ -1696,10 +1706,10 @@ $navLinkColor: #59585d;
     }
     #nav-bar {
         padding-top: 20px;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         @include flexbox;
         @include justify-content(space-between);
-        @include align-items(center);
+        @include align-items(flex-start);
         #nav-logo,
         #nav-user,
         #nav-user #nav-user-list {
@@ -1707,14 +1717,92 @@ $navLinkColor: #59585d;
         }
 
         #nav-user {
-            order: 1;
+            text-align: right;
+            @include fontSize(12px);
+            @include order(1);
+            ul {
+                line-height: 22px;
+                .nav-item {
+                    padding-right: 10px;
+                    &:first-child {
+                        padding-right: 5px;
+                    }
+                    &.nav-wishlist {
+                        width: auto;
+                        padding-right: 10px;
+                    }
+                }
+            }
+            #nav-user-list-2 {
+                @include flexbox;
+                li {
+                    margin-right: 25px;
+                    &:last-child {
+                        margin-right: 18px;
+                    }
+                    list-style: none;
+                    a > * {
+                        vertical-align: middle;
+                    }
+                }
+            }
         }
 
+        
         #nav-search-box {
-            position: absolute;
-            top: 25px;
-            left: 50%;
-            @include transform(translateX(-50%));
+            @include flex(1, 0, auto);
+            @include align-self(center);
+            padding-left: 51px;
+            margin-bottom: 5px;
+            .nav-search-box-inner {
+                width: 60%;
+                padding: 0 6px;
+                margin: 0 auto 1px;
+                > form {
+                    padding-right: 16px;
+                }
+            }
+            .nav-search-control-wrapper {
+                @include flexbox;
+                .nav-search-input {
+                    border-radius: 0;
+                    border-width: 2px;
+                    border-color: $mainColor;
+                    margin-bottom: 0;
+                    height: 37px;
+                    text-indent: 4px;
+                }
+                .nav-search-icon-wrap {
+                    height: 37px;
+                    width: 36px;
+                    position: relative;
+                    .nav-search-submit {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        padding: 0;
+                        margin-bottom: 0;
+                        background-color: $mainColor;
+                        @include flexbox;
+                        @include justify-content(center);
+                        @include align-items(center)
+                    }
+                    svg {
+                        position: absolute;
+                        height: 26px;
+                        width: 30px;
+                        z-index: 1;
+                        @include transform(scale(-1) rotate(106deg));
+                        top: 5px;
+                        left: 1px;
+                        path {
+                            fill: #fff;                    
+                        }
+                    }
+                }
+            }
         }
     }
     #nav-bar,
@@ -1748,18 +1836,18 @@ $navLinkColor: #59585d;
         height: auto;
         #nav-menu-desktop-list {
             padding: 0;
-            margin-top: 4px;
             @include flexbox;
             @include justify-content(initial);
             height: auto;
             position: relative;
             .nav-primary-link {
+                // margin-left: 10px;
                 @include flexbox;
                 height: auto;
                 .nav-category-header {
                     @include flexbox;
                     height: auto;
-                    padding: 11px 5px;
+                    padding: 11px 4px 10px 9px;
                     color: $navLinkColor;
                     text-transform: uppercase;
                     font-weight: 700;
@@ -1770,47 +1858,3 @@ $navLinkColor: #59585d;
     } 
 }
 
-#top-bar {
-    font-weight: $font-weight--bold;
-}
-
-#nav-search-box {
-    width: 400px;
-    position: relative;
-    .nav-search-control-wrapper {
-        @include flexbox;
-        .nav-search-input {
-            border-radius: 0;
-            border-width: 2px;
-            border-color: $mainColor;
-            margin-bottom: 0;
-        }
-        .nav-search-icon-wrap {
-            height: 40px;
-            width: 40px;
-            position: relative;
-            .nav-search-submit {
-                position: absolute;
-                height: 100%;
-                width: 100%;
-                padding: 0;
-                background-color: $mainColor;
-                @include flexbox;
-                @include justify-content(center);
-                @include align-items(center)
-            }
-            svg {
-                position: absolute;
-                height: 25px;
-                width: 28px;
-                z-index: 1;
-                @include transform(scale(-1) rotate(100deg));
-                top: 5px;
-                left: 4px;
-                path {
-                    fill: #fff;                    
-                }
-            }
-        }
-    }
-}

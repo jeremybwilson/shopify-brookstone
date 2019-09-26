@@ -75,7 +75,8 @@
 
           {% comment %}  ..::User Login::..  {% endcomment %}
           <li class="nav-item nav-user">
-            <img src="{{ 'profile.png' | file_img_url }}" alt="wishlist-link"> <span>Log In</span>
+            <img src="{{ 'profile.png' | file_img_url }}" alt="wishlist-link">
+            <span class="login-label">Log In</span>
           </li>
 
 
@@ -118,21 +119,37 @@
           </li>
 
         </ul>
+        <ul id="nav-user-list-2">
+          <li>
+            <a href="#">
+              <img src="{{ 'findStore.png' | file_img_url }}" alt="Find an Airport Store">
+              <span class="user-list-text">Find an Airport Store</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Customer Care: 
+              <span class="user-list-text">800-846-3000</span>
+            </a>
+          </li>
+        </ul>
       </div>
 
 
       {% comment %} ..:: SEARCH INPUT :: Appears when user clicks search button on nav ::.. {% endcomment %}
       <div id="nav-search-box">
-        <form action="/search" method="get">
-          <div class="nav-search-control-wrapper">
-            <input class="nav-search-input" type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
-            <input type="hidden" name="type" value="product" />
-            <div class="nav-search-icon-wrap">
-              <input class="nav-search-submit" type="submit" value="" />
-              {% include 'svg-icon-search' %}
+        <div class="nav-search-box-inner">
+          <form action="/search" method="get">
+            <div class="nav-search-control-wrapper">
+              <input class="nav-search-input" type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
+              <input type="hidden" name="type" value="product" />
+              <div class="nav-search-icon-wrap">
+                <input class="nav-search-submit" type="submit" value="" />
+                {% include 'svg-icon-search' %}
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
       
 
