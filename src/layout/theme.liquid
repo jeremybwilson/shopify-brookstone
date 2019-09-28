@@ -226,7 +226,10 @@
   <!-- Global Components
   ================================================== -->
   {% include 'cookie-banner' %}
+
+  {% comment %}
   {% include 'newsletter-popup' %}
+  {% endcomment %}
 
   {% comment %} CURRENTLY UNUSED - Was making invisible scroll-to-top click regions
     {% include 'scroll-to-top' %}
@@ -304,8 +307,9 @@
   <!-- FILTER APP (PLP) -->
   {% include 'bc-sf-filter' %}
 
-  {% comment %} :: GIFT WITH PURCHASE MODAL :: {% endcomment %}
+  {% comment %} :: GIFT WITH PURCHASE MODAL :: 
   {% section 'gift-with-purchase' %}
+  {% endcomment %}
 
   <!-- NOSTO TAGGING -->
   {% if settings.nosto_id != blank %}

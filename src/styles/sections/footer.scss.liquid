@@ -7,7 +7,7 @@
   padding: 0 0 39px;
 
   @include mq('tablet-and-up') {
-    padding: 96px 40px 39px;
+    padding: 4px 40px 39px;
   }
 
   // repeating elements
@@ -20,22 +20,23 @@
       @include flex-direction(row);
       @include justify-content(space-between);
       @include align-items(center);
-      max-width: 1100px;
-      margin-bottom: 74px;
+      max-width: 1250px;
+      margin-bottom: 30px;
+
     }
   }
   h4 {
-    color: $color--white;
+    color: $color--footer-text;
     border-bottom: none;
     text-transform: uppercase;
   }
   img,
   svg {
     width: auto;
-    margin: 0 10px;
+    margin: 0 6px;
 
     @include mq('tablet-and-up') {
-      margin: 0 18px;
+      margin: 0 8px;
     }
   }
 }
@@ -54,7 +55,6 @@
     width: 100%;
     padding: 0;
     border-bottom: none;
-    border-right: solid 1px $color--accent-1;
   }
 
   .section-title {
@@ -65,7 +65,7 @@
     background: transparent;
     font-family: $font-stack--default;
     @include fontSize(14px);
-    line-height: initial;
+    line-height: 0.30;
     text-align: left;
 
     @include mq('tablet-and-up') {
@@ -100,15 +100,18 @@
 
         .footer-sub-nav-wrapper {
           position: relative;
-          width: 49%;
+          width: 33%;
           display: inline-flex;
           padding-top: 25px;
+          font-weight: $font-weight--book;
+          @include fontSize(12px);
         } 
 
         h4.nav-sub-header {
           position: absolute;
           top: 0;
           left: 0;
+          @include fontSize(14px);
         }
 
         &.footer-sub-nav {
@@ -120,7 +123,7 @@
     a {
       display: block;
       padding: 7px 12px 7px 0;
-      color: $color--white;
+      color: $color--footer-text;
 
       @include mq('tablet-and-up') {
         display: inline-block;
@@ -133,11 +136,9 @@
   }
 }
 
-  
-
 .visit-our-brands {
+  margin-left: 10px;
   padding: 45px 20px 33px;
-  text-align: center;
 
   @include mq('tablet-and-up') {
     @include flexbox;
@@ -147,18 +148,41 @@
     margin: 21px -18px 0 auto;
     padding: 0;
   }
-
+  #card-desc {
+    @include fontSize(12px);
+    color: $color--text-1;
+  }
   .section-title {
+    display: inline-block;
     margin-bottom: 16px;
-
+    margin-left: 10px;
+    width: 350px; 
+    font-weight: $font-weight--book;
+    @include fontSize(24px);
     @include mq('tablet-and-up') {
       margin-bottom: 18px;
     }
   }
+  #gift-card-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-top: 15px;
+  }
+  #git-card-img {
+    display: inline-block;
+    margin-top: 15px;
+  }
+  #card-link {
+      @include fontSize(14px);
+      text-transform: uppercase;
+      text-decoration: underline;
+      font-weight: $font-weight--bold;
+      color: $color--text-1;
+    }
 
   .section-title h4 {
     @include fontSize(14px);
-    font-weight: $font-weight--bold;
     letter-spacing: .3em;
 
     @include mq('tablet-and-up') {
@@ -172,127 +196,174 @@
     @include align-items(center);
   }
   img {
-    max-height: 40px;
-
+    width: 100px;
+    margin: 0;
     @include mq('tablet-and-up') {
-      max-height: 55px;
-      max-width: none;
-      margin: 0 20px;
+      width: 100px;
+      margin: 0;
     }
+  }
+  #footer-gift-card-text-2 {
+    font-weight: $font-weight--bold;
+    margin-bottom: 15px;
+  }
+
+  #footer-gift-card-text-1 {
+    font-weight: $font-weight--book;
   }
 }
 .row.footer--bottom-row {
   @include mq('tablet-and-up') {
     @include flex-direction(column);
     margin-bottom: 0;
-    padding-top: 24px;
-    border-top: solid 1px {{ settings.footer_border }}; 
+    text-align: center;
+    border-top: solid 1px {{ settings.footer_border }};   
   }
   @include mq('lap-and-up') {
     @include flex-direction(row);
     @include flex-wrap(wrap);
   }
-}
-.brands--telephone {
-  padding-bottom: 42px;
-  border-bottom: solid 1px {{ settings.footer_border }};
 
-  @include mq('tablet-and-up') {
-    margin-top: 7px;
-    margin-bottom: 18px;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-  @include mq('lap-and-up') {
-    margin-bottom: 0;
-  }
+  .contact-number {
+    margin-left: auto;
+    margin-right: auto;
 
-  a {
-    @include flexbox;
-    @include justify-content(center);
-    @include align-items(flex-start);
-    @include fontSize(12px);
-    line-height: initial;
-    letter-spacing: .2em;
+    .font-normal {
+      display: inline-block;
+      width: 100%;
+      font-weight: $font-weight--book;
+      color: $color--text-1;
+      @include fontSize(12px);
+    }
 
-    @include mq('tablet-and-up') {
-      @include fontSize(16px);
+    .contact-number-bold {
+      font-weight: $font-weight--bold;
+      color: $color--text-1;
     }
   }
-  h4 {
-    margin: 0 7px 0 0;
-    padding: 0;
-    font-size: inherit;
-    font-weight: $font-weight--black;
-    letter-spacing: inherit;
+  .footer-description {
+     font-weight: $font-weight--book;
+     letter-spacing: 0;
+     line-height: 1.5;
+     width: 100%;
   }
-  span {
-    color: {{ settings.footer_color }};
-    font-size: inherit;
-    letter-spacing: inherit;
+
+  .footer-description>p {
+     color: $color--footer-text;
+     display: inline-block;
+     @include fontSize(12px);
+  }
+  .footer-description>a {
+    text-decoration: underline;
   }
 }
-#payment {
-  padding-top: 36px;
+
+.footer-contact-us-bar {
+    display: block;
+    width: 100%;
+    background-color: $color--white;
+    text-align: center;
+    padding: 21px 10px;
+
+    .bottom-contact-bar {
+      margin-top: 10px;
+      @include fontSize(14px);
+      text-transform: uppercase;
+
+      a {
+        color: $color--footer-text;
+      }
+      a:hover {
+        color: $color--footer-contact-us;
+      }
+    }
+  }
+
+// social
+
+.social-wrapper {
+  padding: 8px 50px;
+  background: {{ settings.social_footer_background }};
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
   @include mq('tablet-and-up') {
     @include flexbox;
+    @include flex-direction(row);
     @include align-items(center);
-    padding-top: 6px;
-  }
-  @include mq('lap-and-up') {
-    margin-left: auto;
-  }
-  @include mq('desk-and-up') {
-    margin-right: auto;
+    @include justify-content(center);
   }
 
+  .social-inner {
+    @include flexbox;
+    @include flex-direction(column);
+    margin: 0 auto;
+
+    @include mq('tablet-and-up') {
+      @include flex-direction(row);
+      @include align-items(center);
+      @include justify-content(center);
+    }
+  }
   .section-title {
-    margin-bottom: 16px;
-
+    margin-bottom: 0;
+    color: {{ settings.social_footer_header }};
+    @include fontDim(14px,14px,.2em);
+    font-weight: $font-weight--black;
+    text-transform: uppercase;
+                                                    
     @include mq('tablet-and-up') {
-      margin-top: 5px;
-      margin-bottom: 0;
+      @include fontDim(20px,20px,.04em);
     }
-  }
-
-  h4 {
-    color: {{ settings.footer_color }};
-    @include fontSize(14px);
-    font-weight: $font-weight--bold;
-    letter-spacing: .2em;
+  } 
+  ul#social-icons {
+    margin-top: 16px;
+    text-align: center;
 
     @include mq('tablet-and-up') {
-      @include fontSize(15px);
-      padding-bottom: 0;
+      @include flexbox;
+      @include justify-content(center);
+      @include align-items(center);
+      margin-top: 0;
+      margin-left: 24px;
     }
-  }
-
-  svg {
-    height: 30px;
-
-    @include mq('tablet-and-up') {
-      margin: 0 10px;
+    li {
+      display: inline-block;
+      padding: 0;
     }
-  }
-}
-#trust-icons {
-  padding-top: 18px;
+    a {
+      position: relative;
+      top: 2px;
+      color: {{ settings.icons }};
+      display: inline-block;
+      img{
+        width: 100%;
+        max-width: 40px;
+        height: auto;
+        padding: 0;
+      }
+      svg {
+        width: 22px;
+        height: 22px;
 
-  @include mq('tablet-and-up') {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  @include mq('lap-and-up') {
-    padding-top: 0;
-    margin-right: -11px;
-  }
+        @include mq('tablet-and-up') {
+          width: 20px;
+          height: 20px;
+          padding: 0;
+        }
 
-  img {
-    max-height: 34px;
+        * {
+          fill: {{ settings.icons }};
+        }
+      }
 
-    @include mq('tablet-and-up') {
-      margin: 0 7px;
+      &:hover {
+        svg * {
+          fill: {{ settings.icons_hover }};
+        }
+      }
     }
   }
 }
