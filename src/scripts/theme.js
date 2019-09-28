@@ -29,6 +29,7 @@ require('./sections/search.js');
 require('./snippets/newsletter-popup.js');
 require('./snippets/cookie-banner.js');
 require('./snippets/scroll-to-top.js');
+require('./snippets/mobile-menu.js');
 
 
 /*============================================================================

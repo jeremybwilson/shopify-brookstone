@@ -1,0 +1,97 @@
+{% comment %}{% assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}{% endcomment %}
+
+<div id="page-wrapper">
+  <div class="flex-row-cols-2">
+    
+    {% if section.settings.image1 != blank %}
+    <div class="flex-row-col homepage-section simple-image-with-text index-section bm10 section-{{ section.id }}" data-section-id="{{ section.id }}" >
+      <img src="{{ section.settings.image1 | img_url: 'master' }}" alt="{{ section.settings.image1.alt }}">
+      <div class="overlay">
+        <div class="row">
+          <div class="desktop-12 tablet-6 mobile-3">
+            <div class="overlay-text">
+              {% if section.settings.link1 != blank %}
+                <a class="fill-link" href="{{ section.settings.link1 }}" title="{{ section.settings.link_text2 }}">{{ section.settings.link_text2 }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+
+
+    {% if section.settings.image2 != blank %}
+    <div class="flex-row-col homepage-section simple-image-with-text index-section bm10 section-{{ section.id }}" data-section-id="{{ section.id }}" >
+      <img src="{{ section.settings.image2 | img_url: 'master' }}" alt="{{ section.settings.image2.alt }}">
+      <div class="overlay">
+        <div class="row">
+          <div class="desktop-12 tablet-6 mobile-3">
+            <div class="overlay-text">
+              {% if section.settings.link2 != blank %}
+                <a class="fill-link" href="{{ section.settings.link2 }}" title="{{ section.settings.link_text2 }}">{{ section.settings.link_text2 }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<div class="clear"></div>
+<style>
+
+</style>
+
+{% schema %}
+  {
+    "name": "Simple Image with Link",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Image 1"
+      },
+      {
+       "id": "link_text1",
+       "type": "text",
+       "label": "Title text",
+       "default": "Click Here!",
+       "info": "Visible only on link hover"
+      },
+      {
+        "type": "url",
+        "id": "link1",
+        "label": "Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Image 2"
+      },
+      {
+       "id": "link_text2",
+       "type": "text",
+       "label": "Title text",
+       "default": "Click Here!",
+       "info": "Visible only on link hover"
+      },
+      {
+        "type": "url",
+        "id": "link2",
+        "label": "Link"
+      }
+  ],
+  "presets": [
+      {
+        "name": "Simple Image with Link",
+        "category": "Image"
+      }
+
+    ]
+}
+{% endschema %}

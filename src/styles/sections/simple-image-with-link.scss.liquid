@@ -1,0 +1,36 @@
+.index-sections {
+    padding-top: 15px;
+}
+.simple-image-with-text {
+    position: relative;
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        @include flexbox;
+        @include align-items(center);
+    }
+}
+
+.flex-row-cols-2 {
+    @include flexbox;
+    @include flex-direction(column);
+    .flex-row-col {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @include mq( 'lap-and-up' ) {
+        @include flex-direction(row);
+        @include justify-content(space-between);
+        .flex-row-col {
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+        }
+    }
+    .fill-link {
+        font-size: 0;
+    }
+}
