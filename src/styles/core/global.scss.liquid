@@ -1277,15 +1277,22 @@ button.shopify-payment-button__more-options {
 
 @include mq (phone) {
   .hide-phone {
-    display: none;
+    display: none !important;
   }
 }
 @include mq (tablet-and-up) {
   .hide-tablet-up {
-    display: none;
+    display: none !important;
   }
 }
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+
+.img_blur {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
 }

@@ -6,10 +6,22 @@
     {% if section.settings.image1 != blank %}
     <div class="flex-row-col homepage-section simple-image-with-text index-section bm10 section-{{ section.id }}" data-section-id="{{ section.id }}" >
       
-      <img src="{{ section.settings.image1 | img_url: 'master' }}" alt="{{ section.settings.image1.alt }}" 
-        class="{% if section.settings.mobile_image1 != blank %}hide-phone{% endif %}">
+      
+      {%- assign src_name = section.settings.image1 -%}
+      {%- assign src_alt = section.settings.image1.alt -%}
       {% if section.settings.mobile_image1 != blank %}
-        <img src="{{ section.settings.mobile_image1 | img_url: 'master' }}" alt="{{ section.settings.mobile_image1.alt }}" class="hide-tablet-up">
+      {%- assign src_class = "hide-phone" -%}
+      {% endif %}
+      {% include 'srcset' %}
+      {%- assign src_class = "" -%}
+
+
+      {% if section.settings.mobile_image1 != blank %}
+        {%- assign src_name = section.settings.mobile_image1 -%}
+        {%- assign src_alt = section.settings.mobile_image1.alt -%}
+        {%- assign src_class = "hide-tablet-up" -%}
+        {% include 'srcset' %}
+        {%- assign src_class = "" -%}
       {% endif %}
       
       <div class="overlay">
@@ -30,12 +42,23 @@
 
     {% if section.settings.image2 != blank %}
     <div class="flex-row-col homepage-section simple-image-with-text index-section bm10 section-{{ section.id }}" data-section-id="{{ section.id }}" >      
-      <img src="{{ section.settings.image2 | img_url: 'master' }}" alt="{{ section.settings.image2.alt }}" 
-        class="{% if section.settings.mobile_image2 != blank %}hide-phone{% endif %}">
-      {% if section.settings.mobile_image2 != blank %}
-        <img src="{{ section.settings.mobile_image2 | img_url: 'master' }}" alt="{{ section.settings.mobile_image2.alt }}" class="hide-tablet-up">
-      {% endif %}
 
+      {%- assign src_name = section.settings.image2 -%}
+      {%- assign src_alt = section.settings.image2.alt -%}
+      {% if section.settings.mobile_image2 != blank %}
+      {%- assign src_class = "hide-phone" -%}
+      {% endif %}
+      {% include 'srcset' %}
+      {%- assign src_class = "" -%}
+
+
+      {% if section.settings.mobile_image2 != blank %}
+        {%- assign src_name = section.settings.mobile_image2 -%}
+        {%- assign src_alt = section.settings.mobile_image2.alt -%}
+        {%- assign src_class = "hide-tablet-up" -%}
+        {% include 'srcset' %}
+        {%- assign src_class = "" -%}
+      {% endif %}
 
       <div class="overlay">
         <div class="row">
