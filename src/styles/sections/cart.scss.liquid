@@ -248,3 +248,77 @@ th.cart--remove {
     background-color: $color--primary-1;
   }
 }
+
+/* New Cart Scss Start */
+body.template-cart{
+  #content{
+    @include mq('phone-and-tablet') {
+      padding-left:0px;
+      padding-right:0px;
+    }
+  }
+  #shopping-cart{
+    h2{
+      text-align:center;
+      margin-bottom:20px;
+      font-weight:$font-weight--book;
+    }
+    #cartform{
+      table{
+        th{
+          padding: 15px 0px;
+        }
+      }
+      .cart-line-item{
+        .cart-item{
+          padding:10px 0px;
+          width:100%;
+          .cart-image{
+            width:15%;
+            margin-left:0px;
+            @include mq('phone') {
+              width:30%;
+            }
+          }
+          .cart-title{
+            width:85%;
+            padding:0 10px;
+            text-align:left;
+            @include mq('phone') {
+              width:60%;
+            }
+          }
+        }
+        .cart-remove{
+          font-weight: $font-weight--book;
+          @include fontSize(14px);
+          text-transform: capitalize;
+          @include mq('phone') {
+            margin-top:20px;
+          }
+        }
+      }
+      #basket-right{
+        #update-cart, #checkout{
+          width:48.4%;
+          @include mq('tablet') {
+            width:25%;
+          }
+        }
+        h4{
+          .subtotal-header{
+            @include mq('phone') {
+              float:left;  
+            }
+          }
+          .bfx-product-subtotal{
+            @include mq('phone') {
+              float:right;  
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* New Cart Scss End */

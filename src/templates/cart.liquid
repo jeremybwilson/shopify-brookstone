@@ -1,4 +1,4 @@
-<div id="shopping-cart" class="desktop-12 tablet-6 mobile-3">
+<div id="shopping-cart" class="desktop-12 tablet-6 mobile-3 contained">
 
   <h2>{{ 'cart.general.title' | t }}</h2>
   {% if cart.item_count == 0 %}
@@ -10,11 +10,11 @@
       <table>
         <thead>
           <tr>
-            <th style="text-align:left"><label>{{ 'cart.general.product' | t }}</label></th>
-            <th class="cart--remove" style="text-align: center;"><label>{{ 'cart.general.remove' | t }}</label></th>
-            <th><label>{{ 'cart.general.price' | t }}</label></th>
-            <th style="text-align: center;"><label>{{ 'cart.general.qty' | t }}</label></th>
-            <th class="cart--total-price"><label>{{ 'cart.general.price' | t }}</label></th>
+            <th style="text-align:left"><label>{{ 'cart.label.product' | t }}</label></th>
+            <th class="cart--remove" style="text-align: center;"><label>{{ 'cart.label.remove' | t }}</label></th>
+            <th><label>{{ 'cart.label.price' | t }}</label></th>
+            <th style="text-align: center;"><label>{{ 'cart.label.qty' | t }}</label></th>
+            <th class="cart--total-price"><label>{{ 'cart.label.price' | t }}</label></th>
           </tr>
         </thead>
         <tbody>
@@ -124,8 +124,8 @@
       </table>
 
       {% comment %} :: TOTAL PANEL :: {% endcomment %}
-      <div id="basket-right" class="desktop-4 tablet-6 mobile-3">
-        <h4>
+      <div id="basket-right" class="desktop-4 tablet-6 mobile-3 contained">
+        <h4 class="clearfix">
           <span class="subtotal-header">{{ 'cart.general.subtotal' | t }}</span>
           <span id="cart-page-price" class="money bfx-price bfx-product-subtotal">{{ cart.total_price | money }}</span>
         </h4>
