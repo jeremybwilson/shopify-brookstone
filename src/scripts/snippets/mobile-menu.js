@@ -7,12 +7,12 @@ theme.closeMobileMenu = function() {
     theme.blankBgClose();
 };
 theme.blankBgOpen = function() {
-    $("html").addClass("overflow_hidden");
-    $("body").addClass("overflow_hidden");
+    $("html").addClass("overflow-hidden");
+    $("body").addClass("overflow-hidden");
 };
 theme.blankBgClose = function() {
-    $("html").removeClass("overflow_hidden");
-    $("body").removeClass("overflow_hidden");
+    $("html").removeClass("overflow-hidden");
+    $("body").removeClass("overflow-hidden");
 };
 $(document).ready(function() {
     $("body").append($("#mobile_drawer"));

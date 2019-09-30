@@ -267,330 +267,318 @@
 
 {% schema %}
 {
-    "name": "Header",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "full_width_header",
-        "label": "Enable full width"
-      },
-
-      {
-        "type": "link_list",
-        "id": "bottom_nav",
-        "label": "Bottom Navbar Menu"
-      },
-
-      {
-        "type": "header",
-        "content": "Announcement Bar"
-      },
-      {
-        "type": "checkbox",
-        "default": true,
-        "id": "show_announcement_text",
-        "label": "Show announcement text"
-      },
-      {
-        "type": "select",
-        "id": "num_of_promo_banners",
-        "label": "# of Announcement Slots",
-        "options": [
-          {
-            "label": "2",
-            "value": "2"
-          },
-          {
-            "label": "1",
-            "value": "1"
-          }
-        ]
-      },
-      {
-        "type": "text",
-        "id": "announcement_text_one",
-        "label": "Announcement Text - #1",
-        "default": "<div class='bold'>FREE SHIPPING</div> ON ORDERS $50 OR MORE"
-      },
-      {
-        "type": "url",
-        "id": "announcement_link_one",
-        "label": "Announcement Link - #1"
-      },
-      {
-        "type": "text",
-        "id": "announcement_text_two",
-        "label": "Announcement Text - #2",
-        "default": "<div class='bold'>40% OFF YOUR PURCHASE.</div>NO CODE NEEDED."
-      },
-      {
-        "type": "url",
-        "id": "announcement_link_two",
-        "label": "Announcement Link - #2"
-      },
-      {
-        "type":      "range",
-        "id":        "announcement_height",
-        "min":       30,
-        "max":       60,
-        "step":      1,
-        "unit":      "px",
-        "label":     "Announcement Height",
-        "default":   60
-      },
-      {
-        "type":      "range",
-        "id":        "announcement_swap_rate",
-        "min":       3,
-        "max":       30,
-        "step":      1,
-        "unit":      "sec",
-        "label":     "Mobile Banner Change Rate (2 must be enabled)",
-        "default":   5
-      },
-
-
-      {
-        "type": "header",
-        "content": "Logo"
-      },
-      {
-        "type": "range",
-        "id": "logo_size",
-        "min": 12,
-        "max": 36,
-        "step": 1,
-        "unit": "px",
-        "label": "Logo text size",
-        "default": 18
-      },
-      {
-        "type": "select",
-        "id": "logo_transform",
-        "label": "Logo text case",
-        "options": [
-          {
-            "value": "uppercase",
-            "label": "Uppercase"
-          },
-          {
-            "value": "none",
-            "label": "Normal"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "id": "logo_weight",
-        "label": "Logo text weight",
-        "options": [
-          {
-            "value": "normal",
-            "label": "Normal"
-          },
-          {
-            "value": "bold",
-            "label": "Bold"
-          }
-        ]
-      },
-
-
-      {
-        "type": "header",
-        "content": "Account Link"
-      },
-      {
-        "type": "select",
-        "id": "account_icon",
-        "label": "Account Icon",
-        "options": [
-          {
-            "value": "person",
-            "label": "Person"
-          },
-          {
-            "value": "text",
-            "label": "Text"
-          }
-        ],
-        "info":"Use person icon or text for Account Sign In"
-      },
-      {
-        "type": "text",
-        "id": "account_icon_text_value",
-        "label": "Account Text (only shown when Account Icon = Text)",
-        "default": "Sign In"
-      },
-      {
-        "type": "checkbox",
-        "id": "account_show_user_name",
-        "label": "Show user first name when Logged in. (Text Mode Only)",
-        "default": false
-      },
-
-
-      {
-        "type": "header",
-        "content": "Cart Link"
-      },
-      {
-        "type": "select",
-        "id": "cart_icon",
-        "label": "Cart icon",
-        "options": [
-          {
-            "value": "cart",
-            "label": "Cart"
-          },
-          {
-            "value": "bag",
-            "label": "Bag"
-          },
-          {
-            "value": "text",
-            "label": "Text"
-          }
-        ],
-        "info":"Which icon (or text) would you like the cart nav item to appear like?"
-      },
-      {
-        "type": "text",
-        "id": "cart_icon_text_value",
-        "label": "Cart Text (only shown when Cart Icon = Text)",
-        "default": "Cart"
-      },
-
-
-      {
-        "type": "header",
-        "content": "Multi-Site Picker"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_site_picker",
-        "label": "Show International Site Picker",
-        "default": true
-      },
-      {
-        "type": "text",
-        "id": "site_picker_manifest",
-        "label": "List of Sites to Include in Site Picker",
-        "default": "US|http://mysite.com,EU|http://eu.mysite.com,UK|http://uk.mysite.com,FR|http://fr.mysite.com"
-      },
-
-
-      {
-        "type": "header",
-        "content": "Nav Search"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_search",
-        "label": "Show search bar",
-        "default": true
-      },
-
-
-      {
-        "type": "header",
-        "content": "Nav Wishlist"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_wishlist",
-        "label": "Show wishlist icon on Nav Bar",
-        "default": false
-      },
-
-
-      {
-        "type":"header",
-        "content": "navigation"
-      },
-      {
-        "type": "link_list",
-        "id": "main_nav",
-        "label": "Menu",
-        "default":"main-menu"
-      },
-      {
-        "type": "checkbox",
-        "id": "nav_center",
-        "label": "Center align navigation"
-      },
-      {
-        "type": "range",
-        "id": "nav_height",
-        "min": 30,
-        "max": 60,
-        "step": 2,
-        "unit": "px",
-        "label": "Height",
-        "default": 40
-      },
-      {
-        "type": "checkbox",
-        "id": "megamenu_full_width",
-        "label": "Megamenu Fills Width",
-        "info": "(Menu content constrains to site bounds, but fills rest of the space on each side)",
-        "default": false
-      },
-      {
-        "type": "range",
-        "id": "linklist_breakpoint",
-        "min": 4,
-        "max": 20,
-        "step": 1,
-        "label": "Links per column",
-        "info": "Break long drop downs into multiple columns",
-        "default": 10
-      }
-    ],
-    "blocks": [
-      {
-        "type": "mega_menu",
-        "name": "Mega-Menu",
-        "settings": [
-          {
-            "type":"text",
-            "id":"menu_item",
-            "label":"Menu item",
-            "info":"Which primary nav link does this Mega-Menu belong to?"
-          },
-          {
-            "type": "image_picker",
-            "id": "nav_image",
-            "label": "Mega-Menu image"
-         },
-         {
-           "type": "url",
-           "id": "nav_image_link",
-           "label": "Mega Menu image link (applies to image titles also)"
-         },
-         {
-            "type": "text",
-            "id": "nav_image_title",
-            "label": "Title text under image"
-         },
-         {
-            "type": "text",
-            "id": "nav_image_sub_title",
-            "label": "Smaller, underlined text below image title"
-         }
-        ]
-      },
-      {
-        "type": "simple_menu",
-        "name": "Simple Menu",
-        "settings": [
-          {
-            "type": "text",
-            "id": "menu_item",
-            "label": "Menu Item"
-          }
-        ]
-      }
-    ]
+  "name":"Header",
+  "settings":[
+    {
+      "type":"checkbox",
+      "id":"full_width_header",
+      "label":"Enable full width"
+    },
+    {
+      "type":"header",
+      "content":"Announcement Bar"
+    },
+    {
+      "type":"checkbox",
+      "default":true,
+      "id":"show_announcement_text",
+      "label":"Show announcement text"
+    },
+    {
+      "type":"select",
+      "id":"num_of_promo_banners",
+      "label":"# of Announcement Slots",
+      "options":[
+        {
+          "label":"2",
+          "value":"2"
+        },
+        {
+          "label":"1",
+          "value":"1"
+        }
+      ]
+    },
+    {
+      "type":"text",
+      "id":"announcement_text_one",
+      "label":"Announcement Text - #1",
+      "default":"<div class='bold'>FREE SHIPPING</div> ON ORDERS $50 OR MORE"
+    },
+    {
+      "type":"url",
+      "id":"announcement_link_one",
+      "label":"Announcement Link - #1"
+    },
+    {
+      "type":"text",
+      "id":"announcement_text_two",
+      "label":"Announcement Text - #2",
+      "default":"<div class='bold'>40% OFF YOUR PURCHASE.</div>NO CODE NEEDED."
+    },
+    {
+      "type":"url",
+      "id":"announcement_link_two",
+      "label":"Announcement Link - #2"
+    },
+    {
+      "type":"range",
+      "id":"announcement_height",
+      "min":30,
+      "max":60,
+      "step":1,
+      "unit":"px",
+      "label":"Announcement Height",
+      "default":60
+    },
+    {
+      "type":"range",
+      "id":"announcement_swap_rate",
+      "min":3,
+      "max":30,
+      "step":1,
+      "unit":"sec",
+      "label":"Mobile Banner Change Rate (2 must be enabled)",
+      "default":5
+    },
+    {
+      "type":"header",
+      "content":"Logo"
+    },
+    {
+      "type":"range",
+      "id":"logo_size",
+      "min":12,
+      "max":36,
+      "step":1,
+      "unit":"px",
+      "label":"Logo text size",
+      "default":18
+    },
+    {
+      "type":"select",
+      "id":"logo_transform",
+      "label":"Logo text case",
+      "options":[
+        {
+          "value":"uppercase",
+          "label":"Uppercase"
+        },
+        {
+          "value":"none",
+          "label":"Normal"
+        }
+      ]
+    },
+    {
+      "type":"select",
+      "id":"logo_weight",
+      "label":"Logo text weight",
+      "options":[
+        {
+          "value":"normal",
+          "label":"Normal"
+        },
+        {
+          "value":"bold",
+          "label":"Bold"
+        }
+      ]
+    },
+    {
+      "type":"header",
+      "content":"Account Link"
+    },
+    {
+      "type":"select",
+      "id":"account_icon",
+      "label":"Account Icon",
+      "options":[
+        {
+          "value":"person",
+          "label":"Person"
+        },
+        {
+          "value":"text",
+          "label":"Text"
+        }
+      ],
+      "info":"Use person icon or text for Account Sign In"
+    },
+    {
+      "type":"text",
+      "id":"account_icon_text_value",
+      "label":"Account Text (only shown when Account Icon = Text)",
+      "default":"Sign In"
+    },
+    {
+      "type":"checkbox",
+      "id":"account_show_user_name",
+      "label":"Show user first name when Logged in. (Text Mode Only)",
+      "default":false
+    },
+    {
+      "type":"header",
+      "content":"Cart Link"
+    },
+    {
+      "type":"select",
+      "id":"cart_icon",
+      "label":"Cart icon",
+      "options":[
+        {
+          "value":"cart",
+          "label":"Cart"
+        },
+        {
+          "value":"bag",
+          "label":"Bag"
+        },
+        {
+          "value":"text",
+          "label":"Text"
+        }
+      ],
+      "info":"Which icon (or text) would you like the cart nav item to appear like?"
+    },
+    {
+      "type":"text",
+      "id":"cart_icon_text_value",
+      "label":"Cart Text (only shown when Cart Icon = Text)",
+      "default":"Cart"
+    },
+    {
+      "type":"header",
+      "content":"Multi-Site Picker"
+    },
+    {
+      "type":"checkbox",
+      "id":"show_site_picker",
+      "label":"Show International Site Picker",
+      "default":true
+    },
+    {
+      "type":"text",
+      "id":"site_picker_manifest",
+      "label":"List of Sites to Include in Site Picker",
+      "default":"US|http://mysite.com,EU|http://eu.mysite.com,UK|http://uk.mysite.com,FR|http://fr.mysite.com"
+    },
+    {
+      "type":"header",
+      "content":"Nav Search"
+    },
+    {
+      "type":"checkbox",
+      "id":"show_search",
+      "label":"Show search bar",
+      "default":true
+    },
+    {
+      "type":"header",
+      "content":"Nav Wishlist"
+    },
+    {
+      "type":"checkbox",
+      "id":"show_wishlist",
+      "label":"Show wishlist icon on Nav Bar",
+      "default":false
+    },
+    {
+      "type":"header",
+      "content":"navigation"
+    },
+    {
+      "type":"link_list",
+      "id":"main_nav",
+      "label":"Menu",
+      "default":"main-menu"
+    },
+    {
+      "type":"checkbox",
+      "id":"nav_center",
+      "label":"Center align navigation"
+    },
+    {
+      "type":"range",
+      "id":"nav_height",
+      "min":30,
+      "max":60,
+      "step":2,
+      "unit":"px",
+      "label":"Height",
+      "default":40
+    },
+    {
+      "type":"checkbox",
+      "id":"megamenu_full_width",
+      "label":"Megamenu Fills Width",
+      "info":"(Menu content constrains to site bounds, but fills rest of the space on each side)",
+      "default":false
+    },
+    {
+      "type":"range",
+      "id":"linklist_breakpoint",
+      "min":4,
+      "max":20,
+      "step":1,
+      "label":"Links per column",
+      "info":"Break long drop downs into multiple columns",
+      "default":10
+    },
+    {
+      "type":"header",
+      "content":"Secondary Navbar Menu"
+    },
+    {
+      "type":"link_list",
+      "id":"bottom_nav",
+      "label":"Menu"
+    }
+  ],
+  "blocks":[
+    {
+      "type":"mega_menu",
+      "name":"Mega-Menu",
+      "settings":[
+        {
+          "type":"checkbox",
+          "id":"show_menu_product",
+          "label":"Show Featured Item",
+          "default":false
+        },
+        {
+          "type":"text",
+          "id":"menu_item",
+          "label":"Menu Handle",
+          "info":"Which primary nav link does this Mega-Menu belong to?"
+        },
+        {
+          "type":"image_picker",
+          "id":"nav_product_image",
+          "label":"Featured Item Image"
+        },
+        {
+          "type":"url",
+          "id":"nav_product_link",
+          "label":"Link (optional)"
+        },
+        {
+          "type":"text",
+          "id":"nav_product_title",
+          "label":"Title text (optional)"
+        },
+        {
+          "type":"richtext",
+          "id":"nav_product_desc",
+          "label":"More description (optional)"
+        },
+        {
+          "type":"url",
+          "id":"nav_product_collection_url",
+          "label":"Link to Collection (optional)"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

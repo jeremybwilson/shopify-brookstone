@@ -1956,8 +1956,21 @@ nav {
                     }
                     .menu-product {
                         position: relative;
-                        border-left: 2px solid #ddd;
                         padding-left: 20px;
+                        &::after {
+                            content:'';
+                            display: block;
+                            position: absolute;
+                            width: 1px;
+                            height: 100%;
+                            top: 0;
+                            left: 0;
+                            background: #666;
+                            background: linear-gradient(to bottom, #fff 0%, #333 40%, #333 60%, #fff 100%);
+                        }
+                        .menu-product-box {
+                            position: relative;
+                        }
                         .menu-product-img {
                             margin-bottom: 20px;
                             img {
