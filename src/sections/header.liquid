@@ -73,12 +73,6 @@
           {% endif %}
 
 
-          {% comment %}  ..::User Login::..  {% endcomment %}
-          <li class="nav-item nav-user">
-            <img src="{{ 'profile.png' | file_img_url }}" alt="wishlist-link">
-            <span class="login-label">Log In</span>
-          </li>
-
 
           {% comment %} ..:: WISHLIST ::.. {% endcomment %}
           {% if section.settings.show_wishlist %}
@@ -86,7 +80,7 @@
               
               {% comment %} :: Wishlist King App :: {% endcomment %}
               {% if settings.app_wk_enabled %}
-                <img src="{{ 'favorites.png' | file_img_url }}" alt="wishlist-link">
+                <img src="{{ 'favorites.png' | file_img_url }}" alt="wishlist link">
                 <!-- include 'wishlist-link' -->
 
               {% else %}
@@ -104,7 +98,7 @@
               
               {% if section.settings.cart_icon == 'cart' %}
                 {% comment %}{% include 'svg-icon-cart' %}{% endcomment %}
-                <img src="{{ 'cart.png' | file_img_url }}" alt="wishlist-link">
+                <img src="{{ 'cart.png' | file_img_url }}" alt="cart link">
 
               
               {% elsif section.settings.cart_icon == 'bag' %}
@@ -164,6 +158,29 @@
     </div>
 
 
+
+
+    {% comment %}  ..:: Bottom Navigation ::..  {% endcomment %}
+    {% if section.settings.bottom_nav != blank %}
+      <div id="bottom-navbar" class="hide-phone">
+
+        <nav class="bottom-navbar-nav">
+          <ul class="bottom-nav" id="mainnav">
+            {% for link in linklists[section.settings.bottom_nav].links %}
+              {% if link.levels == 0 %}
+                <li class="bottom-nav-item">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </nav>
+
+      </div>
+    {% endif %}
+
+
+
     {% comment %} :: SEARCH INPUT :: Appears when user clicks search button on nav 
     {% if section.settings.show_search %}
       <div id="nav-search-bar-wrapper">
@@ -182,6 +199,8 @@
         </div>
       </div>
     {% endif %}
+
+
 
     {% if section.settings.full_width_header %}</div>{% endif %}
   </header>
@@ -256,6 +275,11 @@
         "label": "Enable full width"
       },
 
+      {
+        "type": "link_list",
+        "id": "bottom_nav",
+        "label": "Bottom Navbar Menu"
+      },
 
       {
         "type": "header",
@@ -490,7 +514,7 @@
         "label": "Menu",
         "default":"main-menu"
       },
-     {
+      {
         "type": "checkbox",
         "id": "nav_center",
         "label": "Center align navigation"

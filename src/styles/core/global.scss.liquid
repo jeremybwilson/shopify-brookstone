@@ -1251,3 +1251,60 @@ button.shopify-payment-button__more-options {
 * {
   margin: 0;
 }
+
+
+#page-wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 2px;
+  padding-right: 2px;
+  @include mq (tablet-and-up) {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  @include mq (wide-and-up) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .index-section {
+    &.bm-sm {
+      margin-bottom: 15px;
+      @include mq (wide-and-up) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+
+
+.fill-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@include mq (phone) {
+  .hide-phone {
+    display: none !important;
+  }
+}
+@include mq (tablet-and-up) {
+  .hide-tablet-up {
+    display: none !important;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+
+.img_blur {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}

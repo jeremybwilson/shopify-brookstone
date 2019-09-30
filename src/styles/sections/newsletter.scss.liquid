@@ -20,39 +20,46 @@
 
 .newsletter-wrapper {
   background: {{ settings.newsletter_footer_background }};
-  text-transform: uppercase;
   text-align: center;
-  padding: 44px 25px 43px;
+  padding: 0;
 
   @include mq('tablet-and-up') {
-    width: 50%;
-    padding: 69px 25px 73px;
+    width: 100%;
+    height: 48px;
+    padding: 0;
   }
   .newsletter-inner {
-    width: 100%;
-    max-width: 325px;  
+    width: auto;
     margin: 0 auto;
+    margin-top: 7px;
+    display: inline-flex;
   }
   header {
     padding-top: 0;
     background: transparent;
   }
 
-  // heading 
+  // heading
   
   h2 {
     margin-bottom: 10px;
     color: {{ settings.newsletter_footer_text }};
     @include fontDim(16px,24px,0);
     font-weight: $font-weight--black;
-  	text-transform: uppercase;
 
     @include mq('tablet-and-up') {
       margin-bottom: 4px;
-      @include fontSize(22px);
+      @include fontSize(18px);
       
     }
   }
+
+  .newsletter-heading{
+    display: inline-block;
+    padding-right: 2px;
+    padding-top: 4px;
+  }
+
   .newsletter-subheading {
     margin-bottom: 15px;
     color: {{ settings.newsletter_footer_text }};
@@ -73,37 +80,35 @@
   form {
     @include flexbox;
     @include justify-content(space-between);
-    position: relative;
-    margin-bottom: 12px;
-    background: $color--white; 
     border: solid 1px transparent;
     transition: border .3s ease;
   }
+
   form.has-error {
     border: solid 1px $color--error;
   }
   input[type="email"] {
+    padding: 7px 12px;
+    height: auto;
+    line-height: 1;
+    display: inline-block;
+    background: $color--white;
+    border-radius: 0;
+    vertical-align: middle;
     box-sizing: border-box;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 47px;
+    width: 222px;
+    font-style: italic;
     margin-bottom: 0;
-    padding: 15px 68px 15px 20px;
+    margin-top: 0;
     border: none;
-    border-radius: none;
     color: $color--gray-2;
-    font-weight: $font-weight--bold;
+    font-weight: $font-weight--book;
     @include fontSize(14px);
-    letter-spacing: .025em;
     text-align: left;
-    line-height: 14px;
 
     @include mq('tablet-and-up') {
-      height: 46px;
-      padding: 20px 68px 20px 20px;
-      @include fontSize(16px);
-      line-height: 16px;
+      padding: 7px 12px;
+      @include fontSize(14px);
     }
 
     &:focus {
@@ -113,37 +118,20 @@
   form.has-error input[type="email"] {
     color: $color--error;
   }
-  #button-footer-newsletter-submit {
-    position: absolute;
-    z-index: 2;
-    @include flexbox;
-    @include justify-content(center);
-    @include align-items(center);
-    top: 0;
-    right: 0;
-    width: 47px;
-    height: 47px;
-    cursor: pointer;
 
-    @include mq('tablet-and-up') {
-      width: 46px;
-      height: 46px;
-    }
-
-    svg {
-      width: 14px;
-      height: 14px;
-
-    }
-
-    &:hover {
-      svg * {
-        fill: $color--accent-2;
-      }
-    }
-  }
   input[type="submit"] {
-    display: none;
+    height: auto;
+    width: auto;
+    margin: 0;
+    display: inline-block;
+    padding: 8px 12px;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    background-color: $color--submit-button;
+    @include fontSize(14px);
+    font-weight: $font-weight--book;
+    letter-spacing: 0;
   }
 
   // response messages
@@ -160,86 +148,6 @@
       p {
         color: inherit;
         @include fontSize(16px);
-      }
-    }
-  }
-}
-
-// social
-
-.social-wrapper {
-  padding: 35px 50px 34px;
-	background: {{ settings.social_footer_background }};
-  text-align: center;
-
-  @include mq('tablet-and-up') {
-    @include flexbox;
-    @include flex-direction(row);
-    @include align-items(center);
-    @include justify-content(center);
-    width: 50%;
-  }
-
-  .social-inner {
-    @include flexbox;
-    @include flex-direction(column);
-    margin: 0 auto;
-
-    @include mq('tablet-and-up') {
-      @include flex-direction(row);
-      @include align-items(center);
-      @include justify-content(center);
-    }
-  }
-  .section-title {
-    margin-bottom: 0;
-    color: {{ settings.social_footer_header }};
-    @include fontDim(14px,14px,.2em);
-    font-weight: $font-weight--black;
-    text-transform: uppercase;
-                                                    
-    @include mq('tablet-and-up') {
-      @include fontDim(20px,20px,.04em);
-    }
-  }	
-  ul#social-icons {
-    margin-top: 16px;
-    text-align: center;
-
-    @include mq('tablet-and-up') {
-      @include flexbox;
-      @include justify-content(center);
-      @include align-items(center);
-      margin-top: 0;
-      margin-left: 24px;
-    }
-    li {
-      display: inline-block;
-      padding: 0 20px;
-    }
-    a {
-      position: relative;
-      top: 2px;
-      color: {{ settings.icons }};
-
-      svg {
-        width: 22px;
-        height: 22px;
-
-        @include mq('tablet-and-up') {
-          width: 20px;
-          height: 20px;
-        }
-
-        * {
-          fill: {{ settings.icons }};
-        }
-      }
-
-      &:hover {
-        svg * {
-          fill: {{ settings.icons_hover }};
-        }
       }
     }
   }
