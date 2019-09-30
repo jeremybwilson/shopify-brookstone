@@ -1722,7 +1722,7 @@ nav {
                 fill: $logoColor;
             }
         }
-        width: 230px;
+        width: 200px;
         height: auto;
         @include mq( 'phone-and-tablet' ) {
             margin-left: auto;
@@ -1995,7 +1995,11 @@ nav {
         top: 30px;
         @include transform(translate(0));
         @include mq(phone-and-tablet) {
-            top: 20px;
+            top: 18px;
+            left: 12px;
+            .bar {
+                background: $logoColor;
+            }
         }
     }
 }
