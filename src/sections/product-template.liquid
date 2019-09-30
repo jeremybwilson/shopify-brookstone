@@ -182,7 +182,13 @@
                     {{small_description}}
                 </div>
                 {% if split_found %}
-                <span id="read-more"><a href="#" title="{{'products.general.read_more' | t}}" tabindex="0">{{'products.general.read_more' | t}}</a></span>
+                <span id="read-more">
+                    <a href="#" title="{{'products.general.read_more' | t}}" tabindex="0">{{'products.general.read_more' | t}}
+                        <span class="caret-icon">
+                            {% include 'svg-icon-caret-down' %}
+                        </span>
+                    </a>
+                </span>
                 {% endif %}
             </div>
 
@@ -205,7 +211,35 @@
 {% comment %}PRODUCT DESCRIPTION TABS{% endcomment %}
 {% unless template == 'product.quick' %}
 <div class="product-description--area">
+    <div class="tabs-wrapper">
+        <div class="tabs">
+            <ul class="tab-header">
+                <li class="tab-li">
+                    <a href="#" class="tab-item">DESCRIPTION & GUIDES
+                        <span class="caret-icon">
+                            {% include 'svg-icon-caret-down' %}
+                        </span>
+                    </a>
+                </li>
 
+                <li class="tab-li">
+                    <a href="#" class="tab-item">SHIPPING INFO
+                        <span class="caret-icon">
+                            {% include 'svg-icon-caret-down' %}
+                        </span>
+                    </a>
+                </li>
+
+                <li class="tab-li">
+                    <a href="#" class="tab-item">REVIEWS
+                        <span class="caret-icon">
+                            {% include 'svg-icon-caret-down' %}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endunless %}
 

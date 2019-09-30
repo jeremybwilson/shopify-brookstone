@@ -177,6 +177,14 @@
         #read-more{
             a{
                 text-decoration: underline;
+                .caret-icon{
+                    padding-left: 5px;
+                    svg{
+                        width: 13px;
+                        height: 13px;
+                        vertical-align: middle;
+                    }
+                }
             }
         }
     }
@@ -296,24 +304,50 @@
  * ---------------------------------------------- */
 
 .product-description--area {
-  padding-top: 15px;
+    padding: 15px 50px;
+    .row {
+        @include flexbox;
+        @include flex-direction(column);
+        max-width: 1200px;
 
-  .row {
-    @include flexbox;
-    @include flex-direction(column);
-    max-width: 1200px;
+        @include mq('phone') {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
 
-    @include mq('phone') {
-      padding-left: 30px;
-      padding-right: 30px;
+        @include mq('tablet-and-up') {
+            @include flex-direction(row);
+            @include flex-wrap(wrap);
+            @include justify-content(space-between);
+        }
     }
-
-    @include mq('tablet-and-up') {
-      @include flex-direction(row);
-      @include flex-wrap(wrap);
-      @include justify-content(space-between);
+    .tabs-wrapper{
+        .tabs{
+            ul.tab-header{
+                border-bottom: 1px solid $color--dark-gray;
+                list-style: none;
+                .tab-li{
+                    display: inline-block;
+                    .tab-item{
+                        display: inline-block;
+                        padding: 0 30px;
+                        @include fontSize(14px);
+                        .caret-icon{
+                            vertical-align: middle;
+                            padding-left: 5px;
+                            svg{
+                                height: 13px;
+                                width: 13px;
+                            }
+                        }
+                    }
+                    &:after{
+                        content: "|" ;
+                    }
+                }
+            }
+        }
     }
-  }
 
   h3 { // Description header
 
@@ -345,23 +379,6 @@
     }
   }
 
-  li {
-    position: relative;
-    padding-left: 20px;
-    text-align: left;
-    list-style: none;
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: 0;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: $color--primary-2;
-    }
-  }
 }
 .product-description--left {
   @include mq('tablet-and-up') {
