@@ -4,7 +4,7 @@
   <div class="flex-row-cols-2">
     
     {% if section.settings.image1 != blank %}
-    <div class="flex-row-col homepage-section simple-image-with-text index-section bm10 section-{{ section.id }}" data-section-id="{{ section.id }}" >
+    <div class="flex-row-col homepage-section simple-image-with-text index-section bm-sm section-{{ section.id }}" data-section-id="{{ section.id }}" >
       
       
       {%- assign src_name = section.settings.image1 -%}
@@ -41,7 +41,7 @@
 
 
     {% if section.settings.image2 != blank %}
-    <div class="flex-row-col homepage-section simple-image-with-text index-section bm10 section-{{ section.id }}" data-section-id="{{ section.id }}" >      
+    <div class="flex-row-col homepage-section simple-image-with-text index-section bm-sm section-{{ section.id }}" data-section-id="{{ section.id }}" >      
 
       {%- assign src_name = section.settings.image2 -%}
       {%- assign src_alt = section.settings.image2.alt -%}

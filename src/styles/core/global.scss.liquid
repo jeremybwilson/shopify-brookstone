@@ -1256,10 +1256,22 @@ button.shopify-payment-button__more-options {
 #page-wrapper {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  @include mq (tablet-and-up) {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  @include mq (wide-and-up) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
   .index-section {
-    &.bm10 {
-      margin-bottom: 10px;
+    &.bm-sm {
+      margin-bottom: 15px;
+      @include mq (wide-and-up) {
+        margin-bottom: 20px;
+      }
     }
   }
 }
