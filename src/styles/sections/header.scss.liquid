@@ -1834,6 +1834,7 @@ nav {
                 }
             }
             .nav-search-control-wrapper {
+                position: relative;
                 @include flexbox;
                 @include mq(wide-and-up) {
                     @include justify-content(center);
@@ -1856,6 +1857,10 @@ nav {
                     height: 37px;
                     width: 36px;
                     position: relative;
+                    @include mq (phone-and-tablet) {
+                        position: absolute;
+                        right: 0;
+                    }
                     .nav-search-submit {
                         position: absolute;
                         top: 0;
