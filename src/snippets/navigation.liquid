@@ -165,23 +165,55 @@
 
             {% comment %} :: PLAIN DROPDOWN : Single Column : List small enough to fit as 1 column :: {% endcomment %}
             {% else %}
-              <ul class="submenu">
+              <div class="submenu">
                 
-                {% for sub_link in link.links %}
-                  <li class="has_sub_menu" aria-haspopup="true" aria-expanded="false"><a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
-                    
-                    {% if sub_link.links != blank %}
-                      <ul class="nested">
-                        {% for sub_sub_link in sub_link.links %}
-                          <li class="{{ sub_sub_link.title | replace: ' ', '-' | downcase }}"><a href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
-                        {% endfor %}
-                      </ul>
-                    {% endif %}
+                <ul class="submenu-links">
 
-                  </li>
-                {% endfor %}
+                  {% for sub_link in link.links %}
+                    <li class="has_sub_menu" aria-haspopup="true" aria-expanded="false"><a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                      
+                      {% if sub_link.links != blank %}
+                        <ul class="nested">
+                          {% for sub_sub_link in sub_link.links %}
+                            <li class="{{ sub_sub_link.title | replace: ' ', '-' | downcase }}"><a href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
 
-              </ul>
+                    </li>
+                  {% endfor %}
+
+                </ul>
+
+
+
+
+                {% comment %} :: menu image :: {% endcomment %}
+                <div class="menu-product">
+                  <div class="menu-product-box">
+                    <div class="menu-product-img">
+                      <img src="{{ 'footerGiftCard.jpg' | file_img_url }}" alt="menu product">
+                    </div>
+                    <div class="menu-product-details">
+                      <h4 class="product-tile">
+                        <a href="#" class="fill-link">Mobile Comfort™ Deluxe Massaging Travel Cushion with 12V Car Adapter</a>
+                      </h4>
+                      <div class="product-promotion">
+                        <span>20% off - discount in cart</span>
+                        <span>Free Shipping</span>
+                      </div>
+                      <div class="product-pricing">
+                        <span class="product-sale-price">$49.99</span>
+                        <span class="product-compare-price">$59.99</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a href="#" class="product-category-link">Shop all Massage</a>
+
+                </div>
+
+              </div>
             {% endif %}
 
           </li>
