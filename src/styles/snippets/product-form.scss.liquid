@@ -281,16 +281,20 @@
   margin-top: 0;
 }
 input.add {
-  width: 100%;
+  width: 25%;
   height: 48px;
   margin-top: 0;
-  background: $color--primary-1;
+  background: $color--text-blue;
+  color: $color--white;
+  font-weight: $font-weight--bold;
+  @include fontSize(18px);
+  letter-spacing: 1px;
+  text-transform: unset;
 
   @include mq('tablet-and-up') {
-    height: 55px;
+    height: 40px;
   }
-
-  &:hover {
-    background: $color--primary-1;
+  &:hover{
+    background: $color--text-blue;
   }
 }

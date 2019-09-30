@@ -88,6 +88,13 @@
     {% endif %}
 
   </div>
+
+    {% if section.settings.show_social %}
+    <div class="desc">
+        {% include 'social' with product %}
+    </div>
+    {% endif %}
+
 </div>
 
 

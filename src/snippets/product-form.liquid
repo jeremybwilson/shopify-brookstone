@@ -70,12 +70,19 @@
   {% comment %} :: PRICE - SALE :: {% endcomment %}
   {% if current_variant.compare_at_price > current_variant.price %}
 
+  {% if product.compare_at_price_max > product.price %}
+  {% assign discount_percent = product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'%}
+  {% endif %}
+
     <div id="product-price" class="has-compare-price">
-      <span class="product-price" itemprop="price">
-        <span class="money bfx-price">{{ price }}</span>
-      </span>
+        <span class="product-price" itemprop="price">
+            <span class="money bfx-price">{{ price }}</span>
+        </span> 
         <span class="was">
-          <span class="money bfx-price">{{ compare_price }}</span>
+            <span class="money bfx-price">{{ compare_price }}</span>
+        </span>
+        <span class="discount-percent">
+            {{'products.general.discount_text' | t}} {{ discount_percent }}%
         </span>
     </div>
 
@@ -89,8 +96,6 @@
     </div>
 
   {% endif %}
-
-
 
   {% comment %} :: REVIEWS - STAR RATING :: {% endcomment %}
   {% if settings.app_wk_enabled %}
@@ -110,7 +115,7 @@
   {% comment %} :: SKU :: {% endcomment %}
   {% if section.settings.show_sku and product.url != '/products/gift-card' %}
     <div class="product-number">
-      Item# <span class="product-sku">{{ current_variant.sku | split: '-' | first }}</span>
+      {{'products.general.sku' | t}} <span class="product-sku">{{ current_variant.sku | split: '-' | first }}</span>
     </div>
   {% endif %}
 
@@ -221,7 +226,7 @@
   {% elsif productVariants.size == 1 %}
 
     {% comment %} :: Display Single Variant Info (So form data still works) :: {% endcomment %}
-    {% include 'option-select' %}
+    {% comment %}{% include 'option-select' %}{% endcomment %}
 
 
 
@@ -252,15 +257,6 @@
 
   <div class="clear"></div>
 
-
-  {% comment %} :: SKU :: {% endcomment %}
-  {% if section.settings.show_sku %}
-    <div class="sku">
-      <label style="line-height: 1.6em;">{{ 'customer.order.details.sku' | t }}:</label> <span class="variant_sku">{{ current_variant.sku }}</span>
-    </div><div class="clear"></div>
-  {% endif %}
-
-
   {% comment %} :: ADD TO CART ::{% endcomment %}
   {% if product.available %}
     <div id="product-add">
@@ -279,6 +275,19 @@
 
     </div>
     <p class="add-to-cart-msg"></p>
+  {% endif %}
+
+  {% if section.settings.show_availability %}
+  <div class="product-availability">
+    <span class="available-title">{{'products.general.availibility_title' | t}}</span>
+
+    {% if product.available %}
+    <span class="available-txt ds">{{'products.general.availibility_txt' | t}}</span>
+    {% else %} 
+    <span class="available-txt">{{'products.general.Sold' | t}}</span>
+    {% endif %}
+
+  </div>
   {% endif %}
 
   <div class="clear"></div>

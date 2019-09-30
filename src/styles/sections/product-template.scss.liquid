@@ -95,11 +95,10 @@
   @include align-items(flex-start);
   @include justify-content(space-between);
 
-  @include mq('tablet-and-up') {
-    width: 1350 / 1440 * 100%;
-    max-width: 1350px;
-    margin: 0 auto 72px;
+  &.full-width{
+    width: 100%;
   }
+
 }
 
 .product {
@@ -109,14 +108,14 @@
       @include fontDim(15px,16px,0);
       font-weight: $font-weight--black;
       text-align: center;
-      text-transform: uppercase;
+      text-transform: capitalize;
+      margin-bottom: 15px;
 
       @include mq('phone') {
         display: none;
       }
 
       @include mq('tablet-and-up') {
-        max-width: 400px;
         @include fontDim(25px,34px,0);
         text-align: left;
       }
@@ -130,6 +129,8 @@
 @import url('../snippets/product-images.scss.liquid');
 
 #product-price {
+  margin-bottom: 10px;
+  padding: 0;
   border-bottom: none;
   color: $color--primary-2;
   font-weight: $font-weight--bold;
@@ -147,38 +148,61 @@
 
   &.has-compare-price {
     .product-price {
-      color: {{ settings.sale_color }}
+      color: {{ settings.sale_color }};
+      @include fontSize(22px);
     }
     .was {
       color: $color--primary-2;
+      @include fontSize(22px);
+    }
+    .discount-percent{
+      @include fontSize(22px);
+      padding-left: 15px;
+      color: $color--text-blue;
     }
   }
 }
 
 #product-description {
-  form {
-    padding-top: 0;
-    border-top: none;
-    border-bottom: none;
-  }
+    form {
+        padding-top: 0;
+        border-top: none;
+        border-bottom: none;
+    }
+
+    .product-descr{
+        .product-descr-wrapper{
+
+        }
+        #read-more{
+            a{
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 #product-right {
-  margin-left: 0;
-  margin-right: 0;
-
-  @include mq( 'phone' ) {
-    width: 100%;
-    max-width: 430px;
-    margin: 0 auto;
-  }
-
-  @include mq('tablet-and-up') {
-    max-width: 365px;
-    margin-top: 35px;
-  }
   @include mq('lap-and-up') {
     margin-top: 70px;
+  }
+}
+
+.product-number{
+  @include fontSize(12px);
+  .product-sku{
+    font-weight: $font-weight--bold;
+  }
+}
+
+.product-availability{
+  margin-bottom: 25px;
+  .available-title{
+    font-weight: $font-weight--bold;
+    @include fontSize(12px);
+  }
+  .available-txt{
+    @include fontSize(12px);
   }
 }
 
@@ -272,14 +296,7 @@
  * ---------------------------------------------- */
 
 .product-description--area {
-  padding-top: 50px;
-  padding-bottom: 40px;
-  background-color: $color--light-gray;
-
-  @include mq('tablet-and-up') {
-    padding-top: 100px;
-    padding-bottom: 90px;
-  }
+  padding-top: 15px;
 
   .row {
     @include flexbox;
