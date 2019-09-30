@@ -26,6 +26,7 @@ require('./sections/collection.js');
 require('./sections/search.js');
 
 // SNIPPETS - Usually used in multiple places, most of these are global components
+require('./bol/other.js');
 require('./snippets/newsletter-popup.js');
 require('./snippets/cookie-banner.js');
 require('./snippets/scroll-to-top.js');
