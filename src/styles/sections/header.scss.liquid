@@ -1684,15 +1684,28 @@ $mainColor: #079ccd;
 $logoColor: #59595c;
 $navLinkColor: #59585d;
 
+body {
+    a {
+        color: #333;
+    }
+}
+
 #top-bar {
     font-weight: $font-weight--bold;
     padding: 6px 0 4px;
     #single-promo-wrapper {
         margin-left: 0;
         margin-right: 0;
+        @include mq (phone-and-tablet) {
+            @include fontSize(12px);
+            line-height: 16px;
+        }
     }
 }
 
+nav {
+    line-height: 1.6 !important;
+}
 
 #nav-bar-wrapper {
     height: auto;
@@ -1701,35 +1714,73 @@ $navLinkColor: #59585d;
     &.isStuck {
         box-shadow: none;
     }
+
+
+    #nav-logo {
+        svg {
+            path {
+                fill: $logoColor;
+            }
+        }
+        width: 200px;
+        height: auto;
+        @include mq( 'phone-and-tablet' ) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @include transform(translateX(0));
+        @include mq( 'tablet-and-up' ) {
+            width: 264px;
+        }
+    }
+
     #nav-bar-bg {
         height: auto;
     }
+
     #nav-bar {
         padding-top: 20px;
         padding-bottom: 5px;
         @include flexbox;
         @include justify-content(space-between);
         @include align-items(flex-start);
+        @include mq (phone-and-tablet) {
+            padding-top: 10px;
+            @include flex-wrap(wrap);
+        }
         #nav-logo,
         #nav-user,
         #nav-user #nav-user-list {
             position: initial;
         }
 
+
         #nav-user {
+            @include mq (phone-and-tablet) {
+                position: absolute;
+                right: 0;
+                top: 15px;
+            }
             text-align: right;
             @include fontSize(12px);
-            @include order(1);
+            @include mq (lap-and-up) {
+                @include order(1);
+            }
             ul {
                 line-height: 22px;
                 .nav-item {
                     padding-right: 10px;
                     &:first-child {
-                        padding-right: 5px;
+                        padding-right: 0;
                     }
                     &.nav-wishlist {
                         width: auto;
                         padding-right: 10px;
+                    }
+                }
+                &#nav-user-list {
+                    .nav-account {
+                        width: auto;
                     }
                 }
             }
@@ -1741,9 +1792,18 @@ $navLinkColor: #59585d;
                         margin-right: 18px;
                     }
                     list-style: none;
-                    a > * {
-                        vertical-align: middle;
+                    a {
+                        > * {
+                            vertical-align: top;
+                        }
+                        img {
+                            margin-bottom: 2px;
+                            margin-right: 1px;
+                        }
                     }
+                }
+                @include mq (phone-and-tablet) {
+                    display: none;
                 }
             }
         }
@@ -1754,16 +1814,31 @@ $navLinkColor: #59585d;
             @include align-self(center);
             padding-left: 51px;
             margin-bottom: 5px;
+            @include mq (phone-and-tablet) {
+                min-width: 100%;
+                padding-left: 0;
+            }
             .nav-search-box-inner {
-                width: 60%;
                 padding: 0 6px;
                 margin: 0 auto 1px;
+                @include mq(desk-and-up) {
+                    width: 60%;
+                }
                 > form {
-                    padding-right: 16px;
+                    @include mq(desk-and-up) {
+                        padding-right: 16px;
+                    }
+                    @include mq(wide-and-up) {
+                        padding-right: 0;
+                    }
                 }
             }
             .nav-search-control-wrapper {
+                position: relative;
                 @include flexbox;
+                @include mq(wide-and-up) {
+                    @include justify-content(center);
+                }
                 .nav-search-input {
                     border-radius: 0;
                     border-width: 2px;
@@ -1771,11 +1846,21 @@ $navLinkColor: #59585d;
                     margin-bottom: 0;
                     height: 37px;
                     text-indent: 4px;
+                    font-size: 12px;
+                    line-height: 18px;
+                    font-weight: 700;
+                    @include mq(wide-and-up) {
+                        max-width: 550px;
+                    }
                 }
                 .nav-search-icon-wrap {
                     height: 37px;
                     width: 36px;
                     position: relative;
+                    @include mq (phone-and-tablet) {
+                        position: absolute;
+                        right: 0;
+                    }
                     .nav-search-submit {
                         position: absolute;
                         top: 0;
@@ -1791,47 +1876,31 @@ $navLinkColor: #59585d;
                     }
                     svg {
                         position: absolute;
+                        top: 5px;
+                        left: 3px;
                         height: 26px;
                         width: 30px;
                         z-index: 1;
                         @include transform(scale(-1) rotate(106deg));
-                        top: 5px;
-                        left: 1px;
                         path {
-                            fill: #fff;                    
+                            fill: #fff;
                         }
                     }
                 }
             }
         }
     }
+
     #nav-bar,
     #nav-menu-desktop {
-        padding-left: 50px;
-        padding-right: 50px;
+        @include mq ( lap-and-up ) {
+            padding-left: 50px;
+            padding-right: 50px;            
+        }
         max-width: none;
         width: 100%;
     }
-    #nav-logo {
-        svg {
-            path {
-                fill: $logoColor;
-            }
-        }
-        width: 120px;
-        height: auto;
-        @include mq( 'tablet-and-up' ) {
-            width: 130px;
-        }
 
-        @include mq( 'lap-and-up' ) {
-            width: 130px;
-        }
-
-        @include mq( 'desk-and-up' ) {
-            width: 264px;
-        }
-    }
     #nav-menu-desktop {
         height: auto;
         #nav-menu-desktop-list {
@@ -1852,9 +1921,115 @@ $navLinkColor: #59585d;
                     text-transform: uppercase;
                     font-weight: 700;
                     @include fontSize(14px);
+                    @include mq(wide-and-up) {
+                        @include fontSize(15px);
+                    }
+                }
+
+                .submenu {
+                    left: 0;
+                    @include transform(translateX(0));
+                    text-align: left;
+                    padding: 20px;
+                    @include fontSize(14.4px);
+                    border: 1px solid $navLinkColor;
+                    width: 520px;
+                    .submenu-links,
+                    .menu-product {
+                        float: left;
+                        width: 50%;
+                    }
+                    &::after {
+                        content: '';
+                        display: block;
+                        clear: both;
+                    }
+                    .submenu-links {
+                        list-style: none;
+                        padding-right: 20px;
+                        li {
+                            a {
+                                font-weight: 600;
+                                color: $navLinkColor;
+                            }
+                        }                        
+                    }
+                    .menu-product {
+                        position: relative;
+                        border-left: 2px solid #ddd;
+                        padding-left: 20px;
+                        .menu-product-img {
+                            margin-bottom: 20px;
+                            img {
+                                width: 96%;
+                                display: block;
+                                margin: 0 auto;
+                            }
+                        }
+                        .product-tile {
+                            @include fontSize(17.2px);
+                            font-weight: normal;
+                            margin-bottom: 0;
+                            a {
+                                color: $navLinkColor;
+                            }
+                        }
+                        .product-promotion {
+                            span {
+                                color: #ad0000;
+                                display: block;
+                                @include fontSize(13.2px);
+                                line-height: 14px;
+                                font-weight: 700;
+                            }
+                        }
+                        .product-category-link {
+                            display: block;
+                            margin: 18px 0;
+                        }
+                        .product-pricing {
+                            font-weight: 700;
+                        };
+                    }
                 }
             }
         }    
-    } 
+    }
+
+    .icon-nav-mobile-menu {
+        top: 30px;
+        @include transform(translate(0));
+        @include mq(phone-and-tablet) {
+            top: 18px;
+            left: 12px;
+            .bar {
+                background: $logoColor;
+            }
+        }
+    }
 }
+
+#bottom-navbar {
+    // height: 20px; 
+    background-color: $navLinkColor;
+    .bottom-navbar-nav {
+        line-height: 20px;
+        @include fontSize(14px);
+    }
+    .bottom-nav {
+        width: 100%;
+        @include flexbox;
+        @include justify-content(space-evenly);
+        @include align-items(center);
+        list-style: none;
+        .bottom-nav-item {
+            width: 25%;
+            text-align: center;
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
+
 
