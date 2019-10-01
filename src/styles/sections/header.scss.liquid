@@ -1683,10 +1683,12 @@ body.js-drawer-open {
 $mainColor: #079ccd;
 $logoColor: #59595c;
 $navLinkColor: #59585d;
+$color--border-red: #ad0000;
+
 
 body {
     a {
-        color: #333;
+        color: $color--dark-gray;
     }
 }
 
@@ -1807,88 +1809,6 @@ nav {
                 }
             }
         }
-
-        
-        #nav-search-box {
-            @include flex(1, 0, auto);
-            @include align-self(center);
-            padding-left: 51px;
-            margin-bottom: 5px;
-            @include mq (phone-and-tablet) {
-                min-width: 100%;
-                padding-left: 0;
-            }
-            .nav-search-box-inner {
-                padding: 0 6px;
-                margin: 0 auto 1px;
-                @include mq(desk-and-up) {
-                    width: 60%;
-                }
-                > form {
-                    @include mq(desk-and-up) {
-                        padding-right: 16px;
-                    }
-                    @include mq(wide-and-up) {
-                        padding-right: 0;
-                    }
-                }
-            }
-            .nav-search-control-wrapper {
-                position: relative;
-                @include flexbox;
-                @include mq(wide-and-up) {
-                    @include justify-content(center);
-                }
-                .nav-search-input {
-                    border-radius: 0;
-                    border-width: 2px;
-                    border-color: $mainColor;
-                    margin-bottom: 0;
-                    height: 37px;
-                    text-indent: 4px;
-                    font-size: 12px;
-                    line-height: 18px;
-                    font-weight: 700;
-                    @include mq(wide-and-up) {
-                        max-width: 550px;
-                    }
-                }
-                .nav-search-icon-wrap {
-                    height: 37px;
-                    width: 36px;
-                    position: relative;
-                    @include mq (phone-and-tablet) {
-                        position: absolute;
-                        right: 0;
-                    }
-                    .nav-search-submit {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        height: 100%;
-                        width: 100%;
-                        padding: 0;
-                        margin-bottom: 0;
-                        background-color: $mainColor;
-                        @include flexbox;
-                        @include justify-content(center);
-                        @include align-items(center)
-                    }
-                    svg {
-                        position: absolute;
-                        top: 5px;
-                        left: 3px;
-                        height: 26px;
-                        width: 30px;
-                        z-index: 1;
-                        @include transform(scale(-1) rotate(106deg));
-                        path {
-                            fill: #fff;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     #nav-bar,
@@ -1924,13 +1844,16 @@ nav {
                     @include mq(wide-and-up) {
                         @include fontSize(15px);
                     }
+                    &:hover {
+                        color: $color--text-1;
+                    }
                 }
 
                 .submenu {
                     left: 0;
                     @include transform(translateX(0));
                     text-align: left;
-                    padding: 20px;
+                    padding: 10px 20px 20px;
                     @include fontSize(14.4px);
                     border: 1px solid $navLinkColor;
                     width: 520px;
@@ -1956,8 +1879,22 @@ nav {
                     }
                     .menu-product {
                         position: relative;
-                        border-left: 2px solid #ddd;
                         padding-left: 20px;
+                        padding-top: 10px;
+                        &::after {
+                            content:'';
+                            display: block;
+                            position: absolute;
+                            width: 1px;
+                            height: 100%;
+                            top: 0;
+                            left: 0;
+                            background: #666;
+                            background: linear-gradient(to bottom, $color--white 0%, $color--dark-gray 40%, $color--dark-gray 60%, $color--white 100%);
+                        }
+                        .menu-product-box {
+                            position: relative;
+                        }
                         .menu-product-img {
                             margin-bottom: 20px;
                             img {
@@ -1969,18 +1906,24 @@ nav {
                         .product-tile {
                             @include fontSize(17.2px);
                             font-weight: normal;
-                            margin-bottom: 0;
+                            margin-bottom: 5px;
                             a {
                                 color: $navLinkColor;
                             }
                         }
                         .product-promotion {
-                            span {
-                                color: #ad0000;
-                                display: block;
+                            p {
                                 @include fontSize(13.2px);
                                 line-height: 14px;
                                 font-weight: 700;
+                                color: $color--dark-gray;
+                                margin-bottom: 5px;
+                                strong {
+                                    color: $color--border-red;
+                                }
+                                em {
+                                    font-style: normal;
+                                }
                             }
                         }
                         .product-category-link {
@@ -2026,10 +1969,95 @@ nav {
             width: 25%;
             text-align: center;
             a {
-                color: #fff;
+                color: $color--white;
             }
         }
     }
 }
 
 
+
+
+
+#nav-search-box,
+#sidebar-search-box {
+    @include flex(1, 0, auto);
+    @include align-self(center);
+    padding-left: 51px;
+    margin-bottom: 5px;
+    @include mq (phone-and-tablet) {
+        min-width: 100%;
+        padding-left: 0;
+    }
+    .nav-search-box-inner {
+        padding: 0 6px;
+        margin: 0 auto 1px;
+        @include mq(desk-and-up) {
+            width: 60%;
+        }
+        > form {
+            @include mq(desk-and-up) {
+                padding-right: 16px;
+            }
+            @include mq(wide-and-up) {
+                padding-right: 0;
+            }
+        }
+    }
+    .nav-search-control-wrapper {
+        position: relative;
+        @include flexbox;
+        @include mq(wide-and-up) {
+            @include justify-content(center);
+        }
+        .nav-search-input {
+            border-radius: 0;
+            border-width: 2px;
+            border-color: $mainColor;
+            margin-bottom: 0;
+            height: 37px;
+            text-indent: 4px;
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: 700;
+            background-color: $color--white;
+            @include mq(wide-and-up) {
+                max-width: 550px;
+            }
+        }
+        .nav-search-icon-wrap {
+            height: 37px;
+            width: 36px;
+            position: relative;
+            @include mq (phone-and-tablet) {
+                position: absolute;
+                right: 0;
+            }
+            .nav-search-submit {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                padding: 0;
+                margin-bottom: 0;
+                background-color: $mainColor;
+                @include flexbox;
+                @include justify-content(center);
+                @include align-items(center)
+            }
+            svg {
+                position: absolute;
+                top: 5px;
+                left: 3px;
+                height: 26px;
+                width: 30px;
+                z-index: 1;
+                @include transform(scale(-1) rotate(106deg));
+                path {
+                    fill: $color--white;
+                }
+            }
+        }
+    }
+}

@@ -189,29 +189,53 @@
 
 
                 {% comment %} :: menu image :: {% endcomment %}
-                <div class="menu-product">
-                  <div class="menu-product-box">
-                    <div class="menu-product-img">
-                      <img src="{{ 'footerGiftCard.jpg' | file_img_url }}" alt="menu product">
-                    </div>
-                    <div class="menu-product-details">
-                      <h4 class="product-tile">
-                        <a href="#" class="fill-link">Mobile Comfort™ Deluxe Massaging Travel Cushion with 12V Car Adapter</a>
-                      </h4>
-                      <div class="product-promotion">
-                        <span>20% off - discount in cart</span>
-                        <span>Free Shipping</span>
-                      </div>
-                      <div class="product-pricing">
-                        <span class="product-sale-price">$49.99</span>
-                        <span class="product-compare-price">$59.99</span>
-                      </div>
-                    </div>
-                  </div>
 
-                  <a href="#" class="product-category-link">Shop all Massage</a>
+                {% for block in section.blocks %}
+                  {% if link.handle == block.settings.menu_item and block.settings.show_menu_product == true  %}
+                    <div class="menu-product">
+                      <div class="menu-product-box">
+                        
+                        {% if block.settings.nav_product_link != blank %}
+                            <a href="block.settings.nav_product_link" class="fill-link">
+                        {% endif %}
 
-                </div>
+                        {% if block.settings.nav_product_image != blank %}
+                          <div class="menu-product-img">
+                            {%- assign src_name = block.settings.nav_product_image -%}
+                            {%- assign src_alt = block.settings.nav_product_image.alt -%}
+                            {% include 'srcset' %}
+                          </div>
+                        {% endif %}
+                        
+                        <div class="menu-product-details">
+
+                          {% if block.settings.nav_product_title != blank %}
+                          <h4 class="product-tile">
+                              {{ block.settings.nav_product_title }}
+                          </h4>
+                          {% endif %}
+  
+                          {% if block.settings.nav_product_desc != blank %}
+                          <div class="product-promotion">
+                              {{ block.settings.nav_product_desc }}
+                          </div>
+                          {% endif %}
+
+                        </div>
+
+                        {% if block.settings.nav_product_link != blank %}
+                            </a>
+                        {% endif %}
+
+                      </div>
+
+                      {% if block.settings.nav_product_collection_url != blank %}
+                        <a href="block.settings.nav_product_collection_url" class="product-category-link">Shop all Massage</a>
+                      {% endif %}
+
+                    </div>
+                  {% endif %}
+                {% endfor %}
 
               </div>
             {% endif %}
