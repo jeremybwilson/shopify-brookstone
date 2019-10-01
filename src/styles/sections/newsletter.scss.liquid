@@ -9,7 +9,7 @@
   @include flex-direction(column);
 
   @include mq('phone') {
-    line-height: initial !important; //*  
+    line-height: initial !important; //  
   }
   @include mq('tablet-and-up') {
   	@include flex-direction(row);
@@ -29,10 +29,14 @@
     padding: 0;
   }
   .newsletter-inner {
-    width: auto;
     margin: 0 auto;
     margin-top: 7px;
     display: inline-flex;
+    @include mq(phone){
+        width: 80%;
+        display: block;
+        margin: 15px auto;
+    }
   }
   header {
     padding-top: 0;
@@ -55,9 +59,7 @@
   }
 
   .newsletter-heading{
-    display: inline-block;
-    padding-right: 2px;
-    padding-top: 4px;
+    margin: 5px 10px;
   }
 
   .newsletter-subheading {
@@ -77,16 +79,6 @@
       font-size: inherit;
     }
   }
-  form {
-    @include flexbox;
-    @include justify-content(space-between);
-    border: solid 1px transparent;
-    transition: border .3s ease;
-  }
-
-  form.has-error {
-    border: solid 1px $color--error;
-  }
   input[type="email"] {
     padding: 7px 12px;
     height: auto;
@@ -105,17 +97,14 @@
     font-weight: $font-weight--book;
     @include fontSize(14px);
     text-align: left;
-
-    @include mq('tablet-and-up') {
-      padding: 7px 12px;
-      @include fontSize(14px);
+    @include mq(phone){
+        margin-bottom: 10px;
     }
-
     &:focus {
       color: $color--dark-gray;
     }
   }
-  form.has-error input[type="email"] {
+  #footer-newsletter.has-error input[type="email"] {
     color: $color--error;
   }
 
@@ -138,6 +127,7 @@
 
   #newsletter-form--response {
     color: $color--white;
+    margin: 5px 10px;
 
     #newsletter-error-response {
       @include h7;

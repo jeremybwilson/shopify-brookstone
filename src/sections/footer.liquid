@@ -2,11 +2,11 @@
   <footer class="site-footer">
     
     {% comment %} :: ROW #1 -- Footer Menu + Brand Links :: {% endcomment %}
-    <div class="row">
+    <div class="row padding-none">
 
       {% comment %} :: FOOTER NAVIGATION :: {% endcomment %}
-      {% if section.blocks %}
-        <div class="footer-blocks">
+      
+        <div class="desktop-8 tablet-3 mobile-3 footer-blocks">
           
           {% for block in section.blocks %}
             {% assign menu = linklists[block.settings.menu_id] %} 
@@ -14,32 +14,18 @@
               <nav>
 
                 {% comment %} :: LINKS : Menu Content links :: {% endcomment %}
-                <ul>
+                <ul class="row">
                   {% for link in menu.links %}
-                    
-                    {% comment %} :: NESTED MENU :: {% endcomment %}
-                    {% if link.levels > 0 %}
-                      <li class="footer-sub-nav-wrapper" data-link-size="{{ link.links.size }}">
-                        
+                      <li class="desktop-4 tablet-6 mobile-3 footer-sub-nav-wrapper" data-link-size="{{ link.links.size }}">
                         {% comment %} :: SUB-NAV HEADER :: {% endcomment %}
-                        {% if block.settings.show_headings %}
                           <h4 class="nav-sub-header">{{ link.title }}</h4>
-                        {% endif %}
-
                         {% comment %} :: SUB-NAV MENU LINKS :: {% endcomment %}
                         <ul class="footer-sub-nav">
                           {% for sub_link in link.links %}
                             <li>{{ sub_link.title | link_to: sub_link.url }}</li>
                           {% endfor %}
                         </ul>
-
                       </li>
-
-                    {% comment %} :: ELSE, REGULAR SINGLE LINK :: {% endcomment %}
-                    {% else %}
-                       <li>{{ link.title | link_to: link.url }}</li>
-                    {% endif %}
-
                   {% endfor %}
                 </ul>
 
@@ -48,13 +34,12 @@
           {% endfor %}
 
         </div><!--.footer-blocks-->      
-      {% endif %}
 
 
       {% comment %} :: VISIT OUR BRANDS :: {% endcomment %}
-      <div class="visit-our-brands">
+      <div class="desktop-4 tablet-3 mobile-3 visit-our-brands">
         <div class="section-title">
-          <span id="#footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></span>
+          <div id="footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></div>
           <div id="git-card-img"><img src="{{ 'footerGiftCard.jpg' | file_img_url: 'master' }}">
           </div>
           <div id="gift-card-text">
@@ -112,7 +97,7 @@
     </div><!-- .footer--bottom-row -->
   </footer>
   <div class="footer-contact-us-bar">
-        <p class="bottom-contact-bar"><a href="#">Contact Us</a></p>        
+        <p class="bottom-contact-bar"><a href="/pages/contact-us">Contact Us</a></p>        
   </div>
 </div>
 
