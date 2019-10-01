@@ -2,6 +2,7 @@
  Cookie Banner
 ==============================================================================*/
 
+$(document).ready(function () {
 (function cookie_banner() {
 
   // check the cookie
@@ -34,3 +35,4 @@
   }
 
 })();
+});
