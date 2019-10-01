@@ -1683,10 +1683,12 @@ body.js-drawer-open {
 $mainColor: #079ccd;
 $logoColor: #59595c;
 $navLinkColor: #59585d;
+$color--border-red: #ad0000;
+
 
 body {
     a {
-        color: #333;
+        color: $color--dark-gray;
     }
 }
 
@@ -1843,7 +1845,7 @@ nav {
                         @include fontSize(15px);
                     }
                     &:hover {
-                        color: #111;
+                        color: $color--text-1;
                     }
                 }
 
@@ -1888,7 +1890,7 @@ nav {
                             top: 0;
                             left: 0;
                             background: #666;
-                            background: linear-gradient(to bottom, #fff 0%, #333 40%, #333 60%, #fff 100%);
+                            background: linear-gradient(to bottom, $color--white 0%, $color--dark-gray 40%, $color--dark-gray 60%, $color--white 100%);
                         }
                         .menu-product-box {
                             position: relative;
@@ -1914,10 +1916,10 @@ nav {
                                 @include fontSize(13.2px);
                                 line-height: 14px;
                                 font-weight: 700;
-                                color: #333;
+                                color: $color--dark-gray;
                                 margin-bottom: 5px;
                                 strong {
-                                    color: #ad0000;
+                                    color: $color--border-red;
                                 }
                                 em {
                                     font-style: normal;
@@ -1967,7 +1969,7 @@ nav {
             width: 25%;
             text-align: center;
             a {
-                color: #fff;
+                color: $color--white;
             }
         }
     }
@@ -2018,7 +2020,7 @@ nav {
             font-size: 12px;
             line-height: 18px;
             font-weight: 700;
-            background-color: #fff;
+            background-color: $color--white;
             @include mq(wide-and-up) {
                 max-width: 550px;
             }
@@ -2053,7 +2055,7 @@ nav {
                 z-index: 1;
                 @include transform(scale(-1) rotate(106deg));
                 path {
-                    fill: #fff;
+                    fill: $color--white;
                 }
             }
         }
