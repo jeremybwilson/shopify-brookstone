@@ -1,0 +1,43 @@
+<nav id="cms-pages-sidebar-navbar" class="cms-pages-sidebar-navigation no-fouc" data-section-id="{{ section.id }}" data-section-type="sidebar-navigation">
+    <h6 class="customer-navigation-title">
+        {{ section.settings.navigation_title_for_mobile}}
+        <span class="arrow-up">
+            <img src="{{ 'drop-up-arrow.svg' | file_url }} " alt="Arrow up ">
+        </span>
+        <span class="arrow-down">
+            <img src="{{ 'drop-down-arrow.svg' | file_url }} " alt="Arrow down">
+        </span>
+    </h6>
+    <ul class="cms-pages-sidebar-navbar-ul">
+        {% assign menu = linklists[section.settings.cms-sidebar-menu] %}
+        {% for link in menu.links %}
+        <li class="cms-pages-sidebar-navbar-li">
+            <a href="{{ link.url }}" tabindex="0" title="{{ link.title | escape }}" class="cms-pages-sidebar-navbar-anchor">
+                {{ link.title | escape }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+
+{% schema %}
+{
+    "name": "Sidebar navigation",
+    "settings": [
+    {
+        "type": "header",
+        "content": "Sidebar navigation"
+    },
+    {
+        "type": "link_list",
+        "id": "cms-sidebar-menu",
+        "label": "Choose sidebar menu"
+    },
+    {
+        "type": "text",
+        "id": "navigation_title_for_mobile",
+        "label": "Choose sidebar title"
+    }
+    ]
+}
+{% endschema %}
