@@ -132,18 +132,7 @@
 
       {% comment %} ..:: SEARCH INPUT :: Appears when user clicks search button on nav ::.. {% endcomment %}
       <div id="nav-search-box">
-        <div class="nav-search-box-inner">
-          <form action="/search" method="get">
-            <div class="nav-search-control-wrapper">
-              <input class="nav-search-input" type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
-              <input type="hidden" name="type" value="product" />
-              <div class="nav-search-icon-wrap">
-                <input class="nav-search-submit" type="submit" value="" />
-                {% include 'svg-icon-search' %}
-              </div>
-            </div>
-          </form>
-        </div>
+        {% include 'search-box' %}
       </div>
       
 
