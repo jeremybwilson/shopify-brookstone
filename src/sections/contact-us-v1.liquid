@@ -35,8 +35,8 @@
   </p>
 
   <p class="form-name">
-    <label>{{ 'contact.form.name' | t }}<span class="req">*</span></label>    
-    <input type="text" id="contactFormName" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}" required="" />
+    <label>{{ 'contact.form.lastname' | t }}<span class="req">*</span></label>    
+    <input type="text" id="contactFormName" name="contact[lastname]" placeholder="{{ 'contact.form.lastname' | t }}" required="" />
   </p>
 
   <p class="form-email">
@@ -47,7 +47,22 @@
   <p class="form-phone">
     <label>{{ 'contact.form.phone' | t }}<span class="req">*</span></label>
     <input type="text" id="contactFormTelephone" name="contact[phone]" placeholder="{{ 'contact.form.phone' | t }}" required=""/>
-  </p> 
+  </p>
+
+  <p class="form-phone">
+    <label>{{ 'contact.form.ordernumber' | t }}<span class="req">*</span></label>
+    <input type="text" id="contactFormTelephone" name="contact[ordernumber]" placeholder="{{ 'contact.form.ordernumber' | t }}" required=""/>
+  </p>
+
+  <p class="form-phone">
+    <label>{{ 'contact.form.myquestion' | t }}<span class="req">*</span></label>
+    <select id="ContactFormFlavor" name="contact[myquestion]">
+      <option>General Information</option>
+      <option>Order Status</option>
+      <option>My Accout</option>
+      <option>Other</option>
+    </select>
+  </p>  
 
   <p class="form-message">
     <label>{{ 'contact.form.message' | t }}<span class="req">*</span></label>

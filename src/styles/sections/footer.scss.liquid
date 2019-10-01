@@ -66,6 +66,7 @@
           @include fontSize(12px);
           @include mq(phone){
             text-align: center;
+            margin-bottom:15px;
           }
           @include mq(tablet){
             margin-bottom: 15px;
@@ -80,15 +81,11 @@
 
     a {
       display: block;
-      padding: 7px 12px 7px 0;
+      padding: 5px 0;
       color: $color--footer-text;
 
       @include mq('tablet-and-up') {
         display: inline-block;
-        padding: 9.5px 12px 9.5px 0;
-      }
-      @include mq('lap-and-up') {
-        padding: 9.5px 0;
       }
     }      
   }
@@ -229,12 +226,10 @@
 // social
 
 .social-wrapper {
-  padding: 8px 50px;
   background: {{ settings.social_footer_background }};
   text-align: center;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin:30px auto;
 
   @include mq('tablet-and-up') {
     @include flexbox;
