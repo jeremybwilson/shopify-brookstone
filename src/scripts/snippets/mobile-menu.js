@@ -7,12 +7,12 @@ theme.closeMobileMenu = function() {
     theme.blankBgClose();
 };
 theme.blankBgOpen = function() {
-    $("html").addClass("overflow_hidden");
-    $("body").addClass("overflow_hidden");
+    $("html").addClass("overflow-hidden");
+    $("body").addClass("overflow-hidden");
 };
 theme.blankBgClose = function() {
-    $("html").removeClass("overflow_hidden");
-    $("body").removeClass("overflow_hidden");
+    $("html").removeClass("overflow-hidden");
+    $("body").removeClass("overflow-hidden");
 };
 $(document).ready(function() {
     $("body").append($("#mobile_drawer"));
@@ -20,20 +20,20 @@ $(document).ready(function() {
         e.stopPropagation();
         theme.openMobileMenu();
     });
-    $("#mobile_drawer .drawer_close").click(function() {
+    $("#mobile_drawer .drawer-close").click(function() {
         theme.closeMobileMenu();
     });
-    $(document).on("click", "#mobile_drawer .li .icon_wrap", function(e) {
+    $(document).on("click", "#mobile_drawer .li .icon-wrap", function(e) {
         e.stopPropagation();
-        $("i", $(this)).toggleClass("icon-minus");
-        $(this).parent().next(".child_menu").slideToggle();
+        $("i", $(this)).toggleClass("fa-minus");
+        $(this).parent().next(".child-menu").slideToggle();
     });
     $(document).on("click", "#mobile_drawer .li a", function(e) {
         e.stopPropagation();
     });
-    $(document).on("click", "#mobile_drawer .child_li", function(e) {
+    $(document).on("click", "#mobile_drawer .child-li", function(e) {
         e.stopPropagation();
         var li = $(this);
-        $(".link_data", li).slideToggle();
+        $(".link-data", li).slideToggle();
     }); 
 });

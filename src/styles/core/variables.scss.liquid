@@ -17,6 +17,8 @@ $color--footer-contact-us: #249dd3;
 $color--gray-1: #616365;
 $color--gray-2: #757575;
 $color--gray-3: #5b5b5b;
+$color--gray-4: #929292;
+$color--gray-5: #bcbcbc;
 $color--dark-gray: #3e3e3e;
 $color--light-gray: #e6e6e6;
 $color--submit-button: #ad0000;
@@ -484,3 +486,20 @@ $retina:           "(-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi)
   -webkit-transition: $transition;
   transition: $transition;
 } 
+
+
+
+
+/* MIXIN : Linear Gradient
+ *    EX : @include linearGradient( color1, color2 )
+ * ------------------------------------------------------------------------- */
+@mixin linearGradient($color1, $color2){
+    background: $color1; /* Old browsers */
+    background: -moz-linear-gradient(top,  $color1 0%, $color2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color1), color-stop(100%,$color2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  $color1 0%,$color2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  $color1 0%,$color2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  $color1 0%,$color2 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  $color1 0%,$color2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
