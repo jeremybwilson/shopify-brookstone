@@ -1,8 +1,9 @@
 {% comment %} :: SIGNED IN :: {% endcomment %}
 {% if customer %}
-  <a href="/account">
+  <a href="/account" tabindex="0" title="account" area-label="account">
     {% if section.settings.account_icon == 'person' %}
-      {% include 'svg-icon-account' %}
+      {% comment %}{% include 'svg-icon-account' %}{% endcomment %}
+      <img src="{{ 'profile.png' | file_img_url }}" alt="profile link">
     {% else %}
       <div class="account-text account-username">
         {% if customer.first_name and section.settings.account_show_user_name %}
@@ -16,9 +17,11 @@
 
 {% comment %} :: SIGNED OUT (Or new visitor) :: {% endcomment %}
 {% else %}
-  <a href="/account/login">
+  <a href="/account" tabindex="0" title="account" area-label="account">
     {% if section.settings.account_icon == 'person' %}
-      {% include 'svg-icon-account' %}
+      {% comment %}{% include 'svg-icon-account' %}{% endcomment %}
+      <img src="{{ 'profile.png' | file_img_url }}" alt="profile link">
+      <span>Log In</span>
     {% else %}
       <div class="account-text">{{ section.settings.account_icon_text_value }}</div>
     {% endif %}
