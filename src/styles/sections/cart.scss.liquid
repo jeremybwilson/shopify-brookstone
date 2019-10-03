@@ -249,8 +249,41 @@ th.cart--remove {
   }
 }
 
+
 /* New Cart Scss Start */
-body.template-cart{
+body.template-name-cart{
+  color: $color--text-2;
+  #shopping-cart {
+    #cartform {
+      &:after {
+        content: '';
+        clear: both;
+        display: block;
+      }
+      #basket-right {
+        .basket-buttons {
+          @include flexbox;
+          @include justify-content(space-between);
+          @include mq (phone) {
+            @include flex-direction(column);
+          }
+          [type="submit"] {
+            width: 48%;
+            border-radius: 5px;
+          }
+          #update-cart {
+            border: 1px solid $mainColor;
+            background-color: $color--white;
+            color: $mainColor;
+          }
+          #checkout {
+            background-color: $mainColor;
+            color: $color--white;
+          }
+        }
+      }
+    }
+  }
   #content{
     @include mq('phone-and-tablet') {
       padding-left:0px;
@@ -259,7 +292,7 @@ body.template-cart{
   }
   #shopping-cart{
     h2{
-      text-align:center;
+      // text-align:center;
       margin-bottom:20px;
       font-weight:$font-weight--book;
     }
@@ -271,22 +304,23 @@ body.template-cart{
       }
       .cart-line-item{
         .cart-item{
+          position: relative;
           padding:10px 0px;
           width:100%;
+          @include align-items(center);
+          @include justify-content(flex-start);
           .cart-image{
             width:15%;
             margin-left:0px;
-            @include mq('phone') {
-              width:30%;
-            }
+            width: 100px;
+            max-width: 100px;
           }
           .cart-title{
-            width:85%;
+            width:80%;
+            width:calc(100% - 120px);
             padding:0 10px;
             text-align:left;
-            @include mq('phone') {
-              width:60%;
-            }
+            @include fontSize(14px);
           }
         }
         .cart-remove{
@@ -296,29 +330,78 @@ body.template-cart{
           @include mq('phone') {
             margin-top:20px;
           }
+          .remove-text {
+            color: $mainColor;
+            text-decoration: underline;
+          }
         }
       }
       #basket-right{
         #update-cart, #checkout{
           width:48.4%;
-          @include mq('tablet') {
-            width:25%;
-          }
         }
-        h4{
-          .subtotal-header{
-            @include mq('phone') {
-              float:left;  
-            }
-          }
-          .bfx-product-subtotal{
-            @include mq('phone') {
-              float:right;  
-            }
-          }
+        @include mq('tablet') {
+          width:50%;
         }
+        @include mq('phone') {
+          width:100%;
+        }
+      }
+    }
+    .input-group {
+      @include flexbox;
+      @include justify-content(center);
+      @include mq('phone') {
+        margin-left: auto;
+      }
+      > * {
+        border-radius: 0;
+        border: 1px solid $color--gray-5;
+        border-right-width: 0;
+        min-width: 40px;
+        width: 40px;
+        &:first-child {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+        &:last-child {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          border-right-width: 1px;
+        }
+      }
+      .cart-qty-input {
+        height: auto;
+        line-height: normal;
+        margin: 0;
+        color: $color--text-2;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        @include fontSize(24px);
+        @include linearGradient(#f2f3f3, #d9dad9);
+      }
+    }
+    .cart-price {
+      min-width: 110px;
+      .bfx-list-price {
+        color: $color--submit-button;
+        font-weight: $font-weight--bold;
+        @include mq (tablet-and-up) {
+          display: block;
+        }
+      }
+    }
+
+    .cart--total-price,
+    .cart-price,
+    .cart-quantity {
+      @include fontSize(14px);
+      @include mq('phone') {
+        width: 50%;
       }
     }
   }
 }
 /* New Cart Scss End */
+

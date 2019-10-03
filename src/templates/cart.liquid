@@ -38,15 +38,17 @@
             {% endif %}
 
             <tr id="cart-line-item-{{ line_item }}" class="bfx-product cart-line-item">
-              <td class="cart-item">
+              <td class="">
 
+                <div class="cart-item">
+                
                 {% comment %} :: ITEM - IMAGE :: {% endcomment %}
-                <div class="cart-image" style="max-width: 100px;">
+                <div class="cart-image">
                   {% if isGiftItem %}
                     <img src="{{ item | img_url: '400x' }}" title="{{ item.product.title | escape }}" alt="{{ item.title | escape }}" />
                   
                   {% else %}
-                    <a href="{{ item.url }}" title="{{ item.product.title | escape }}">
+                    <a href="{{ item.url }}" title="{{ item.product.title | escape }}" class="fill-link">
                       <img src="{{ item | img_url: '400x' }}" alt="{{ item.title | escape }}" />
                     </a>
                   {% endif %}
@@ -83,7 +85,9 @@
                       <br>
                     {% endunless %}
                   {% endfor %}
-                {% endif %}
+                {% endif %}  
+                
+                </div>
               </td>
 
               {% comment %} :: ITEM - REMOVE :: {% endcomment %}
@@ -100,12 +104,31 @@
                 {% endif %}
               </td>
 
-              {% comment %} :: ITEM - QUANTITY :: {% endcomment %}
+              {% comment %} :: ITEM - QUANTITY :: 
               <td class="cart-quantity">
                 {% if isGiftItem %}
                   <div id="updates_{{ item.variant.id }}" class="cart-qty gift-item-cart-qty">{{ item.quantity }}</div>
                 {% else %}
                   <input type="text" class="cart-qty bfx-product-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();"/>
+                {% endif %}
+              </td>
+              {% endcomment %}
+
+              {% comment %} :: ITEM - QUANTITY :: {% endcomment %}
+              <td class="cart-quantity" id="cart-qty-wrapper-{{ item.variant.id }}">
+                {% if isGiftItem %}
+                  <div id="updates_{{ item.variant.id }}" class="cart-qty gift-item-cart-qty">{{ item.quantity }}</div>
+                {% else %}
+                  <div class="input-group">
+                    <button type="button" class="cart-qty-input cart-qty-minus qty-decrement">-</button>
+                    <input type="text" class="cart-qty bfx-product-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();"/>
+                    <button type="button" class="cart-qty-input cart-qty-plus qty-increment">+</button>
+                  </div>
+                  <script type="text/javascript">
+                   $(function(){
+                    theme.utils.cartUtils.setupQtyInput('#cart-qty-wrapper-{{ item.variant.id }}');
+                  });
+                </script>
                 {% endif %}
               </td>
 
@@ -130,9 +153,10 @@
           <span id="cart-page-price" class="money bfx-price bfx-product-subtotal">{{ cart.total_price | money }}</span>
         </h4>
 
-        <input type="submit" name="update" id="update-cart" value="{{ 'cart.general.update' | t }}" class="button" />
-        <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button bfx-checkout" />
-        <div class="clear"></div>
+        <div class="basket-buttons">
+          <input type="submit" name="update" id="update-cart" value="{{ 'cart.general.update' | t }}" class="button" />
+          <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button bfx-checkout" />
+        </div>
         {% if additional_checkout_buttons %}
           {{ content_for_additional_checkout_buttons }}
         {% endif %}
@@ -154,5 +178,4 @@
     <div class="nosto_element cartpage-nosto" id="cartpage-nosto-2"></div>
     <div class="nosto_element cartpage-nosto" id="cartpage-nosto-3"></div>
   {% endif %}
-
 </div>
