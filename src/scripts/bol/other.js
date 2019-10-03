@@ -4,9 +4,16 @@ theme.clickEvent = function(){
 	});
 };
 
+theme.contactMessage = function(){
+	setInterval(function(){
+		debugger;
+		$(".successForm").hide();
+	}, 10000);
+};
 
 theme.init = function(){
 	theme.clickEvent();
+	theme.contactMessage();
 };
 
 
