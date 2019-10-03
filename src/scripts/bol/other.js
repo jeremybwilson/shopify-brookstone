@@ -4,9 +4,13 @@ theme.clickEvent = function(){
 	});
 };
 
+theme.relatedItems = function(){
+	$("#cart-related-collection").slick();
+}
 
 theme.init = function(){
 	theme.clickEvent();
+	theme.relatedItems();
 };
 
 

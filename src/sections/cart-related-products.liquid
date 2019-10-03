@@ -6,14 +6,18 @@
     <div class="section-header">
       <h2 class="section-heading">{{ section.settings.heading | escape }}</h2>
     </div>
-
-    {% for item in collections[section.settings.cart_related_collection] %}
-      <div class="">
-        {{item.handle}}
-      </div>
-    {% endfor %}
-
     {% endif %}
+
+    <div id="cart-related-collection">
+      {% for item in collections[section.settings.cart_related_collection].products %}
+        <div class="related-collection-slider">
+            {%- assign src_name = item.featured_image -%}
+            {% include 'srcset' %}
+            {{- item.title -}}
+        </div>
+      {% endfor %}
+    </div>
+
 
   </div>
 {% endif %}
