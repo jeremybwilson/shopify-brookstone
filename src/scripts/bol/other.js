@@ -4,9 +4,15 @@ theme.clickEvent = function(){
 	});
 };
 
+theme.contactMessage = function(){
+	setTimeout(function(){
+		$(".successForm").hide();
+	}, 10000);
+};
 
 theme.init = function(){
 	theme.clickEvent();
+	theme.contactMessage();
 };
 
 
