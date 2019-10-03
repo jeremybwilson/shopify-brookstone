@@ -5,8 +5,7 @@ theme.clickEvent = function(){
 };
 
 theme.contactMessage = function(){
-	setInterval(function(){
-		debugger;
+	setTimeout(function(){
 		$(".successForm").hide();
 	}, 10000);
 };
