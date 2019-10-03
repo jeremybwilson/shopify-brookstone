@@ -13,12 +13,6 @@
             <div class="footer-nav">
               <nav>
 
-                {% comment %} :: TITLE : Basic title if no nested menus inside footer :: {% endcomment %}
-                {% if menu.levels < 2 and block.settings.show_headings %}
-                  <h4 class="nav-sub-header">{{ menu.title }}</h4>
-                {% endif %}
-
-
                 {% comment %} :: LINKS : Menu Content links :: {% endcomment %}
                 <ul>
                   {% for link in menu.links %}
@@ -60,8 +54,15 @@
       {% comment %} :: VISIT OUR BRANDS :: {% endcomment %}
       <div class="visit-our-brands">
         <div class="section-title">
-          <h4>Visit Our Brands</h4>
+          <span id="#footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></span>
+          <div id="git-card-img"><img src="{{ 'footerGiftCard.jpg' | file_img_url: 'master' }}">
+          </div>
+          <div id="gift-card-text">
+            <p id="card-desc">Give the perfect gift every time</p>
+            <a href="#"><p id="card-link">SHOP GIFT CARDS</p></a>
+          </div>
         </div>
+
 
         <div class="brands--list">
 
@@ -81,49 +82,38 @@
       </div><!-- .visit-our-brands -->
     </div>
 
+<!-- Social wrapper starts -->
+  <div class="social-wrapper">
+    <div class="social-inner">
+      {% unless section.settings.social_heading == blank %}
+        <h4 class="section-title">{{ section.settings.social_heading }}</h4>
+      {% endunless %}
+      <ul id="social-icons" class="desktop-4 tablet-2 mobile-3">
+        {% include 'social-icons' %}
+      </ul><!-- #social-icons -->
+    </div><!-- .social-inner -->    
+  </div><!-- .social-wrapper -->
 
-    {% comment %} :: ROW #2 -- Telephone, Payment and Trust Icons :: {% endcomment %}
+
+    {% comment %} :: ROW #2 -- Telephone, Description and Contact Us :: {% endcomment %}
     <div class="row footer--bottom-row">
-      <div class="brands--telephone">
-        <a href="tel:{{ section.settings.tel_number }}"><h4>TEL</h4><span>{{ section.settings.tel_text }}</span></a>
-      </div><!-- .brands--telephone -->
-
-      <div id="payment" >
-        {% if section.settings.show_credit_cards %}
-          <div class="section-title">
-            <h4>We Accept</h4>
-          </div>
-          <div class="payment-methods">
-            {% include 'svg-icon-visa' %}
-            {% include 'svg-icon-mastercard' %}
-            {% include 'svg-icon-amex' %}
-            {% include 'svg-icon-paypal' %}
-          </div><!-- .payment-methods -->
-              
-          {% comment %}
-            // PENDING - figure out how to actually alter the output SVGs
-            {% for type in shop.enabled_payment_types %}
-              {{ type | payment_type_svg_tag: class:'payment-icon' }}
-            {% endfor %}
-          {% endcomment %}
-
+      <div class="contact-number">
+        <p class="font-normal"><span class="contact-number-bold">Customer Service</span> 1-800-846-3000 | <span class="contact-number-bold">Sales</span> 1-800-926-7000</p>
+      </div>
+      <div class="footer-description">
+        {% for block in section.blocks %}
+        {% if block.type == 'footer_content' %}
+        <p>{{ block.settings.footer_desc_text }}</p>
         {% endif %}
-      </div><!-- #payment -->
-
-      <div id="trust-icons">
-        {% unless section.settings.trust_icon_image_one == blank %}
-          <img src="{{ section.settings.trust_icon_image_one | img_url }}" alt="{{ section.settings.trust_icon_image_one.alt }}" />
-        {% endunless %}
-        {% unless section.settings.trust_icon_image_two == blank %}
-          <img src="{{ section.settings.trust_icon_image_two | img_url }}" alt="{{ section.settings.trust_icon_image_two.alt }}" />
-        {% endunless %}
-        {% unless section.settings.trust_icon_image_three == blank %}
-          <img src="{{ section.settings.trust_icon_image_three | img_url }}" alt="{{ section.settings.trust_icon_image_three.alt }}" />
-        {% endunless %}
-      </div><!-- #trust-icons -->
+        {% endfor %}
+        <!-- <p class="font-normal">Brookstone.com is your destination for unique gift ideas and smart products. For the latest savings, visit our coupons page: Brookstone Coupons.</p>
+        <p class="font-normal">To find a store near you, visit our Brookstone Airport Store Locator.</p> -->
+      </div>
     </div><!-- .footer--bottom-row -->
-
   </footer>
+  <div class="footer-contact-us-bar">
+        <p class="bottom-contact-bar"><a href="#">Contact Us</a></p>        
+  </div>
 </div>
 
 
@@ -240,6 +230,17 @@
             "label": "Show Footer Menu Headers",
             "default": false,
             "info": "(Hidden by default)"
+          }
+        ]
+      },
+      {
+        "type":"footer_content",
+        "name":"Footer content",
+        "settings":[
+          {
+            "type": "text",
+            "id": "footer_desc_text",
+            "label": "Footer description text"
           }
         ]
       }

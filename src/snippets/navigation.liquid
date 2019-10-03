@@ -165,23 +165,79 @@
 
             {% comment %} :: PLAIN DROPDOWN : Single Column : List small enough to fit as 1 column :: {% endcomment %}
             {% else %}
-              <ul class="submenu">
+              <div class="submenu">
                 
-                {% for sub_link in link.links %}
-                  <li class="has_sub_menu" aria-haspopup="true" aria-expanded="false"><a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
-                    
-                    {% if sub_link.links != blank %}
-                      <ul class="nested">
-                        {% for sub_sub_link in sub_link.links %}
-                          <li class="{{ sub_sub_link.title | replace: ' ', '-' | downcase }}"><a href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
-                        {% endfor %}
-                      </ul>
-                    {% endif %}
+                <ul class="submenu-links">
 
-                  </li>
+                  {% for sub_link in link.links %}
+                    <li class="has_sub_menu" aria-haspopup="true" aria-expanded="false"><a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                      
+                      {% if sub_link.links != blank %}
+                        <ul class="nested">
+                          {% for sub_sub_link in sub_link.links %}
+                            <li class="{{ sub_sub_link.title | replace: ' ', '-' | downcase }}"><a href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+
+                    </li>
+                  {% endfor %}
+
+                </ul>
+
+
+
+
+                {% comment %} :: menu image :: {% endcomment %}
+
+                {% for block in section.blocks %}
+                  {% if link.handle == block.settings.menu_item and block.settings.show_menu_product == true  %}
+                    <div class="menu-product">
+                      <div class="menu-product-box">
+                        
+                        {% if block.settings.nav_product_link != blank %}
+                            <a href="block.settings.nav_product_link" class="fill-link">
+                        {% endif %}
+
+                        {% if block.settings.nav_product_image != blank %}
+                          <div class="menu-product-img">
+                            {%- assign src_name = block.settings.nav_product_image -%}
+                            {%- assign src_alt = block.settings.nav_product_image.alt -%}
+                            {% include 'srcset' %}
+                          </div>
+                        {% endif %}
+                        
+                        <div class="menu-product-details">
+
+                          {% if block.settings.nav_product_title != blank %}
+                          <h4 class="product-tile">
+                              {{ block.settings.nav_product_title }}
+                          </h4>
+                          {% endif %}
+  
+                          {% if block.settings.nav_product_desc != blank %}
+                          <div class="product-promotion">
+                              {{ block.settings.nav_product_desc }}
+                          </div>
+                          {% endif %}
+
+                        </div>
+
+                        {% if block.settings.nav_product_link != blank %}
+                            </a>
+                        {% endif %}
+
+                      </div>
+
+                      {% if block.settings.nav_product_collection_url != blank %}
+                        <a href="block.settings.nav_product_collection_url" class="product-category-link">Shop all Massage</a>
+                      {% endif %}
+
+                    </div>
+                  {% endif %}
                 {% endfor %}
 
-              </ul>
+              </div>
             {% endif %}
 
           </li>
