@@ -1,0 +1,193 @@
+<style type="text/css">
+    .career-block-url-btn{
+        color:{{ section.settings.career_btn_color }};
+        background:{{ section.settings.career_btn_bg_color }};
+        border: 1px solid {{ section.settings.career_btn_bg_color }};
+    }    
+    .career-block-url-btn:hover{
+        color:{{ section.settings.career_btn_bg_color }};
+        background:{{ section.settings.career_btn_color }};
+    }
+
+    .tabbed-title{
+        color:{{ section.settings.career_btn_bg_color }};
+        background:{{ section.settings.career_btn_color }};
+        border: 1px solid {{ section.settings.career_btn_bg_color }};
+    }
+
+    .tabbed-title:hover{
+        color:{{ section.settings.career_btn_color }};
+        background:{{ section.settings.career_btn_bg_color }};
+    }
+
+    .career-bottom-section .tabbed-content:nth-child( even ) {
+        background: {{ section.settings.tabbed_content_bg_color }};
+    }
+
+</style>
+{% comment %} Career Block Image With Text start{% endcomment %}
+<div class="row career-top-section">
+    {% for block in section.blocks %}
+    {% if block.type == 'career-block-img-text' %}
+    <div class="desktop-4 tablet-6 mobile-3 career-block-img-with-text">
+        {% unless block.settings.career_block_image == blank %}
+        <div class="career-block-img">
+            {%- assign src_name = block.settings.career_block_image -%}
+            {%- assign src_alt = block.settings.career_block_image.alt -%}
+            {% include 'srcset' %}
+        </div>
+        {% endunless %}
+
+        {% unless block.settings.career_block_title == blank %}
+        <div class="career-block-title">
+            <h4>{{ block.settings.career_block_title }}</h4>
+        </div>
+        {% endunless %}
+
+        {% unless block.settings.career_block_text == blank %}
+        <div class="career-block-text">
+            <p>{{ block.settings.career_block_text}}</p>
+        </div>
+        {% endunless %}
+
+        {% unless block.settings.career_block_url_title == blank %}
+        <div class="career-block-url-btn-block">
+            <a href="{{ block.settings.career_block_url}}" tabindex="0" title="{{ block.settings.career_block_url_title}}" class="career-block-url-btn">{{ block.settings.career_block_url_title}}</a>
+        </div>
+        {% endunless %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% comment %} Career Block Image With Text end{% endcomment %}
+
+{% comment %} Career Tabbed Block Start{% endcomment %}
+<div class="career-bottom-section">
+
+    <div class="tabbed-tab">
+        {% for block in section.blocks %}
+        {% if block.type == 'tabbed-career-content' %}
+        {% unless block.settings.tabbed_content_url_title == blank %}
+        <a href="javascript:window.scroll({ top: document.getElementById( 'data-{{forloop.index}}' ).offsetTop+100, left: 0, behavior: 'smooth' });;" tabindex="0" title="{{ block.settings.career_block_url_title}}" class="tabbed-title">{{ block.settings.tabbed_content_url_title}}</a>
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% for block in section.blocks %}
+    {% if block.type == 'tabbed-career-content' %}
+    <div class="row tabbed-content" id="data-{{forloop.index}}">
+        <div class="desktop-4 tablet-6 mobile-3 tabbed-content-img">
+            {% unless block.settings.tabbed_contet_image == blank %}
+            <div class="img">
+                {%- assign src_name = block.settings.tabbed_contet_image -%}
+                {%- assign src_alt = block.settings.tabbed_contet_image.alt -%}
+                {% include 'srcset' %}
+            </div>
+            {% endunless %}
+        </div>
+        <div class="desktop-8 tablet-6 mobile-3 tabbed-content-text">
+            {% unless block.settings.tabbed_content_text_title == blank %}
+            <div class="career-block-title">
+                <h4>{{ block.settings.tabbed_content_text_title }}</h4>
+            </div>
+            {% endunless %}
+
+            {% unless block.settings.tabbed_content_text_para == blank %}
+            <div class="career-block-text">
+                <p>{{ block.settings.tabbed_content_text_para }}</p>
+            </div>
+            {% endunless %}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+</div>
+{% comment %} Career Tabbed Block End{% endcomment %}
+
+
+{% schema %}
+{
+    "name": "CareerPage",
+    "settings": [
+    {
+        "id": "career_btn_bg_color",
+        "type": "text",
+        "label": "Career btn bg color",
+        "default" : "#209ccd"
+    },
+    {
+        "id": "career_btn_color",
+        "type": "text",
+        "label": "Career btn color",
+        "default" : "#ffffff"
+    },
+    {
+        "id": "tabbed_content_bg_color",
+        "type": "text",
+        "label": "tabbed content bg color",
+        "default" : "#e8e8e8"
+    }
+    ],
+    "blocks": [
+    {
+        "type": "career-block-img-text",
+        "name": "Block img with text",
+        "settings": [
+        {
+            "id": "career_block_image",
+            "type": "image_picker",
+            "label": "Career block image"
+        },
+        {
+            "id": "career_block_title",
+            "type": "text",
+            "label": "Career block title"
+        },
+        {
+            "id": "career_block_text",
+            "type": "text",
+            "label": "Career block text"
+        },
+        {
+            "id": "career_block_url",
+            "type": "url",
+            "label": "Career block url"
+        },
+        {
+            "id": "career_block_url_title",
+            "type": "text",
+            "label": "Career block url title"  
+        }
+        ]
+    },
+    {
+        "type": "tabbed-career-content",
+        "name": "Tabbed career content",
+        "settings": [
+        {
+            "id": "tabbed_content_url_title",
+            "type": "text",
+            "label": "Tabbed content url title"  
+        },
+        {
+            "id": "tabbed_contet_image",
+            "type": "image_picker",
+            "label": "Tabbed contet image"
+        },
+        {
+            "id": "tabbed_content_text_title",
+            "type": "text",
+            "label": "Tabbed content text title"
+        },
+        {
+            "id": "tabbed_content_text_para",
+            "type": "html",
+            "label": "Tabbed content text paragraph"
+        }
+        ]
+    }
+    ]
+}
+{% endschema %}

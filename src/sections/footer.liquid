@@ -6,20 +6,21 @@
 
       {% comment %} :: FOOTER NAVIGATION :: {% endcomment %}
       {% if section.blocks %}
-        <div class="footer-blocks">
+        <div class="desktop-8 tablet-3 mobile-3 footer-blocks">
           
           {% for block in section.blocks %}
+          {% if block.type == 'link_list' %}
             {% assign menu = linklists[block.settings.menu_id] %} 
-            <div class="footer-nav">
+            <div class=" footer-nav">
               <nav>
 
                 {% comment %} :: LINKS : Menu Content links :: {% endcomment %}
-                <ul>
+                <ul class="row">
                   {% for link in menu.links %}
                     
                     {% comment %} :: NESTED MENU :: {% endcomment %}
                     {% if link.levels > 0 %}
-                      <li class="footer-sub-nav-wrapper" data-link-size="{{ link.links.size }}">
+                      <li class="desktop-4 tablet-6 mobile-3 footer-sub-nav-wrapper" data-link-size="{{ link.links.size }}">
                         
                         {% comment %} :: SUB-NAV HEADER :: {% endcomment %}
                         {% if block.settings.show_headings %}
@@ -37,7 +38,7 @@
 
                     {% comment %} :: ELSE, REGULAR SINGLE LINK :: {% endcomment %}
                     {% else %}
-                       <li>{{ link.title | link_to: link.url }}</li>
+                       <li class="desktop-4 tablet-6 mobile-3 footer-sub-nav-wrapper">{{ link.title | link_to: link.url }}</li>
                     {% endif %}
 
                   {% endfor %}
@@ -45,16 +46,17 @@
 
               </nav>
             </div><!-- .footer-nav -->
+        {% endif %} 
           {% endfor %}
 
-        </div><!--.footer-blocks-->      
+        </div><!--.footer-blocks-->
       {% endif %}
 
 
       {% comment %} :: VISIT OUR BRANDS :: {% endcomment %}
-      <div class="visit-our-brands">
+      <div class="desktop-4 tablet-3 mobile-3 visit-our-brands">
         <div class="section-title">
-          <span id="#footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></span>
+          <div id="footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></div>
           <div id="git-card-img"><img src="{{ 'footerGiftCard.jpg' | file_img_url: 'master' }}">
           </div>
           <div id="gift-card-text">
@@ -112,7 +114,7 @@
     </div><!-- .footer--bottom-row -->
   </footer>
   <div class="footer-contact-us-bar">
-        <p class="bottom-contact-bar"><a href="#">Contact Us</a></p>        
+        <p class="bottom-contact-bar"><a href="{{section.settings.contact_us_page_url}}">Contact Us</a></p>        
   </div>
 </div>
 
@@ -132,6 +134,11 @@
        "label": "Display Text",
        "default": "855-377-BOOT (2668)",
        "info": "This is the text that will be displayed on the site."
+     },
+     {
+       "type": "url",
+       "id": "contact_us_page_url",
+       "label": "Contact us page url"
      },
      {
       "type": "text",

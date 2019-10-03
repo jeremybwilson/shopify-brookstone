@@ -22,10 +22,17 @@ theme.readMore = function(){
 	});
 };
 
+theme.contactMessage = function(){
+	setTimeout(function(){
+		$(".successForm").hide();
+	}, 10000);
+};
+
 theme.init = function(){
 	theme.clickEvent();
 	theme.productTabs();
 	theme.readMore();
+	theme.contactMessage();
 };
 
 

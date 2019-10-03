@@ -3,7 +3,7 @@
   
   <div class="newsletter-wrapper">
     <div class="newsletter-inner">
-      <header>
+      <div>
         {% unless section.settings.heading == blank %}
           <h2 class="newsletter-heading">{{ section.settings.heading }}</h2>
         {% endunless %}
@@ -12,7 +12,7 @@
             {{ section.settings.newsletter_subheading }}
           </h3>
         {% endunless %}
-      </header>
+      </div>
 
       <form id="footer-newsletter">
        <input class="form-control" type="email" id="email" name="email" placeholder="{{section.settings.newsletter_placeholder}}">
