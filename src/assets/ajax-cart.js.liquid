@@ -72,12 +72,14 @@ ShopifyAPI.onError = function(XMLHttpRequest, textStatus) {
     - Usage for Form submissions via product form templates
 ==============================================================================*/
 ShopifyAPI.addItemFromForm = function(form, callback, errorCallback) {
+  debugger;
   var params = {
     type: 'POST',
     url: '/cart/add.js',
     data: jQuery(form).serialize(),
     dataType: 'json',
     success: function(line_item) {
+      debugger;
       
       // CALLBACK : Fire callback if one was provided
       if ((typeof callback) === 'function') {
@@ -85,6 +87,7 @@ ShopifyAPI.addItemFromForm = function(form, callback, errorCallback) {
       
       // DEFAULT : Default to updating cart with line item added
       } else {
+        debugger;
         ajaxCart.itemAddedCallback( line_item );
       }
     },
@@ -705,7 +708,7 @@ var ajaxCart = (function(module, $) {
       $('.js-qty__adjust').on('click', function() {
         var $el = $(this),
             id = $el.data('id'),
-            $qtySelector = $el.siblings('.js-qty__num'),
+            $qtySelector = $el.siblings().find('.js-qty__num'),
             qty = parseInt($qtySelector.val().replace(/\D/g, ''));
 
         var qty = validateQty(qty);

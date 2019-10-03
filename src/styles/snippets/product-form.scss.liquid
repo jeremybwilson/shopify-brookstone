@@ -278,7 +278,41 @@
 }
 
 #product-add {
-  margin-top: 0;
+    margin-top: 0;
+    @include mq('phone') {
+        margin-top: 15px;
+    }
+    .js-qty{
+        position: relative;
+        .qty-inner{
+            border-top: 1px solid $color--dotted;
+            border-bottom: 1px solid $color--dotted;
+            display: inline-block;
+            float: left;
+
+            .label{
+                display: inline-block;
+                font-weight: $font-weight--bold;
+                text-transform: uppercase;
+                padding-left: 12px;
+                @include fontSize(15px);
+            }
+            input{
+                border: none !important;
+                -webkit-border-radius: 0;
+                font-size: 18px;
+                font-weight: bold;
+                float: none;
+                width: 60px;
+                height: 38px;
+                margin: 0;
+                text-align: center;
+                @include mq('phone') {
+                    min-width: unset;
+                }
+            }
+        }
+    }
 }
 input.add {
   width: 25%;
@@ -290,6 +324,10 @@ input.add {
   @include fontSize(18px);
   letter-spacing: 1px;
   text-transform: unset;
+
+  @include mq('phone-and-tablet') {
+    width: 100%;
+  }
 
   @include mq('tablet-and-up') {
     height: 40px;

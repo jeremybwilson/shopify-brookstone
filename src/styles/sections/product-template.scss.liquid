@@ -3,6 +3,9 @@
 /*==================
   PDP
  ==================*/
+html {
+  scroll-behavior: smooth;
+}
 
 .product {
   #breadcrumb {
@@ -23,62 +26,70 @@
 }
 
 .product--mobile-header {
-  position: relative;
-  padding: 12px 20px 12px;
-  margin-top: 15px;
-  margin-bottom: 25px;
+    position: relative;
+    padding: 12px 20px 12px;
+    margin-top: 15px;
+    margin-bottom: 25px;
 
-  @include mq('tablet-and-up') {
-    display: none;
-  }
+    @include mq('tablet-and-up') {
+        display: none;
+    }
 
-  &:after {
-    position: absolute;
-    content: '';
-    top: 100%;
-    left: 0;
-    height: 25px;
-    width: 100%;
-    opacity: .25;
+    #product-price--mobile{
+        .discount-percent{
+            padding-left: 15px;
+            color: $color--text-blue;
+            font-weight: $font-weight--bold
+        }
+    }
 
-    background: #ffffff;
-    background: -moz-linear-gradient(top, #d9d9d9 0%, #ffffff 100%);
-    background: -webkit-linear-gradient(top, #d9d9d9 0%,#ffffff 100%);
-    background: linear-gradient(to bottom, #d9d9d9 0%,#ffffff 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9d9d9', endColorstr='#ffffff',GradientType=0 );
-  }
+    &:after {
+        position: absolute;
+        content: '';
+        top: 100%;
+        left: 0;
+        height: 25px;
+        width: 100%;
+        opacity: .25;
 
-  .mobile-header--top {
-    @include flexbox;
-    @include justify-content(space-between);
-    @include align-items(center);
-  }
+        background: #ffffff;
+        background: -moz-linear-gradient(top, #d9d9d9 0%, #ffffff 100%);
+        background: -webkit-linear-gradient(top, #d9d9d9 0%,#ffffff 100%);
+        background: linear-gradient(to bottom, #d9d9d9 0%,#ffffff 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d9d9d9', endColorstr='#ffffff',GradientType=0 );
+    }
 
-  .product-title {
-    color: $color--primary-2;
-    @include fontDim(15px,16px,0);
-    font-weight: $font-weight--black;
-    text-transform: uppercase;
-  }
-  .money {
-    @include fontSize(15px);
-  }
+    .mobile-header--top {
+        @include flexbox;
+        @include justify-content(space-between);
+        @include align-items(center);
+    }
 
-  .add {
-    margin-left: 40px;
-    max-width: 92px;
-    padding: 6px 8px;
-    margin-right: 0;
-    @include fontSize(12px);
-    line-height: 14px / 12px * 1em;
-    white-space: normal;
-  }
-  .add[disabled] {
-    @include fontSize(8px);
-  }
-  .errors {
-    width: 100%;
-  }
+    .product-title {
+        color: $color--primary-2;
+        @include fontDim(22px,16px,0);
+        font-weight: $font-weight--black;
+        text-transform: uppercase;
+    }
+    .money {
+        @include fontSize(15px);
+    }
+
+    .add {
+        margin-left: 40px;
+        max-width: 92px;
+        padding: 6px 8px;
+        margin-right: 0;
+        @include fontSize(12px);
+        line-height: 14px / 12px * 1em;
+        white-space: normal;
+    }
+    .add[disabled] {
+        @include fontSize(8px);
+    }
+    .errors {
+        width: 100%;
+    }
 }
 
 #shopify-section-product-template {
@@ -90,14 +101,21 @@
 }
 
 .row.product-details--top {
-  @include flexbox;
-  @include flex-direction(row);
-  @include align-items(flex-start);
-  @include justify-content(space-between);
+    @include flexbox;
+    @include flex-direction(row);
+    @include align-items(flex-start);
+    @include justify-content(space-between);
 
-  &.full-width{
-    width: 100%;
-  }
+    &.full-width{
+        width: 100%;
+    }
+
+    @include mq('tablet') {
+        padding-top: 30px;
+    }
+    @include mq('tablet') {
+        padding-top: 0;
+    }
 
 }
 
@@ -161,6 +179,11 @@
       color: $color--text-blue;
     }
   }
+}
+.vendor-name{
+  @include fontSize(15px);
+  color:$color--submit-button;
+  text-transform: capitalize;
 }
 
 #product-description {
@@ -307,14 +330,17 @@
 
 .product-description--area {
     padding: 15px 50px;
+    @include mq('tablet') {
+        padding: 50px;
+    }
+    @include mq('phone') {
+        padding: 40px 0
+    }
     .row {
-        @include flexbox;
-        @include flex-direction(column);
-        max-width: 1200px;
 
         @include mq('phone') {
-            padding-left: 30px;
-            padding-right: 30px;
+            padding-left: 0;
+            padding-right: 0;
         }
 
         @include mq('tablet-and-up') {
@@ -324,10 +350,16 @@
         }
     }
     .tabs-wrapper{
+        @include mq('phone') {
+            display: none;
+        }
         .tabs{
             ul.tab-header{
                 border-bottom: 1px solid $color--dark-gray;
                 list-style: none;
+                @include mq('phone') {
+                    text-align: center;
+                }
                 .tab-li{
                     display: inline-block;
                     .tab-item{
@@ -357,6 +389,9 @@
 
             .inner-content{
                 padding: 25px 35px;
+                @include mq('phone') {
+                    padding: 25px 20px;
+                }
 
                 .toggle-icon{
                     display: none;
@@ -385,10 +420,113 @@
                     color: $color--footer-text;
                 }
                 .toggle-content{
+                    .row{
+                        @include mq('tablet-and-up') {
+                            width: 100%;
+                        }
+                    }
                     padding-left: 35px;
+                    padding-top: 35px;
                     display: none;
+                    @include mq('phone') {
+                        padding-left: 0;
+                    }
                     &.active{
                         display: block;
+                    }
+                    #mannual-guides{
+                        @include mq('phone') {
+                            margin-top: 25px;
+                        }
+                        .mannual-div{
+                            border: 4px solid $color--light-gray;
+                            padding: 20px;
+                            .mannual-title{
+                                @include fontSize(16px);
+                            }
+                            .mannual-link{
+                                @include fontSize(12px);
+                                line-height: 21px;
+                                display: block;
+                                position: relative;
+                                padding-left: 45px;
+                                &:before{
+                                    content:"";
+                                    position:absolute;
+                                    width: 31px;
+                                    height: 31px;
+                                    top: 0;
+                                    left: 0px;
+                                    background-size: cover;
+                                    display: block;
+                                }
+                            }
+                            p{
+                                @include fontSize(11px);
+                                line-height: 14px;
+                                text-align: center;
+                                padding-top: 15px;
+                            }
+                        }
+                    }
+
+                    #product-img{
+                        .img-wrap{
+                            width: 50%;
+                            display: inline-block;
+                            float: left;
+                        }
+                        .image-text{
+                            display: inline-block;
+                            float: left;
+                            width: 50%;
+                            padding-left: 20px;
+                            @include mq('phone-and-tablet') {
+                                padding-top: 20px;
+                            }
+
+                            .product-name{
+                                @include fontSize(12px);
+                                margin-bottom: 10px;
+                                line-height: 18px;
+                                @include mq('tablet') {
+                                    @include fontSize(14px);
+                                }
+                            }
+                            .product-sku{
+                                @include fontSize(12px);
+                                margin-bottom: 0;
+                                line-height: 18px;
+                                @include mq('tablet') {
+                                    @include fontSize(14px);
+                                }
+                            }
+                        }
+                    }
+                    #product-shipping-txt{
+                        span{
+                            @include fontSize(12px);
+                            &.available-txt{
+                                color: $color--success;
+                                font-weight: $font-weight--bold;
+                            }
+                            &.sold-txt{
+                                color: $color--submit-button;
+                                font-weight: $font-weight--bold;
+                            }
+                        }
+                        .return-policy{
+                            margin-bottom: 0;
+                            line-height: 18px;
+                            .return-title{
+                                @include fontSize(12px);
+                                font-weight: $font-weight--bold;
+                                text-decoration:underline;
+                            }
+                            .txt{
+                               @include fontSize(12px); 
+                            }
+                        }
                     }
                 }
             }
