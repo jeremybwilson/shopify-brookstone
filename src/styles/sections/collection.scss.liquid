@@ -486,5 +486,37 @@ body.template-name-collection{
             }
         }   
     }
+
+
+    @include mq (phone) {
+        #shopify-section-collection-template {
+            #collection-wrapper {
+                .filter-wrapper {
+                    #filter-list-mobile-wrap {
+                        #filter-list-button-wrap,
+                        #filter-list-button-wrap #filter-button-mobile {
+                            position: static;
+                        }
+                    }
+                }
+            }
+            #filter-list-mobile-wrap,
+            .mobile-sortby {
+                float: none;
+                position: static;
+            }
+            #filter-list-button-wrap {
+                height: 33px;
+                margin-bottom: 10px;
+            }
+            #filter-list-mobile-wrap {
+                #bc-sf-filter-tree {
+                    top: auto;
+                }
+            }
+        }
+    }
+
 }
+
 /* new collection Scss End */
