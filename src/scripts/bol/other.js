@@ -1,5 +1,5 @@
 theme.clickEvent = function(){
-  $(".customer-navigation-title").click(function() {
+  $(".customer-navigation-title").click(function(){
     $(this).parent().toggleClass("active");
   });
 };
@@ -10,9 +10,10 @@ theme.contactMessage = function(){
   }, 10000);
 };
 
+
 theme.relatedItems = function() {
-  $("#cart-related-collection").slick({
-    infinite: true,
+  theme.clickEvent();   $("#cart-related-collection").slick({
+  theme.contactMessage();     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
@@ -32,22 +33,22 @@ theme.relatedItems = function() {
   });
 }
 
-theme.init = function() {
+theme.init = function(){
   theme.clickEvent();
   theme.contactMessage();
   theme.relatedItems();
 };
 
 
-$(document).ready(function() {
-  (function() {
-    $(document).on('shopify:section:load', function(event) {
+$(document).ready(function () {
+  (function () {
+    $(document).on('shopify:section:load', function (event) {
       $('.no-fouc').removeClass('no-fouc');
       $('.load-wait').addClass('hide');
     });
   }());
   $('.no-fouc').removeClass('no-fouc');
-  $('.load-wait').addClass('hide');
+  $('.load-wait').addClass('hide'); 
 
   theme.init();
 });
