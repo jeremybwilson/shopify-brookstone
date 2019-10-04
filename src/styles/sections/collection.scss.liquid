@@ -296,14 +296,67 @@ body.collection {
         left: auto;
     }
 }
-
 /* new collection Scss Start */
 body.template-name-collection{
+    #content{
+        padding-bottom:0px;
+    }
     #collection-wrapper{
         margin: 0 auto;
         float: none;
         padding:50px 0px;
+        .filter-wrapper{
+            @include mq( 'phone-and-tablet' ) {
+                display:flex;
+                padding:0 15px;
+            }
+            @include mq( 'tablet' ) {
+                padding:0px;
+            }
+            #filter-list-mobile-wrap{
+                float: left;
+                width: 50%;
+                top:0px;
+                .collection-sort-wrap-mobile{
+                    @include mq( 'lap-and-up' ) {
+                        display: none;
+                    }
+                }
+                #filter-list-button-wrap{
+                    #filter-button-mobile{
+                        padding-left: 0px;
+                    }
+                }
+            }
+            .mobile-sortby{
+                width:50%;
+                float:left;
+                .sort-label{
+                    @include mq( 'phone-and-tablet' ) {
+                        display:none;
+                    }
+                }
+                .styled-select{
+                    padding: 7px 10px 7px 10px;
+                    margin:0px;
+                    min-width:100%;
+                    &:before{
+                        transform: rotate(0deg);
+                        border-bottom: none;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 8px solid #000;
+                        transition: all 0.25s ease-in-out;
+                        margin-top: -5px;
+                        right: 0;
+                    }
+                }
+            }
+        }
         .side-filter{
+            @include mq( 'phone' ) {
+                display:none;
+            }
             #collection-filters{
                 #full-width-filter{
                     margin:0px;
@@ -325,12 +378,20 @@ body.template-name-collection{
                 @include mq( 'phone' ) {
                     display:none;
                 }
+                @include mq( 'tablet' ) {
+                    margin-bottom:15px;
+                }
             }
             .mobile-banner{
                 width:100%;
                 display:inline-block;
+                margin:0px;
                 @include mq( 'tablet-and-up' ) {
                     display:none;
+                }
+                @include mq( 'phone' ) {
+                    padding:0px 10px;
+                    margin-bottom:15px;
                 }
             }
             .collection-title{
@@ -391,6 +452,13 @@ body.template-name-collection{
                 margin:20px 0px 20px 0px;
                 border-top:1px solid #dddddd;
                 border-bottom:1px solid #dddddd;
+                display:block;
+                @include mq( 'phone' ) {
+                    border:0px;
+                }
+                @include mq( 'tablet' ) {
+                    display:none;
+                }
                 .sort-label{
                     display: inline-block;
                 }
@@ -399,6 +467,16 @@ body.template-name-collection{
                     margin: 0;
                     margin-left: 10px;
                     border-radius: 0;
+                    &:before{
+                        transform: rotate(0deg);
+                        border-bottom: none;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 8px solid #000;
+                        transition: all 0.25s ease-in-out;
+                        margin-top: -5px;
+                        right: 0;
+                    }
                 }
                 #sortme{
                     #bc-sf-filter-top-sorting{

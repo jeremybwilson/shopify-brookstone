@@ -4,6 +4,14 @@ theme.clickEvent = function(){
 	});
 };
 
+theme.collectionProductSoting = function(){
+    if($(window).width() < 1023  ){
+        var filterProductMobile = $("#sortme").html();
+        $(".mobile-sortby").append(filterProductMobile);
+        $("#sortme").html('');
+    }
+};
+
 theme.contactMessage = function(){
 	setTimeout(function(){
 		$(".successForm").hide();
@@ -13,6 +21,7 @@ theme.contactMessage = function(){
 theme.init = function(){
 	theme.clickEvent();
 	theme.contactMessage();
+	theme.collectionProductSoting();
 };
 
 

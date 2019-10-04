@@ -56,7 +56,20 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
 {% comment %} :: GRID DISPLAY - Follows .row maximums using '.grid-max-width' :: {% endcomment %}
 <div class="collection-content-wrap">
     <!-- New collection page Start -->
-    <div id="collection-wrapper" class="clearfix grid-max-width"> 
+    <div id="collection-wrapper" class="clearfix grid-max-width">
+        <div class="filter-wrapper">
+            <div id="filter-list-mobile-wrap" class="clearfix">
+                <div id="filter-list-button-wrap">
+                    {% comment %} FILTER BUTTON {% endcomment %}
+                    <div id="filter-button-mobile">
+                        <div id="bc-sf-filter-tree-mobile"></div>
+                    </div>
+                </div>
+                {% comment %} FILTERS LIST {% endcomment %}
+                <div id="bc-sf-filter-tree"></div>
+            </div>
+            <div class="mobile-sortby"></div>
+        </div>
         <div class="side-filter desktop-3">
             <div id="collection-filters">
                 {% comment %} :: FILTER + SORT - Desktop Component (Sort also on mobile) :: {% endcomment %}
@@ -107,7 +120,7 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
                         {%- include 'srcset' -%}
                         {% endunless %}    
                     </div>  
-                    {% endfor %} 
+                    {% endfor %}
                     {% comment %} :: FILTER SETS :: {% endcomment %}
                     <div class="collection-sort-wrap">
                         <ul id="sortme" class="sort-options animate25">
@@ -145,7 +158,7 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
                   <div class="rte description-body">{{ collection.description | remove: "[banner]" }}</div>
               </div>
               {% endif %}
-      {% comment %} :: BREADCRUMB - Inline breadcrumb for easier design accomodation ::
+        {% comment %} :: BREADCRUMB - Inline breadcrumb for easier design accomodation ::
         <div class="collection-breadcrumb-wrap grid-max-width">
           {% include 'breadcrumb' %}
         </div>
@@ -165,10 +178,6 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
 </div>
 
 </div>{% comment %} END : Collection section {% endcomment %}
-
-
-
-
 
 <script>
   // Declare bcSfFilterConfig variable

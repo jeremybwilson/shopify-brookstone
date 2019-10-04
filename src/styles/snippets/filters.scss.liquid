@@ -117,8 +117,8 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
             .bc-sf-filter-block-content {
                 background: $filterBg;
                 border: none;
-                width: 190px;
-                top: 42px !important; //Has to override inline set style by js
+                width: 100%;
+                top: 41px !important; //Has to override inline set style by js
                 border: $filterBarBorder;
 
                 // CLEAR : Hide the in-filter list clear button, desktop has exposed list of filters already
@@ -415,7 +415,7 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
     #filter-list-button-wrap {
         position: absolute;
         z-index: 25;
-        width: 50%;
+        width: 100%;
         left: 0;
         top: {{ settings.filter_bar_border_width }}px; //Adjust top position for border settings
         height: 27px;
