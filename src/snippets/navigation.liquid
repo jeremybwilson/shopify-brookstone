@@ -196,7 +196,7 @@
                       <div class="menu-product-box">
                         
                         {% if block.settings.nav_product_link != blank %}
-                            <a href="block.settings.nav_product_link" class="fill-link">
+                            <a href="{{- block.settings.nav_product_link -}}" class="fill-link">
                         {% endif %}
 
                         {% if block.settings.nav_product_image != blank %}
@@ -211,7 +211,7 @@
 
                           {% if block.settings.nav_product_title != blank %}
                           <h4 class="product-tile">
-                              {{ block.settings.nav_product_title }}
+                              {{- block.settings.nav_product_title -}}
                           </h4>
                           {% endif %}
   
