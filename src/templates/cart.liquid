@@ -5,7 +5,7 @@
     <p>{{ 'cart.general.empty' | t }}</p>
 
   {% else %}
-
+    <div class="checkout-wrapper">
     <form action="/cart" method="post" id="cartform" class="bfx-checkout-container">
       <table>
         <thead>
@@ -171,7 +171,7 @@
       {% endif %}
 
     </form>
-
+    </div>
   {% endif %}
 
   {% if settings.nosto_id != blank %}

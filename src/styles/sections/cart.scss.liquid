@@ -284,6 +284,9 @@ body.template-name-cart{
       }
     }
   }
+  .checkout-wrapper {
+    margin-bottom: 30px;
+  }
   #content{
     @include mq('phone-and-tablet') {
       padding-left:0px;
@@ -327,9 +330,6 @@ body.template-name-cart{
           font-weight: $font-weight--book;
           @include fontSize(14px);
           text-transform: capitalize;
-          @include mq('phone') {
-            margin-top:20px;
-          }
           .remove-text {
             color: $mainColor;
             text-decoration: underline;
@@ -399,8 +399,99 @@ body.template-name-cart{
       @include fontSize(14px);
       @include mq('phone') {
         width: 50%;
+        margin-bottom: 15px;
       }
     }
+    .cart--total-price {
+      font-weight: $font-weight--bold;
+    }
+  }
+}
+
+
+// slick-slider
+#cart-related-collection {
+  color: $color--text-2;
+  width: 90%;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  .slider-item {
+    position: relative;
+    @include flexbox;
+    .slider-image {
+      width: 40%;
+      min-width: 40%;
+      border: 1px solid $color--border-gray;
+    }
+    .slider-content {
+      width: 60%;
+      padding: 15px;
+      .slider-title {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .slick-arrow {
+    position: absolute;
+    top: 50%;
+    @include transform(translateY(-50%));
+    z-index: 5;
+    font-size: 0;
+    margin-bottom: 0;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    &:before,
+    &:after {
+      font-family: FontAwesome;
+      @include fontSize(20px);
+    }
+    &.slick-prev {
+      right: -20px;
+      &:before {
+        content: "\f105";
+      }
+    }
+    &.slick-next {
+      left: -20px;
+      &:before {
+        content: "\f104";
+      }
+    }
+  }
+}
+
+
+// general square item wrapper 
+.is-square-wrapper {
+  position: relative;
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+  > .is-square-item {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+}
+
+
+// general link button
+.link-btn {
+  display: inline-block;
+  padding: 5px 20px;
+  background: $mainColor;
+  border: 1px solid $mainColor;
+  color: $color--white;
+  border-radius: 5px;
+  &:hover {
+    background: $color--white;
+    color: $mainColor; 
   }
 }
 /* New Cart Scss End */

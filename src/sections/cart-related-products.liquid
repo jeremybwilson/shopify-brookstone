@@ -1,6 +1,6 @@
 {% if section.settings.cart_related_collection != blank %}
 
-  <div id="cart-related-collection">
+  <div id="cart-related-section">
     
     {% if section.settings.heading != blank %}
     <div class="section-header">
@@ -10,10 +10,24 @@
 
     <div id="cart-related-collection">
       {% for item in collections[section.settings.cart_related_collection].products %}
-        <div class="related-collection-slider">
-            {%- assign src_name = item.featured_image -%}
-            {% include 'srcset' %}
-            {{- item.title -}}
+        <div>
+          <div class="slider-item">
+            <div class="slider-image is-square-wrapper">
+              {%- assign src_name = item.featured_image -%}
+              {%- assign src_alt = item.title -%}
+              {%- assign src_class = "is-square-item" -%}
+              {% include 'srcset' %}
+              {%- assign src_class = "" -%}
+            </div>
+            <div class="slider-content">
+              <h4 class="slider-title">{{- item.title -}}</h4>
+              {% if item.url != blank %}
+                <a class="fill-link link-btn" href="{{- item.url -}}" title="{{ item.title }}">
+                  Learn more
+                </a>
+              {% endif %}
+            </div>
+          </div>
         </div>
       {% endfor %}
     </div>
