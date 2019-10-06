@@ -1,0 +1,80 @@
+{% comment %}
+  :: PRODUCT IMAGE GALLERY -- THUMBNAILS ::
+  -----------------------------------------------------------------------------
+    WHAT:
+      - Snippet template for the thumbnail gallery that goes with the 
+        'product-image-gallery' parent snippet
+
+    REQUIRES:
+      1. PRODUCT IMAGES : "productImages"
+          - Type: Array
+          - Array of all product images, be they from the merge or single product
+
+    OPTIONAL:
+      1. PRODUCT VIDEOS : "video_data"
+          - Type: Array
+          - Array of all product video objects, created in 'product-template.liquid'
+
+
+    EXAMPLE:
+      {% include 'product-image-gallery--thumbnails', 
+        productImages: arrayOfImages %} 
+
+        (Only need variable pass if using somewhere other than 'product-image-gallery.liquid')
+{% endcomment %}
+
+
+
+{% comment %} :: TEMPLATE - THUMBNAIL GALLERY :: {% endcomment %}
+{%- if productImages.size > 1 or video_data != blank -%}
+  <div id="thumbnail-gallery" 
+    class="product-thumbnails  {% if section.settings.thumbnails == 'bottom' %}desktop-12{% else %}{% endif %}" 
+    data-slider-type="{% if section.settings.thumbnails == 'bottom' %}bottom{% elsif section.settings.thumbnails == 'left' %}left{% else %}right{% endif %}">
+
+    {% comment %} :: THUMBNAIL ITEMS :: {% endcomment %}
+    {% if productImages.size > 1 %}<div class="thumbnail-slider">{% endif %}
+      {% for image in productImages %}
+        {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+        <div class="product-thumbnail {% if forloop.first %}selected{% endif %}{% if section.settings.thumbnails == 'bottom' %} desktop-2{% endif %}" 
+          data-image-id="{{ image.id }}" 
+          data-color="{{ image.alt | escape }}">
+
+          <img class="lazyload lazyload-fade"
+            src="{{ image | product_img_url: '200x' }}"
+            data-src="{{ img_url }}"
+            data-sizes="auto"
+            data-image-id="{{ image.id }}"
+            alt="{{ image.alt | escape }}">
+
+          <noscript>
+            <img src="{{ image | img_url: '200x' }}" alt="{{ image.alt | escape }}" />
+          </noscript>
+        </div>
+      {% endfor %}
+
+
+      {% comment %} :: VIDEO THUMBNAIL :: {% endcomment %}
+      {% if video_data != blank %}
+
+        {% comment %} :: VIDEO - ITERATE :: (Build an element for each set of video props in 'video_data' array) {% endcomment %}
+        {% for video_props in video_data %}
+
+          {% include 'product-video-util--props' %}
+          {% include 'product-video--thumbnail' %}
+
+        {% endfor %}
+      {% endif %}
+
+    {% if productImages.size > 1 %}</div>{% endif %}
+  </div>
+
+
+  {% comment %} :: THUMBNAIL CONTROLS :: {% endcomment %}
+  {% if section.settings.show_thumbnail_controls %}
+    <div class="main-image-navigation">
+      <span class="prev-image"><i class="fa fa-angle-left"></i></span>
+      <span class="next-image"><i class="fa fa-angle-right"></i></span>
+    </div>
+  {% endif %}
+
+{%- endif -%}

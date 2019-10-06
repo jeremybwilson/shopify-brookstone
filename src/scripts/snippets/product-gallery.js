@@ -27,9 +27,9 @@ theme.ProductGallery = function (context, events) {
       }
 
       $elements
-        .removeClass("selected")
-        .filter(image)
-        .addClass("selected");
+      .removeClass("selected")
+      .filter(image)
+      .addClass("selected");
     }
   })();
 
@@ -55,7 +55,7 @@ theme.ProductGallery = function (context, events) {
       return false;
     }
 
-    events.on( "thumbnail:click", selectMainImg );
+    // events.on( "thumbnail:click", selectMainImg );
 
     function selectMainImg (id) {
       var image = $elements.filter("[data-image-id=" + id + "]");
@@ -65,11 +65,11 @@ theme.ProductGallery = function (context, events) {
       }
 
       $elements
-        .removeClass("selected")
-        .hide()
-        .filter(image)
-        .addClass("selected")
-        .show();
+      .removeClass("selected")
+      .hide()
+      .filter(image)
+      .addClass("selected")
+      .show();
     };
   })();
 
@@ -101,8 +101,8 @@ theme.ProductGallery = function (context, events) {
       }
 
       var src = element.querySelector("img"),
-          src = src.getAttribute("data-zoom-src"),
-          src = src.replace("{width}", "1000");
+      src = src.getAttribute("data-zoom-src"),
+      src = src.replace("{width}", "1000");
 
       $(element).zoom({
         magnify: 2,
@@ -133,32 +133,29 @@ theme.ProductGallery = function (context, events) {
       var $slideshow = $(prodSlideshow);
       const dominantOptions = theme.utils.productUtils.getDominantOptions(); // Option Names to update image filtering for when user selects a different one
 
+       // INITALIZE : Declare initial config / start image gallery
+       $('.product-main-images .product-image-container').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        asNavFor: '.thumbnail-slider',
+        adaptiveHeight: true,
+        infinite: true,
+        speed: 1000
+      });
+
       // INITALIZE : Declare initial config / start image gallery
-      if ( slider_type == 'bottom') {
-        $slideshow.owlCarousel({
-          navigation : true, // Show next and prev buttons
-          navigationText: ["",""],
-          slideSpeed : 300,
-          paginationSpeed : 400,
-          singleItem:false,
-          pagination: false,
-          lazyLoad: true,
-          responsive: true,
-          addClassActive: false
-        });
+      $('#product-photos .thumbnail-slider').slick({
+        vertical: false,
+        arrows: false,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.product-image-container'
+      });
 
-      } else {
-        $slideshow.slick({
-          vertical: true,
-          arrows: false,
-          rows: 0, // 'slickFilter' will NOT WORK without this, since 1.8.0 been a bug with nesting divs it generates
-          verticalSwiping: true,
-          slidesToShow: 7,
-          slidesToScroll: 1,
-          slide: '.product-thumbnail'
-        });
-      }
-
+      $( '.thumbnail-slider .slick-slide' ).on( 'click', function () {
+        $( '.product-main-images .product-image-container' ).slick( 'slickGoTo', $( this ).data( 'slick-index') );
+      });
       // INITALIZE : FILTER + LISTENERS : Iterate Dominant Options & initialize
       dominantOptions.forEach( optionName => {
         const element = $( `.swatch-element.${optionName} input[checked]` );
@@ -214,12 +211,12 @@ theme.ProductGallery = function (context, events) {
       var target = $(event.target);
 
       // REMOVE : Gallery + Main Image Zoom
-      target.find('.thumbnail-slider').slick("unslick");
+      // target.find('.thumbnail-slider').slick("unslick");
       target.find('.product-main-image').zoom('destroy');
 
       // REMOVE : Listeners from these nodes
       $(document).off('.thumbnail-slider');
-      $(document).off('.product-main-image');
+      // $(document).off('.product-main-image');
     });
 
     // SECTION : LOAD : Re-Initalize gallery should a subsequent section load event occur

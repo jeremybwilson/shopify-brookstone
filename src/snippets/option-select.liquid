@@ -34,7 +34,7 @@
 {% comment %} :: OPTION SELECT - TEMPLATE :: 
   - The 'display: none' is for UI hide only, this select is what tells the addToCartButton which variant ID to add
 {% endcomment %}
-<div class="select">
+<div class="select {% if productVariants.size == 1 and product.variants[0].title == 'Default Title' %} hide{% endif %}">
   <select id="product-select-{{ product.id }}" name='id'>
     {% for variant in productVariants %}
       <option data-sku="{{ variant.sku }}" value="{{ variant.id }}" {% if variant == current_variant %} selected="selected"{% endif %}>
