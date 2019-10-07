@@ -5,7 +5,7 @@ theme.clickEvent = function(){
 };
 
 theme.collectionProductSoting = function(){
-    if($(window).width() < 1023  ){
+    if($(window).width() < 1024  ){
         var filterProductMobile = $("#sortme").html();
         $(".mobile-sortby").append(filterProductMobile);
         $("#sortme").html('');
