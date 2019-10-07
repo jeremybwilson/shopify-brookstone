@@ -211,6 +211,7 @@
     <div class="tabs-wrapper">
         <div class="tabs">
             <ul class="tab-header">
+              {% if section.settings.tab_one_title %}
                 <li class="tab-li">
                     <a href="#description-guide" class="tab-item" data-tab="description-guide">{{section.settings.tab_one_title}}
                         <span class="caret-icon">
@@ -218,7 +219,9 @@
                         </span>
                     </a>
                 </li>
+              {% endif %}
 
+              {% if section.settings.tab_two_title %}
                 <li class="tab-li">
                     <a href="#shipping-info" class="tab-item" data-tab="shipping-info">{{section.settings.tab_two_title}}
                         <span class="caret-icon">
@@ -226,7 +229,9 @@
                         </span>
                     </a>
                 </li>
+              {% endif %}
 
+              {% if section.settings.tab_three_title %}
                 <li class="tab-li">
                     <a href="#reviews" class="tab-item" data-tab="reviews">{{section.settings.tab_three_title}}
                         <span class="caret-icon">
@@ -234,6 +239,7 @@
                         </span>
                     </a>
                 </li>
+              {% endif %}
             </ul>
         </div>
     </div>
