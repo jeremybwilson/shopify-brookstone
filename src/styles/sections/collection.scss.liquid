@@ -296,3 +296,242 @@ body.collection {
         left: auto;
     }
 }
+/* new collection Scss Start */
+body.template-name-collection{
+    #content{
+        padding-bottom:0px;
+    }
+    #collection-wrapper{
+        margin: 0 auto;
+        float: none;
+        padding:50px 0px;
+        .filter-wrapper{
+            @include mq( 'phone-and-tablet' ) {
+                display:flex;
+                padding:0 15px;
+            }
+            @include mq( 'tablet' ) {
+                padding:0px;
+            }
+            #filter-list-mobile-wrap{
+                float: left;
+                width: 50%;
+                top:0px;
+                .collection-sort-wrap-mobile{
+                    @include mq( 'lap-and-up' ) {
+                        display: none;
+                    }
+                }
+                #filter-list-button-wrap{
+                    #filter-button-mobile{
+                        padding-left: 0px;
+                    }
+                }
+            }
+            .mobile-sortby{
+                width:50%;
+                float:left;
+                .sort-label{
+                    @include mq( 'phone-and-tablet' ) {
+                        display:none;
+                    }
+                }
+                .styled-select{
+                    padding: 7px 10px 7px 10px;
+                    margin:0px;
+                    min-width:100%;
+                    &:before{
+                        transform: rotate(0deg);
+                        border-bottom: none;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 8px solid #000;
+                        transition: all 0.25s ease-in-out;
+                        margin-top: -5px;
+                        right: 0;
+                    }
+                }
+                #bc-sf-filter-top-sorting{
+                    @include mq( 'tablet' ) {
+                        width:100%;    
+                    }
+                }
+            }
+        }
+        .side-filter{
+            @include mq( 'phone-and-tablet' ) {
+                display:none;
+            }
+            #collection-filters{
+                #full-width-filter{
+                    margin:0px;
+                    .filter-list-desktop-wrap{
+                        width:100%;
+                        margin:0px;
+                        .bc-sf-filter-option-block{
+                            width:100%;
+                        }
+                        .filter-label{
+                            margin-bottom:20px;
+                        }
+                    }
+                }
+            }
+        }
+        .select-collection{
+            .desk-banner{
+                @include mq( 'phone' ) {
+                    display:none;
+                }
+                @include mq( 'tablet' ) {
+                    margin-bottom:15px;
+                }
+            }
+            .mobile-banner{
+                width:100%;
+                display:inline-block;
+                margin:0px;
+                @include mq( 'tablet-and-up' ) {
+                    display:none;
+                }
+                @include mq( 'phone' ) {
+                    padding:0px 10px;
+                    margin-bottom:15px;
+                }
+            }
+            .collection-title{
+                margin-bottom:20px;
+                text-transform:capitalize;
+                .title{
+                    @include mq( 'phone' ) {
+                        text-align:center;
+                        margin-bottom:0px;
+                    }
+                }    
+            }
+            @include mq( 'tablet' ) {
+                float:none;
+                margin:0px;
+            }
+            #collection-filters{
+                @include mq( 'tablet' ) {
+                    margin-top:20px;
+                }
+                #full-width-filter{
+                    padding:15px 0px;
+                    #sortme{
+                        #bc-sf-filter-top-sorting{
+                            .sort-label{
+                                width:40%;
+                                @include fontSize(14px);
+                                text-transform: capitalize;
+                            }
+                        }
+                    }
+                }
+            }
+            #collection-product-wrap{
+                #product-loop{
+                    width:100% !important;
+                    .prod-container{
+                        height:auto;
+                        .prod-image{
+                            img{
+                                margin:0px;
+                            }
+                        }
+                    }
+                    .product-index{
+                        padding:0px 10px; 
+                        .product-info{
+                            max-width:100%;
+                            width:100%;
+                            .product-title{
+                                @include fontSize(14px);
+                                letter-spacing:0px;
+                                text-transform:capitalize;
+                            }
+                            .product-price-wrap{
+                                @include fontSize(14px);
+                            }
+                        }
+                    }
+                }
+            }
+            .collection-sort-wrap{
+                padding:15px 0px;
+                margin:20px 0px 20px 0px;
+                border-top:1px solid #dddddd;
+                border-bottom:1px solid #dddddd;
+                display:block;
+                @include mq( 'phone' ) {
+                    border:0px;
+                }
+                @include mq( 'tablet' ) {
+                    display:none;
+                }
+                .sort-label{
+                    display: inline-block;
+                }
+                .styled-select{
+                    float: none;
+                    margin: 0;
+                    margin-left: 10px;
+                    border-radius: 0;
+                    &:before{
+                        transform: rotate(0deg);
+                        border-bottom: none;
+                        border-left: 5px solid transparent;
+                        border-right: 5px solid transparent;
+                        border-top: 8px solid #000;
+                        transition: all 0.25s ease-in-out;
+                        margin-top: -5px;
+                        right: 0;
+                    }
+                }
+                #sortme{
+                    #bc-sf-filter-top-sorting{
+                        display:inline;
+                    }
+                }
+            }
+        }   
+    }
+
+
+    @include mq (phone) {
+        #shopify-section-collection-template {
+            #collection-wrapper {
+                .filter-wrapper {
+                    #filter-list-mobile-wrap {
+                        #filter-list-button-wrap,
+                        #filter-list-button-wrap #filter-button-mobile {
+                            position: static;
+                            #bc-sf-filter-tree-mobile{
+                                #bc-sf-filter-tree-mobile-button{
+                                    position:relative;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #filter-list-mobile-wrap,
+            .mobile-sortby {
+                float: none;
+                position: static;
+            }
+            #filter-list-button-wrap {
+                height: 33px;
+                margin-bottom: 10px;
+            }
+            #filter-list-mobile-wrap {
+                #bc-sf-filter-tree {
+                    top: auto;
+                }
+            }
+        }
+    }
+}
+
+/* new collection Scss End */
