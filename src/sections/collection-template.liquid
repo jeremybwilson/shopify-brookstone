@@ -8,13 +8,6 @@
 {% assign banner_config = block.settings %}
 
 {% comment %} :: TRANSPARENT NAV HELPER FLAGS - basically only do a transparent nav when banner is present :: {% endcomment %}
-{% if block.settings.banner_image_desktop %}
-{% assign has_banner_desktop = true %}  
-{% endif %}
-
-{% if block.settings.banner_image_mobile %}
-{% assign has_banner_mobile = true %}
-{% endif %}
 
 {% comment %} :: STOP ITERATION - Config is built :: {% endcomment %}
 {% break %}
@@ -102,7 +95,7 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
                 </div>
                 <div class="select-collection desktop-9">
                     <div class="collection-title">
-                        <h2 class="collection-title">{{collection.title}}</h2>
+                        <h2 class="title">{{collection.title}}</h2>
                     </div>
                     {% for block in section.blocks %}
                     {% comment %} :: COllection Banner {% endcomment %}
@@ -278,24 +271,10 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
             "id": "collection_handle",
             "label": "Collection:"
         },
-
-
         {
             "type": "header",
             "content": "-- CONTENT : IMAGES --",
             "info": "*If no mobile image given, banner will only show on 1024px and higher."
-        },
-        {
-            "type": "image_picker",
-            "id": "banner_image_desktop",
-            "label": "Desktop Banner Image:",
-            "info": "~2000px wide, ~300-400kb Max for fast loads"
-        },
-        {
-            "type": "image_picker",
-            "id": "banner_image_mobile",
-            "label": "Mobile Banner Image:",
-            "info": "~800px wide, ~50-200kb Max for fast loads"
         },
         {
             "type": "image_picker",

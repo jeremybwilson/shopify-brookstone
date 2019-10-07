@@ -351,10 +351,15 @@ body.template-name-collection{
                         right: 0;
                     }
                 }
+                #bc-sf-filter-top-sorting{
+                    @include mq( 'tablet' ) {
+                        width:100%;    
+                    }
+                }
             }
         }
         .side-filter{
-            @include mq( 'phone' ) {
+            @include mq( 'phone-and-tablet' ) {
                 display:none;
             }
             #collection-filters{
@@ -397,6 +402,12 @@ body.template-name-collection{
             .collection-title{
                 margin-bottom:20px;
                 text-transform:capitalize;
+                .title{
+                    @include mq( 'phone' ) {
+                        text-align:center;
+                        margin-bottom:0px;
+                    }
+                }    
             }
             @include mq( 'tablet' ) {
                 float:none;
@@ -496,6 +507,11 @@ body.template-name-collection{
                         #filter-list-button-wrap,
                         #filter-list-button-wrap #filter-button-mobile {
                             position: static;
+                            #bc-sf-filter-tree-mobile{
+                                #bc-sf-filter-tree-mobile-button{
+                                    position:relative;
+                                }
+                            }
                         }
                     }
                 }
@@ -516,7 +532,6 @@ body.template-name-collection{
             }
         }
     }
-
 }
 
 /* new collection Scss End */
