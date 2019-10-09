@@ -1,0 +1,25 @@
+{%- layout none -%}
+{% include "product-merger--pdp", product: product %}
+
+{
+  "hasMergeTags": {{ hasMergeTags | json }},
+  "images": [
+  {%- for img in productImages -%}
+  {
+    "alt": {{ img.alt | json }},
+    "aspectRatio": {{ img.aspect_ratio | json }},
+    "height": {{ img.height | json }},
+    "id": {{ img.id | json }},
+    "position": {{ img.position | json }},
+    "src": {{ img | img_url: "500x" | json }},
+    "width": {{ img.width | json }}
+}{%- if forloop.last == false -%},{%- endif -%}
+{%- endfor -%}
+],
+"option1Values": {{ option1_values | json }},
+"option2Values": {{ option2_values | json }},
+"option3Values": {{ option3_values | json }},
+"productId": {{ product.id }},
+"productInfo": {{ productInfo }},
+"variants": {{ productVariants | json }}
+}

@@ -2,176 +2,175 @@
 {% assign has_banner_desktop = false %}
 {% assign has_banner_mobile = false %}
 {% for block in section.blocks %}
-  {% if block.settings.collection_handle == collection.handle %}
+{% if block.settings.collection_handle == collection.handle %}
 
-    {% comment %} :: BANNER CONFIG - Populate config + set has_banner flag :: {% endcomment %}
-    {% assign banner_config = block.settings %}
+{% comment %} :: BANNER CONFIG - Populate config + set has_banner flag :: {% endcomment %}
+{% assign banner_config = block.settings %}
 
-    {% comment %} :: TRANSPARENT NAV HELPER FLAGS - basically only do a transparent nav when banner is present :: {% endcomment %}
-    {% if block.settings.banner_image_desktop %}
-      {% assign has_banner_desktop = true %}
-    {% endif %}
+{% comment %} :: TRANSPARENT NAV HELPER FLAGS - basically only do a transparent nav when banner is present :: {% endcomment %}
 
-    {% if block.settings.banner_image_mobile %}
-      {% assign has_banner_mobile = true %}
-    {% endif %}
+{% comment %} :: STOP ITERATION - Config is built :: {% endcomment %}
+{% break %}
 
-    {% comment %} :: STOP ITERATION - Config is built :: {% endcomment %}
-    {% break %}
-
-  {% endif %}
+{% endif %}
 {% endfor %}
 
 {% include 'product-merger--plp' %}
 
 {% comment %} :: BEGIN COLLECTION SECTION :: {% endcomment %}
 <div class="collection-template"
-  id="collection-{{ collection.handle }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="collection-template"
-  data-has-banner-desktop="{{ has_banner_desktop }}"
-  data-has-banner-mobile="{{ has_banner_mobile }}"
-  data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
+id="collection-{{ collection.handle }}"
+data-section-id="{{ section.id }}"
+data-section-type="collection-template"
+data-has-banner-desktop="{{ has_banner_desktop }}"
+data-has-banner-mobile="{{ has_banner_mobile }}"
+data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
 
 
-  {% comment %} :: BANNER IMAGE : Build banner header if one setup for this collection :: {% endcomment %}
-  <div class="collection-full-width-wrap">
+{% comment %} :: BANNER IMAGE : Build banner header if one setup for this collection :: {% endcomment %}
+<div class="collection-full-width-wrap">
     {% if has_banner_desktop or has_banner_mobile %}
-      {% include 'collection-banner-image', config: banner_config %}
+    {% include 'collection-banner-image', config: banner_config %}
     {% endif %}
-  </div>
+</div>
 
 
-  {% comment %} :: GRID WIDTHS + PAGINATION LOOP:: {% endcomment %}
-  {% case section.settings.grid %}
-    {% when '2' or 2 %}
-      {%- assign grid_item_width = 'desktop-6 tablet-3 mobile-half' -%}
-    {% when '3' or 3 %}
-      {%- assign grid_item_width = 'desktop-4 tablet-2 mobile-half' -%}
-    {% when '4' or 4 %}
-      {%- assign grid_item_width = 'desktop-3 tablet-2 mobile-half' -%}
-  {% endcase %}
+{% comment %} :: GRID WIDTHS + PAGINATION LOOP:: {% endcomment %}
+{% case section.settings.grid %}
+{% when '2' or 2 %}
+{%- assign grid_item_width = 'desktop-6 tablet-3 mobile-half' -%}
+{% when '3' or 3 %}
+{%- assign grid_item_width = 'desktop-4 tablet-2 mobile-half' -%}
+{% when '4' or 4 %}
+{%- assign grid_item_width = 'desktop-3 tablet-2 mobile-half' -%}
+{% endcase %}
 
 
-  {% comment %} :: GRID DISPLAY - Follows .row maximums using '.grid-max-width' :: {% endcomment %}
-  <div class="collection-content-wrap">
-
-    {% comment %} :: DETAILS - Filter Toggle, Breadcrumb, Descriptions :: {% endcomment %}
-    <div id="collection-details" class="grid-max-width">
-
-      {% comment %} :: DESCRIPTION - Hidden for now :: {% endcomment %}
-      {% if section.settings.show_description %}
-        {% assign titleSplit = collection.title | split: ' / ' %}
-        {% assign collectionTitle = titleSplit | last %}
-        <div class="collection-description grid-max-width">
-          <header class="description-header">{{ collectionTitle }}</header>
-          <div class="description-divider"></div>
-          <div class="rte description-body">{{ collection.description | remove: "[banner]" }}</div>
+{% comment %} :: GRID DISPLAY - Follows .row maximums using '.grid-max-width' :: {% endcomment %}
+<div class="collection-content-wrap">
+    <!-- New collection page Start -->
+    <div id="collection-wrapper" class="clearfix grid-max-width">
+        <div class="filter-wrapper">
+            <div id="filter-list-mobile-wrap" class="clearfix">
+                <div id="filter-list-button-wrap">
+                    {% comment %} FILTER BUTTON {% endcomment %}
+                    <div id="filter-button-mobile">
+                        <div id="bc-sf-filter-tree-mobile"></div>
+                    </div>
+                </div>
+                {% comment %} FILTERS LIST {% endcomment %}
+                <div id="bc-sf-filter-tree"></div>
+            </div>
+            <div class="mobile-sortby"></div>
         </div>
-      {% endif %}
+        <div class="side-filter desktop-3">
+            <div id="collection-filters">
+                {% comment %} :: FILTER + SORT - Desktop Component (Sort also on mobile) :: {% endcomment %}
+                <div id="full-width-filter" class="filter-wrap-desktop">
+                    {% comment %} :: FILTER TOGGLE + HEADER :: Constrain wrap keeps it following max widths of grid row {% endcomment %}
 
+                    {% comment %} :: FILTER SETS - JS Overwrites .filter-list-desktop div content :: {% endcomment %}
+                    <div class="filter-list-desktop-wrap">
+                        {% comment %} :: FILTER LABEL :: {% endcomment %}
+                        <h4 class="filter-label">FILTER</h4>
+                        {% comment %} :: FILTER SETS :: {% endcomment %}
+                        <div id="bc-sf-filter-tree-h" class="filter-list-desktop"></div>
+                            {% comment %} :: Extra Clear Button :: Can move this elsewhere if needed somewhere - Use as reference
+                                <div id="filter-clear-button-desktop" onClick="clearAllFilterOptions(event)">Clear Filters</div>
+                                {% endcomment %}
+                            </div>
+                        </div>
+                        {% comment %} :: FILTER - Mobile Component :: {% endcomment %}
+                        <div id="filter-list-mobile-wrap">
+                            <div id="filter-list-button-wrap">
+                                {% comment %} FILTER BUTTON {% endcomment %}
+                                <div id="filter-button-mobile">
+                                    <div id="bc-sf-filter-tree-mobile"></div>
+                                </div>
+                            </div>
+                            {% comment %} FILTERS LIST {% endcomment %}
+                            <div id="bc-sf-filter-tree"></div>
+                        </div>
+                    </div> {% comment %} END : #collection-filters {% endcomment %}
+                </div>
+                <div class="select-collection desktop-9">
+                    <div class="collection-title">
+                        <h2 class="title">{{collection.title}}</h2>
+                    </div>
+                    {% for block in section.blocks %}
+                    {% comment %} :: COllection Banner {% endcomment %}
+                    <div class="img desk-banner">
+                        {% unless block.settings.collection_banner_desk == blank %}
+                        {%- assign src_name = block.settings.collection_banner_desk -%}
+                        {%- assign src_alt = block.settings.collection_banner_desk.alt -%}
+                        {%- include 'srcset' -%}
+                        {% endunless %}    
+                    </div>
+                    <div class="img mobile-banner">
+                        {% unless block.settings.collection_mobile_desk == blank %}
+                        {%- assign src_name = block.settings.collection_mobile_desk -%}
+                        {%- assign src_alt = block.settings.collection_mobile_desk.alt -%}
+                        {%- include 'srcset' -%}
+                        {% endunless %}    
+                    </div>  
+                    {% endfor %}
+                    {% comment %} :: FILTER SETS :: {% endcomment %}
+                    <div class="collection-sort-wrap">
+                        <ul id="sortme" class="sort-options animate25">
+                            {% if section.settings.sort_by %}
+                            <li id="bc-sf-filter-top-sorting" class="clearfix filter"></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% comment %} :: PRODUCT LOOP :: {% endcomment %}
+                    <div id="collection-product-wrap">
+                        {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
+                        {% paginate collection.products by product_limit %}
+                        {% comment %} :: PRODUCT LIST - Render point for BC-SF-FILTER app :: {% endcomment %}
+                        <div id="product-loop" data-bc-sort="{{ collection.sort_by }}"></div>
+                        {% comment %} :: PAGINATION :: {% endcomment %}
+                        <div id="pagination" class="desktop-12 tablet-6 mobile-3">
+                            <div id="bc-sf-filter-bottom-pagination"></div>
+                        </div>
+                        <div id="bc-sf-filter-load-more"></div>
+                        {% endpaginate %}
+                    </div>
+                </div>
+            </div>
+            <!-- New collection page End -->
+            {% comment %} :: DETAILS - Filter Toggle, Breadcrumb, Descriptions :: {% endcomment %}
+            <div id="collection-details" class="grid-max-width">
 
-      {% comment %} :: BREADCRUMB - Inline breadcrumb for easier design accomodation ::
+              {% comment %} :: DESCRIPTION - Hidden for now :: {% endcomment %}
+              {% if section.settings.show_description %}
+              {% assign titleSplit = collection.title | split: ' / ' %}
+              {% assign collectionTitle = titleSplit | last %}
+              <div class="collection-description grid-max-width">
+                  <header class="description-header">{{ collectionTitle }}</header>
+                  <div class="description-divider"></div>
+                  <div class="rte description-body">{{ collection.description | remove: "[banner]" }}</div>
+              </div>
+              {% endif %}
+        {% comment %} :: BREADCRUMB - Inline breadcrumb for easier design accomodation ::
         <div class="collection-breadcrumb-wrap grid-max-width">
           {% include 'breadcrumb' %}
         </div>
-      {% endcomment %}
+        {% endcomment %}
 
     </div>{% comment %} END : #collection-details {% endcomment %}
-
-
-    {% comment %} :: FILTER SETS :: {% endcomment %}
-    <div id="collection-filters">
-
-      {% comment %} :: FILTER + SORT - Desktop Component (Sort also on mobile) :: {% endcomment %}
-      <div id="full-width-filter" class="filter-wrap-desktop">
-
-        {% comment %} :: FILTER TOGGLE + HEADER :: Constrain wrap keeps it following max widths of grid row {% endcomment %}
-        <div class="constrain-container grid-max-width">
-
-          {% comment %} :: FILTER + SORT TOGGLE WRAP :: {% endcomment %}
-          <div class="filter-toggle-wrap">
-
-            {% comment %} :: TOGGLE : Sort List :: {% endcomment %}
-            <ul id="sortme" class="sort-options animate25">
-              {% if section.settings.sort_by %}
-                <li id="bc-sf-filter-top-sorting" class="clearfix filter"></li>
-              {% endif %}
-            </ul>
-          </div>
-
-        </div>
-
-        {% comment %} :: FILTER SETS - JS Overwrites .filter-list-desktop div content :: {% endcomment %}
-        <div class="filter-list-desktop-wrap">
-
-          {% comment %} :: FILTER LABEL :: {% endcomment %}
-          <h4 class="filter-label">FILTER</h4>
-
-          {% comment %} :: FILTER SETS :: {% endcomment %}
-          <div id="bc-sf-filter-tree-h" class="filter-list-desktop grid-max-width"></div>
-
-          {% comment %} :: Extra Clear Button :: Can move this elsewhere if needed somewhere - Use as reference
-            <div id="filter-clear-button-desktop" onClick="clearAllFilterOptions(event)">Clear Filters</div>
-          {% endcomment %}
-        </div>
-
-      </div>
-
-
-
-      {% comment %} :: FILTER - Mobile Component :: {% endcomment %}
-      <div id="filter-list-mobile-wrap">
-        <div id="filter-list-button-wrap">
-
-          {% comment %} FILTER BUTTON {% endcomment %}
-          <div id="filter-button-mobile">
-            <div id="bc-sf-filter-tree-mobile"></div>
-          </div>
-        </div>
-
-        {% comment %} FILTERS LIST {% endcomment %}
-        <div id="bc-sf-filter-tree"></div>
-      </div>
-
-    </div> {% comment %} END : #collection-filters {% endcomment %}
-
 
     {% comment %} :: FILTER BG - Background when open (covers catalog contents) :: {% endcomment %}
     <div id="filter-bg-shadow"></div>
 
-
-    {% comment %} :: PRODUCT LOOP :: {% endcomment %}
-    <div id="collection-product-wrap" class="grid-max-width">
-      {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
-      {% paginate collection.products by product_limit %}
+</div> {% comment %} END : .collection-content-wrap {% endcomment %}
 
 
-        {% comment %} :: PRODUCT LIST - Render point for BC-SF-FILTER app :: {% endcomment %}
-        <div id="product-loop" data-bc-sort="{{ collection.sort_by }}"></div>
-
-
-        {% comment %} :: PAGINATION :: {% endcomment %}
-        <div id="pagination" class="desktop-12 tablet-6 mobile-3">
-          <div id="bc-sf-filter-bottom-pagination"></div>
-        </div>
-        <div id="bc-sf-filter-load-more"></div>
-
-      {% endpaginate %}
-    </div>
-  </div> {% comment %} END : .collection-content-wrap {% endcomment %}
-
-
-  {% comment %} :: LOADING INDICATOR - Shows when new filters are applied :: {% endcomment %}
-  <div id="collection-loading-bar">
+{% comment %} :: LOADING INDICATOR - Shows when new filters are applied :: {% endcomment %}
+<div id="collection-loading-bar">
     <div class="loading-bar-text">Applying Filters</div>
-  </div>
+</div>
 
 </div>{% comment %} END : Collection section {% endcomment %}
-
-
-
-
 
 <script>
   // Declare bcSfFilterConfig variable
@@ -200,26 +199,26 @@
       from_price: {{ 'products.general.from' | t | json }},
       pagination_of: {{ 'general.pagination.of' | t | json }},
       showing_items: {{ 'general.pagination.showing_items' | t | json }},
-    },
-    custom: {
+  },
+  custom: {
       products_per_page: {% if product_limit %} {{ product_limit | json }} {% else %} 36 {% endif %},
       products_per_row: {% if section.settings.grid %} {{ section.settings.grid }} {% else %} 3 {% endif %},
       quick_view_enable: {% if settings.quickview %} {{ settings.quickview | json }} {% else %} false {% endif %},
       image_flip: {% if settings.image_flip %} {{ settings.image_flip | json }} {% else %} false {% endif %},
       alternate_colors: {% if settings.alternate_colors %} {{ settings.alternate_colors | json }} {% else %} false {% endif %},
       vendor_enable: {% if settings.vendor %} {{ settings.vendor | json }} {% else %} false {% endif %},
-    }
-  };
+  }
+};
 </script>
 
 
 
 
 {% schema %}
-  {
+{
     "name": "Config + Banners",
     "settings": [
-      {
+    {
         "type": "range",
         "id": "grid",
         "min": 2,
@@ -227,8 +226,8 @@
         "step": 1,
         "label": "Products per row",
         "default": 3
-      },
-      {
+    },
+    {
         "type": "range",
         "id": "rows",
         "min": 1,
@@ -236,118 +235,113 @@
         "step": 1,
         "label": "Rows of Products",
         "default": 8
-      },
-      {
+    },
+    {
         "type": "checkbox",
         "id": "sort_by",
         "label": "Show Sorting",
         "default": true
-      },
-      {
+    },
+    {
         "type": "checkbox",
         "id": "show_description",
         "label": "Show Descriptions",
         "default": false
-      },
-      {
+    },
+    {
         "type": "checkbox",
         "id": "nav_transparent_landing",
         "label": "Enable Transparent Nav Landing",
         "info": "When banner images are present, set the nav bar to be transparent bg mode.",
         "default": false
-      }
+    }
     ],
 
     "blocks":[
-      {
+    {
         "type": "collection_banner",
         "name": "Collection Banner",
         "settings": [
-          {
+        {
             "type": "header",
             "content": "-- PICK COLLECTION --"
-          },
-          {
+        },
+        {
             "type": "collection",
             "id": "collection_handle",
             "label": "Collection:"
-          },
-
-
-          {
+        },
+        {
             "type": "header",
             "content": "-- CONTENT : IMAGES --",
             "info": "*If no mobile image given, banner will only show on 1024px and higher."
-          },
-          {
+        },
+        {
             "type": "image_picker",
-            "id": "banner_image_desktop",
-            "label": "Desktop Banner Image:",
-            "info": "~2000px wide, ~300-400kb Max for fast loads"
-          },
-          {
+            "id": "collection_banner_desk",
+            "label": "Desktop banner:"
+        },
+        {
             "type": "image_picker",
-            "id": "banner_image_mobile",
-            "label": "Mobile Banner Image:",
-            "info": "~800px wide, ~50-200kb Max for fast loads"
-          },
+            "id": "collection_mobile_desk",
+            "label": "Mobile banner"
+        },
 
-
-          {
+        {
             "type": "header",
             "content": "-- CONTENT : TEXT BOX --",
             "info": "*If no header or body are present, the text box will be hidden."
-          },
-          {
+        },
+        {
             "type": "text",
             "id": "banner_text_header",
             "label": "Header Text:"
-          },
-          {
+        },
+        {
             "type": "text",
             "id": "banner_text_body",
             "label": "Body Text:"
-          },
-          {
+        },
+        {
             "type": "checkbox",
             "id": "banner_text_divider",
             "label": "Show Divider",
             "default": true
-          },
+        },
 
 
-          {
+        {
             "type": "header",
             "content": "-- TEXT BOX : POSITION --"
-          },
-          {
+        },
+        {
             "type": "checkbox",
             "id": "textbox_constrain",
             "label": "Constrain to nav max-width",
             "info": "(Obey navbar max widths or go full-width like banner image)",
             "default": true
-          },
-          {
+        },
+        {
             "type": "select",
             "id": "textbox_horizontal",
             "label": "Horizontal Text Box Position:",
             "default": "center",
             "options": [
-              {
+            {
                 "value": "left",
                 "label": "Left"
-              },
-              {
+            },
+            {
                 "value": "center",
                 "label": "Center"
-              },
-              {
+            },
+            {
                 "value": "right",
                 "label": "Right"
-              }
+            }
             ]
-          },
-          {
+        },
+        {
             "type": "range",
             "id": "textbox_horizontal_nudge",
             "min": -150,
@@ -357,28 +351,28 @@
             "label": "Horizontal Box Nudge:",
             "info": "*Negative values ignored if not in 'center' mode",
             "default": 0
-          },
-          {
+        },
+        {
             "type": "select",
             "id": "textbox_vertical",
             "label": "Vertical Text Box Position:",
             "default": "center",
             "options": [
-              {
+            {
                 "value": "top",
                 "label": "Top"
-              },
-              {
+            },
+            {
                 "value": "center",
                 "label": "Center"
-              },
-              {
+            },
+            {
                 "value": "bottom",
                 "label": "Bottom"
-              }
+            }
             ]
-          },
-          {
+        },
+        {
             "type": "range",
             "id": "textbox_vertical_nudge",
             "min": -50,
@@ -388,100 +382,100 @@
             "label": "Vertical Box Nudge:",
             "info": "*Negative values ignored if not in 'center' mode",
             "default": 0
-          },
-          {
+        },
+        {
             "type": "select",
             "id": "textbox_text_align",
             "label": "Text Alignment Within Text Box",
             "options": [
-              {
+            {
                 "value": "left",
                 "label": "Left"
-              },
-              {
+            },
+            {
                 "value": "center",
                 "label": "Center"
-              },
-              {
+            },
+            {
                 "value": "right",
                 "label": "Right"
-              }
+            }
             ]
-          },
+        },
 
 
-          {
+        {
             "type": "header",
             "content": "-- TEXT BOX : COLOR --"
-          },
-          {
+        },
+        {
             "type": "color",
             "id": "textbox_color_text",
             "label": "Text Color",
             "default": "#FFFFFF"
-          },
-          {
+        },
+        {
             "type": "color",
             "id": "textbox_color_divider",
             "label": "Divider Color",
             "default": "#FFFFFF"
-          },
-          {
+        },
+        {
             "type": "color",
             "id": "textbox_color_bg",
             "label": "Text Box BG Color",
             "default": "#000000"
-          },
-          {
+        },
+        {
             "type": "select",
             "id": "textbox_opacity",
             "label": "Background Opacity",
             "options": [
-              {
+            {
                 "value": "0.1",
                 "label": "10%"
-              },
-              {
+            },
+            {
                 "value": "0.2",
                 "label": "20%"
-              },
-              {
+            },
+            {
                 "value": "0.3",
                 "label": "30%"
-              },
-              {
+            },
+            {
                 "value": "0.4",
                 "label": "40%"
-              },
-              {
+            },
+            {
                 "value": "0.5",
                 "label": "50%"
-              },
-              {
+            },
+            {
                 "value": "0.6",
                 "label": "60%"
-              },
-              {
+            },
+            {
                 "value": "0.7",
                 "label": "70%"
-              },
-              {
+            },
+            {
                 "value": "0.8",
                 "label": "80%"
-              },
-              {
+            },
+            {
                 "value": "0.9",
                 "label": "90%"
-              },
-              {
+            },
+            {
                 "value": "1.0",
                 "label": "100%"
-              }
+            }
             ]
-          }
+        }
 
         ]
-      }
+    }
     ]
-  }
+}
 {% endschema %}
