@@ -142,3 +142,29 @@
     }
   }
 }
+
+
+
+.newsletter-wrapper {
+    @include mq ('phone') {
+        .newsletter-inner {
+            width: auto;
+        }
+        #footer-newsletter {
+            padding: 0 15px;
+            @include flexbox;
+            @include justify-content(center);
+            [type="email"] {
+                width: 225px;
+                height: 32px;
+                min-width: auto;
+                margin-bottom: 0;
+            }
+            [type="submit"] {
+                width: 65px;
+                min-width: auto;
+                padding: 0;
+            }
+        }
+    }
+}

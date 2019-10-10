@@ -1,7 +1,11 @@
 theme.clickEvent = function(){
 	$(".customer-navigation-title").click(function(){
 		$(this).parent().toggleClass("active");
-	});
+    });
+    
+    $(".nav-sub-header").click(function(){
+        $(this).parent().toggleClass('active').siblings().removeClass('active');
+    });
 };
 theme.collectionProductSoting = function(){
     if($(window).width() < 1024  ){

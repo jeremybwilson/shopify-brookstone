@@ -4,13 +4,24 @@ body.cart {
     padding-top: 80px;
     padding-left: 15px;
     padding-right: 15px;
+    @include mq('phone') {
+      padding-bottom: 40px;
+    }
 
     @include mq('tablet-and-up') {
-      padding-top: 100px;
+      padding-top: 60px;
+    }
+
+    @include mq('phone') {
+      padding-top: 40px;
     }
   }
   #breadcrumb {
     display: none;
+
+    @include mq('tablet') {
+      top: 30px;
+    }
 
     @include mq('tablet-and-up') {
       display: inherit;
@@ -25,7 +36,7 @@ body.cart {
     text-align: center;
 
     @include mq('tablet-and-up') {
-      text-align: left;
+      // text-align: left;
       @include fontSize(24px);
     }
   }
@@ -212,7 +223,7 @@ th.cart--remove {
   }
 
   label {
-    text-align: right;
+    text-align: center;
   }
 }
 
@@ -285,7 +296,10 @@ body.template-name-cart{
     }
   }
   .checkout-wrapper {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
+    &.empty-wrapper {
+      margin-bottom: 0;
+    }
   }
   #content{
     @include mq('phone-and-tablet') {
@@ -297,12 +311,12 @@ body.template-name-cart{
     h2{
       // text-align:center;
       margin-bottom:20px;
-      font-weight:$font-weight--book;
+      font-weight:$font-weight--bold;
     }
     #cartform{
       table{
         th{
-          padding: 15px 0px;
+          // padding: 15px 0px;
         }
       }
       .cart-line-item{
@@ -413,19 +427,27 @@ body.template-name-cart{
 #cart-related-collection {
   color: $color--text-2;
   width: 90%;
-  width: calc(100% - 40px);
+  width: calc(100% - 70px);
   margin: 0 auto;
   .slider-item {
     position: relative;
     @include flexbox;
+    @include flex-wrap(wrap);
     .slider-image {
       width: 40%;
       min-width: 40%;
-      border: 1px solid $color--border-gray;
+      @include mq ('phone') {
+        min-width: 100%;
+      }
     }
     .slider-content {
       width: 60%;
+      min-width: 60%;
       padding: 15px;
+      @include mq ('phone') {
+        min-width: 100%;
+        text-align: center;
+      }
       .slider-title {
         margin-bottom: 10px;
       }
@@ -439,22 +461,25 @@ body.template-name-cart{
     font-size: 0;
     margin-bottom: 0;
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
+    height: 36px;
+    width: 36px;
+    line-height: 36px;
+    outline: none !important;
+    padding: 0;
+    text-align: center;
     &:before,
     &:after {
       font-family: FontAwesome;
       @include fontSize(20px);
     }
     &.slick-prev {
-      right: -20px;
+      right: -40px;
       &:before {
         content: "\f105";
       }
     }
     &.slick-next {
-      left: -20px;
+      left: -40px;
       &:before {
         content: "\f104";
       }
@@ -477,6 +502,8 @@ body.template-name-cart{
     width: 100%;
     top: 0;
     left: 0;
+    border: 1px solid $color--border-gray;
+    object-fit: cover;
   }
 }
 

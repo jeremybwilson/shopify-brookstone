@@ -2,8 +2,9 @@
 
   <h2>{{ 'cart.general.title' | t }}</h2>
   {% if cart.item_count == 0 %}
+  <div class="checkout-wrapper empty-wrapper text-center">
     <p>{{ 'cart.general.empty' | t }}</p>
-
+  </div>
   {% else %}
     <div class="checkout-wrapper">
     <form action="/cart" method="post" id="cartform" class="bfx-checkout-container">
@@ -172,17 +173,17 @@
 
     </form>
     </div>
-  {% endif %}
+
+
+    <div class="related-content">
+      {% section 'cart-related-products' %}
+    </div>
+
+    {% endif %}
 
   {% if settings.nosto_id != blank %}
     <div class="nosto_element cartpage-nosto" id="cartpage-nosto-2"></div>
     <div class="nosto_element cartpage-nosto" id="cartpage-nosto-3"></div>
   {% endif %}
 
-
-  <div class="related-content">
-    
-    {% section 'cart-related-products' %}
-
-  </div>
 </div>
