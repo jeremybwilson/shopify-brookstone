@@ -2,7 +2,7 @@
   <footer class="site-footer">
     
     {% comment %} :: ROW #1 -- Footer Menu + Brand Links :: {% endcomment %}
-    <div class="row">
+    <div class="row fluid-mobile">
 
       {% comment %} :: FOOTER NAVIGATION :: {% endcomment %}
       {% if section.blocks %}
@@ -15,7 +15,7 @@
               <nav>
 
                 {% comment %} :: LINKS : Menu Content links :: {% endcomment %}
-                <ul class="row">
+                <ul class="row" id="footer-links-row">
                   {% for link in menu.links %}
                     
                     {% comment %} :: NESTED MENU :: {% endcomment %}
@@ -99,18 +99,27 @@
 
     {% comment %} :: ROW #2 -- Telephone, Description and Contact Us :: {% endcomment %}
     <div class="row footer--bottom-row">
-      <div class="contact-number">
-        <p class="font-normal"><span class="contact-number-bold">Customer Service</span> 1-800-846-3000 | <span class="contact-number-bold">Sales</span> 1-800-926-7000</p>
+
+      {% if section.settings.footer_cust_contacts != blank %}
+      <div class="footer-contacts">
+        {{ section.settings.footer_cust_contacts }}
       </div>
+      {% endif %}
+
+
+      {% if section.settings.footer_desc_text != blank %}
       <div class="footer-description">
-        {% for block in section.blocks %}
-        {% if block.type == 'footer_content' %}
-        <p>{{ block.settings.footer_desc_text }}</p>
-        {% endif %}
-        {% endfor %}
-        <!-- <p class="font-normal">Brookstone.com is your destination for unique gift ideas and smart products. For the latest savings, visit our coupons page: Brookstone Coupons.</p>
-        <p class="font-normal">To find a store near you, visit our Brookstone Airport Store Locator.</p> -->
+        {{ section.settings.footer_desc_text }}
       </div>
+      {% endif %}
+
+
+      {% if section.settings.footer_copyright_text != blank %}
+      <div class="footer-copyright">
+        <p>{{ section.settings.footer_copyright_text }}</p>
+      </div>
+      {% endif %}
+      
     </div><!-- .footer--bottom-row -->
   </footer>
   <div class="footer-contact-us-bar">
@@ -122,104 +131,118 @@
 
 {% schema %}
   {
-    "name": "Footer",
-    "settings": [
-     {
-       "type": "header",
-       "content": "Phone Number"
-     },
-     {
-       "type": "text",
-       "id": "tel_text",
-       "label": "Display Text",
-       "default": "855-377-BOOT (2668)",
-       "info": "This is the text that will be displayed on the site."
-     },
-     {
-       "type": "url",
-       "id": "contact_us_page_url",
-       "label": "Contact us page url"
-     },
-     {
-      "type": "text",
-      "id": "tel_number",
-      "label": "Actual Number",
-      "default": "18553772668",
-      "info": "This is the number that will actually be dialed when the link is clicked on mobile. Do not include dashes or any punctuation."
-     },   
-
-     {
-       "type": "header",
-       "content": "Payment Methods"
-     },
-     {
-       "type": "checkbox",
-       "id": "show_credit_cards",
-       "label": "Show credit card icons",
-       "default": true,
-       "info": "The icons that show are determined by your store's payment settings."
-     },
-     {
-       "type": "header",
-       "content": "Visit Our Brands - #1"
-     },
-     {
-      "type": "url",
-      "id": "visit_brand_link_one",
-      "label": "URL"
-     },
-     {
-      "type": "image_picker",
-      "id": "visit_brand_image_one",
-      "label": "Logo"
-     },  
-     {
-       "type": "header",
-       "content": "Visit Our Brands - #2"
-     },
-     {
-      "type": "url",
-      "id": "visit_brand_link_two",
-      "label": "URL"
-     },
-     {
-      "type": "image_picker",
-      "id": "visit_brand_image_two",
-      "label": "Logo"
-     },  
-     {
-       "type": "header",
-       "content": "Visit Our Brands - #3"
-     },
-     {
-      "type": "url",
-      "id": "visit_brand_link_three",
-      "label": "URL"
-     },
-     {
-      "type": "image_picker",
-      "id": "visit_brand_image_three",
-      "label": "Logo"
-     },  
-     {
-       "type": "header",
-       "content": "Trust Icons"
-     },
-     {
-      "type": "image_picker",
-      "id": "trust_icon_image_one",
-      "label": "Logo #1"
-     },  
-     {
-      "type": "image_picker",
-      "id": "trust_icon_image_two",
-      "label": "Logo #2"
-     },  
-     {
-      "type": "image_picker",
-      "id": "trust_icon_image_three",
-      "label": "Logo #3"
-     }  
+    "name":"Footer",
+    "settings":[
+      {
+        "type":"header",
+        "content":"Phone Number"
+      },
+      {
+        "type":"text",
+        "id":"tel_text",
+        "label":"Display Text",
+        "default":"855-377-BOOT (2668)",
+        "info":"This is the text that will be displayed on the site."
+      },
+      {
+        "type":"url",
+        "id":"contact_us_page_url",
+        "label":"Contact us page url"
+      },
+      {
+        "type":"text",
+        "id":"tel_number",
+        "label":"Actual Number",
+        "default":"18553772668",
+        "info":"This is the number that will actually be dialed when the link is clicked on mobile. Do not include dashes or any punctuation."
+      },
+      {
+        "type":"header",
+        "content":"Payment Methods"
+      },
+      {
+        "type":"checkbox",
+        "id":"show_credit_cards",
+        "label":"Show credit card icons",
+        "default":true,
+        "info":"The icons that show are determined by your store's payment settings."
+      },
+      {
+        "type":"header",
+        "content":"Visit Our Brands - #1"
+      },
+      {
+        "type":"url",
+        "id":"visit_brand_link_one",
+        "label":"URL"
+      },
+      {
+        "type":"image_picker",
+        "id":"visit_brand_image_one",
+        "label":"Logo"
+      },
+      {
+        "type":"header",
+        "content":"Visit Our Brands - #2"
+      },
+      {
+        "type":"url",
+        "id":"visit_brand_link_two",
+        "label":"URL"
+      },
+      {
+        "type":"image_picker",
+        "id":"visit_brand_image_two",
+        "label":"Logo"
+      },
+      {
+        "type":"header",
+        "content":"Visit Our Brands - #3"
+      },
+      {
+        "type":"url",
+        "id":"visit_brand_link_three",
+        "label":"URL"
+      },
+      {
+        "type":"image_picker",
+        "id":"visit_brand_image_three",
+        "label":"Logo"
+      },
+      {
+        "type":"header",
+        "content":"Trust Icons"
+      },
+      {
+        "type":"image_picker",
+        "id":"trust_icon_image_one",
+        "label":"Logo #1"
+      },
+      {
+        "type":"image_picker",
+        "id":"trust_icon_image_two",
+        "label":"Logo #2"
+      },
+      {
+        "type":"image_picker",
+        "id":"trust_icon_image_three",
+        "label":"Logo #3"
+      },
+      {
+        "type":"richtext",
+        "id":"footer_cust_contacts",
+        "label":"Footer contact no."
+      },
+      {
+        "type":"richtext",
+        "id":"footer_desc_text",
+        "label":"Footer description text"
+      },
+      {
+        "type":"text",
+        "id":"footer_copyright_text",
+        "label":"Footer copyright text"
+      }
     ],
     "blocks":[
       {
@@ -227,27 +250,16 @@
         "name":"Menu",
         "settings":[
           {
-            "type": "link_list",
-            "id": "menu_id",
-            "label": "Footer Menu"
+            "type":"link_list",
+            "id":"menu_id",
+            "label":"Footer Menu"
           },
           {
-            "type": "checkbox",
-            "id": "show_headings",
-            "label": "Show Footer Menu Headers",
-            "default": false,
-            "info": "(Hidden by default)"
-          }
-        ]
-      },
-      {
-        "type":"footer_content",
-        "name":"Footer content",
-        "settings":[
-          {
-            "type": "text",
-            "id": "footer_desc_text",
-            "label": "Footer description text"
+            "type":"checkbox",
+            "id":"show_headings",
+            "label":"Show Footer Menu Headers",
+            "default":false,
+            "info":"(Hidden by default)"
           }
         ]
       }

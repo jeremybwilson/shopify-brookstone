@@ -109,6 +109,11 @@
     vertical-align: top;
     margin-left: 20px;
     margin-top: 15px;
+    @include mq ('phone') {
+      display: block;
+      margin-left: 0;
+      margin-top: 0;
+    }
   }
   #git-card-img {
     display: inline-block;
@@ -221,6 +226,9 @@
         color: $color--footer-contact-us;
       }
     }
+    @include mq ('phone') {
+      display: none;
+    }
   }
 
 // social
@@ -308,4 +316,119 @@
       }
     }
   }
+}
+
+.site-footer {
+    @include mq ('phone') {
+        padding-top: 0;
+        .fluid-mobile {
+            width: 100%;
+            padding: 0;
+            .footer-nav * {
+                text-align: left;
+            }
+            .footer-blocks {
+                width: 100%;
+                margin: 0;
+            }
+            ul#footer-links-row {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                li {
+                    &.footer-sub-nav-wrapper {
+                        width: 100%;
+                        margin: 0;
+                        border-bottom: 2px solid $color--white;
+                        .nav-sub-header {
+                            padding: 16px;
+                            margin-bottom: 0;
+                            background-color: $color--gray-5;
+                            &::after {
+                                content: '\f067';
+                                font-family: fontawesome;
+                                float: right;
+                            }
+                        }
+                        .footer-sub-nav {
+                            margin-bottom: 0;
+                            display: none;
+                            background-color: $color--white;
+                            > li {
+                                padding-left: 35px;
+                                padding-right: 35px;
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid $color--footer-border-solid;
+                                }
+                            }
+                        }
+                        &.active {
+                            .nav-sub-header {
+                                background-color: $mainColor;
+                                color: $color--white;
+                                &::after {
+                                    content: '\f068';
+                                }
+                            }
+                            .footer-sub-nav {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+            .visit-our-brands {
+                display: none;
+            }
+        }
+        
+        .social-wrapper {
+            ul {
+                &#social-icons {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        
+    }
+
+    .footer--bottom-row {
+        border-top: 0;
+        @include mq ('phone') {
+            width: 100%;
+            padding: 0;
+            * {
+                @include fontSize(12px);
+            }
+        }
+        .footer-contacts {
+            > * {
+                line-height: 1.2;
+                @include mq ('tablet-and-up') {
+                    display: inline-block;
+                    &:not(:last-child)::after {
+                        content: ' |';
+                    }
+                }
+                @include mq ('phone') {
+                    font-weight: $font-weight--bold;
+                }
+            }
+        }
+        .footer-description {
+            @include mq ('phone') {
+                display: none;
+            }
+            a {
+                text-decoration: underline;
+            }
+        }
+        .footer-copyright {
+            line-height: 1.2;
+            @include mq ('phone') {
+                margin-top: 30px;
+            }
+        }
+    }
 }
