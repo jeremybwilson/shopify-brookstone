@@ -494,6 +494,9 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
         z-index: 25;
         padding: 15px 20px;
         background: $filterBg;
+        @include mq( 'tablet' ) {
+            top:30px;
+        }
 
         // SET : WRAP : Wrapper around each filter block on mobile
         .bc-sf-filter-option-block {
