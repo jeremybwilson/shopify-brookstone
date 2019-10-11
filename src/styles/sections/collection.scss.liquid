@@ -305,6 +305,9 @@ body.template-name-collection{
         margin: 0 auto;
         float: none;
         padding:50px 0px;
+        @include mq( 'phone-and-tablet' ) {
+            padding:20px 0px;
+        }
         .filter-wrapper{
             @include mq( 'phone-and-tablet' ) {
                 display:flex;
@@ -333,15 +336,16 @@ body.template-name-collection{
                 float:left;
                 .sort-label{
                     @include mq( 'phone-and-tablet' ) {
-                        display:none;
+                        margin-top:5px;
                     }
                 }
                 #bc-sf-filter-top-sorting{
                     position:relative;
+                    display: block;
                     &:before{
                         position: absolute;
                         content: ' ';
-                        right: 20px;
+                        right: 0px;
                         top: 50%;
                         margin-top: -5px;
                         border-bottom: none;
@@ -357,7 +361,12 @@ body.template-name-collection{
                     margin:0px;
                     min-width:100%;
                     border:0px;
-                    position:relative;
+                    /*position:relative;*/
+                    position: absolute;
+                    top: 50%;
+                    left: 0px;
+                    right: 0px;
+                    bottom: 0px;
                     &:before{
                         transform: rotate(0deg);
                         border-bottom: none;
@@ -424,6 +433,9 @@ body.template-name-collection{
                     @include mq( 'phone' ) {
                         text-align:center;
                         margin-bottom:0px;
+                    }
+                    @include mq( 'tablet' ) {
+                        margin-top:20px;
                     }
                 }    
             }
