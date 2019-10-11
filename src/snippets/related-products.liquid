@@ -17,7 +17,7 @@
 
 {% if collection %}
 <h4 style="text-align: center;"><a href="{{ collection.url }}">{{ 'products.general.related' | t }}</a></h4>
-<ul class="related-products desktop-12">
+<ul class="related-products row">
   {% assign current_product_found = false %}
   {% for prod in collection.products limit: 5 %}
   {% if prod.title == product.title %}

@@ -37,8 +37,9 @@
         </div><div class="clear"></div>
 
       </div>
-
+      {% comment%}
       <input type="submit" name="button" class="add product--mobile-header--add AddtoCart{% if section.settings.show_payment_button %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+      {% endcomment %}
     </div><!--.mobile-header--top -->
 
   </div>

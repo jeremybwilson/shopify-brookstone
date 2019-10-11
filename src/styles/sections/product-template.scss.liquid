@@ -55,7 +55,7 @@
   }
 
   .product-title {
-    color: $color--primary-2;
+    color: $product--add--to--cart--bg;
     @include fontDim(15px,16px,0);
     font-weight: $font-weight--black;
     text-transform: uppercase;
@@ -105,7 +105,7 @@
 .product {
   #content {
     h1 {
-      color: $color--primary-2;
+      color: $product--add--to--cart--bg;
       @include fontDim(15px,16px,0);
       font-weight: $font-weight--black;
       text-align: center;
@@ -117,7 +117,7 @@
 
       @include mq('tablet-and-up') {
         max-width: 400px;
-        @include fontDim(25px,34px,0);
+        @include fontDim(20px,34px,0);
         text-align: left;
       }
     }
@@ -488,4 +488,32 @@
       color: $color--primary-2;
     }
   }
+
+  #recently-viewed-products{
+    .product-carousel--prev,
+    .product-carousel--next{
+      .icon{
+        path{
+          fill: $product--add--to--cart--bg;
+        }
+      }
+    }
+    .owl-prev{
+      @include mq(phone){
+        left:-20px;
+      }
+      &:focus{
+        outline: none;
+      }
+    }
+    .owl-next{
+      @include mq(phone){
+        right:-20px;
+      } 
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+
 }
