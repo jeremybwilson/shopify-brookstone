@@ -13,12 +13,14 @@
       {% for item in collections[section.settings.cart_related_collection].products %}
         <div>
           <div class="slider-item">
-            <div class="slider-image is-square-wrapper">
-              {%- assign src_name = item.featured_image -%}
-              {%- assign src_alt = item.title -%}
-              {%- assign src_class = "is-square-item" -%}
-              {% include 'srcset' %}
-              {%- assign src_class = "" -%}
+            <div class="slider-image">
+              <div class="is-square-wrapper">
+                {%- assign src_name = item.featured_image -%}
+                {%- assign src_alt = item.title -%}
+                {%- assign src_class = "is-square-item" -%}
+                {% include 'srcset' %}
+                {%- assign src_class = "" -%}
+              </div>
             </div>
             <div class="slider-content">
               <h4 class="slider-title">{{- item.title -}}</h4>

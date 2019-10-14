@@ -1,7 +1,18 @@
 theme.clickEvent = function(){
 	$(".customer-navigation-title").click(function(){
 		$(this).parent().toggleClass("active");
-	});
+    });
+    
+    $(".nav-sub-header").click(function(){
+        $(this).parent().toggleClass('active').siblings().removeClass('active');
+    });
+};
+theme.collectionProductSoting = function(){
+    if($(window).width() < 1024  ){
+        var filterProductMobile = $("#sortme").html();
+        $(".mobile-sortby").append(filterProductMobile);
+        $("#sortme").html('');
+    }
 };
 
 theme.productTabs = function(){
@@ -27,8 +38,6 @@ theme.contactMessage = function(){
 		$(".successForm").hide();
 	}, 10000);
 };
-
-
 theme.relatedItems = function() {
     $("#cart-related-collection").slick({
         infinite: true,
@@ -50,16 +59,14 @@ theme.relatedItems = function() {
         ]
     });
 }
-
 theme.init = function(){
 	theme.clickEvent();
 	theme.productTabs();
 	theme.readMore();
 	theme.contactMessage();
+	theme.collectionProductSoting();
     theme.relatedItems();
 };
-
-
 $(document).ready(function () {
 	(function () {
 		$(document).on('shopify:section:load', function (event) {
