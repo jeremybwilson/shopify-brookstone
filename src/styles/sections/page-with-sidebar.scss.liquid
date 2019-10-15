@@ -1,0 +1,172 @@
+body.template_sidebar{
+    #content{
+        padding-top: 15px;
+        padding-bottom: 0;
+        @include mq(phone){
+            padding-top: 5px;
+        }
+    }
+}
+#page_with_sidebar{
+    #breadcrumb{
+        margin-bottom: 20px;
+        padding: 0;
+        @include mq(phone) {
+        }
+        @include mq('tablet-and-up') {
+            margin-bottom: 35px;
+        }
+        .homepage-link, .separator, .page-title{
+            @include fontSize(14px);
+            @include mq(phone){
+                @include fontSize(10px);
+            }
+        }
+    }
+    .no_left{
+        margin-left: 0;
+    }
+    .left-nav{
+        .desktop-left-nav{
+            @include mq(phone) {
+                display: none;
+            }
+            ul{
+                list-style: none;
+                li{
+                    margin-bottom: 17px;
+                    a{
+                        color: $mainColor;
+                        font-weight: normal;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        @include fontSize(11px);
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
+                    .active{
+                        font-weight: bold;
+                    }
+                }
+                &.acc-page-sidenav {
+                    li {
+                        margin-bottom: 0;
+                    }
+                    a {
+                        @include fontSize(16px);
+                        line-height: 30px;
+                        text-transform: none;
+                        color: $color--dark-gray;
+                        letter-spacing: normal;
+                    }
+                }
+            }
+
+        }
+        .left-nav--categories {
+            @include mq('tablet-and-up') {
+                display: none;
+            }
+            .opener {
+                @include flexbox;
+                @include justify-content(space-between);
+                @include align-items(center);
+                width: 100%;
+                padding: 10px 15px;
+                background-color: $mainColor;
+                border-radius: 13px;
+                height: 31px;
+                color: $color--white;
+                font-weight: $font-weight--book;
+                @include fontSize(14px);
+                font-weight: bold;
+                span{
+                    @include fontSize(12px);
+                }
+                svg {
+                    width: 10px;
+                    transition: transform .25s ease;
+                    * {
+                        fill: $color--white;
+                    }
+                }
+                &.is-on {
+                    svg {
+                        @include transform(rotate(-180deg));
+                    }
+                }
+            }
+            div.dropdown {
+                display: none;
+                float: left;
+                width: 100%;
+                background:  $color--white;
+                padding: 10px 15px;
+                border: 1px solid $mainColor;
+                border-radius: 13px;
+
+                a {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 15px;
+                    color:$mainColor;
+                    @include fontSize(12px);
+                }
+            }
+        }
+    }
+    .questionaire{
+        color: $mainColor;
+        @include mq(phone){
+            margin-top: 28px;
+        }
+        h3{
+            color: $mainColor;
+        }
+        .contact_heading{
+            font-weight: bold;
+            @include fontSize(13px);
+            letter-spacing: 1px;
+            margin-top: -3px;
+        }
+        h2{
+            @include fontDim(18px,30px,2px);
+            font-style: italic;
+            font-weight: normal;
+            color: $mainColor;
+            margin-top: 50px;
+            @include mq(phone){
+                margin-top: 54px;
+            }
+        }
+        .heading{
+            margin-top: 0;
+            margin-bottom: 26px;
+        }
+        h4{
+            font-weight: 600;
+            margin-top: 22px;
+            @include mq(phone){
+                margin-top: 27px;
+            }
+            a{
+                @include fontDim(12px,20px,1px);
+                text-transform: uppercase;
+                margin: 9px 0;
+                color: $mainColor;
+                cursor: pointer;
+            }
+        }
+        p{
+            @include fontDim(12px,25px,1px);
+            margin: 0 0 8.5px;
+            color: $mainColor;
+            font-weight: 500;
+            a{
+                text-decoration: underline;
+                color: $mainColor;
+            }
+        }
+    }
+}
