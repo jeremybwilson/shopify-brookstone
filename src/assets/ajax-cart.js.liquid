@@ -705,7 +705,7 @@ var ajaxCart = (function(module, $) {
       $('.js-qty__adjust').on('click', function() {
         var $el = $(this),
             id = $el.data('id'),
-            $qtySelector = $el.siblings('.js-qty__num'),
+            $qtySelector = $el.siblings().find('.js-qty__num'),
             qty = parseInt($qtySelector.val().replace(/\D/g, ''));
 
         var qty = validateQty(qty);

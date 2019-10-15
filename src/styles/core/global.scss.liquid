@@ -23,8 +23,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: $font-stack--heading;
 }
 
-body {
-  color: $color--gray-1;
+p {
+  color: $color--primary-1;
 }
 
 {% comment %} Prevent sidways scrolling past page bounds on old iOS devices (9 and earlier){% endcomment %}
@@ -293,12 +293,6 @@ button.shopify-payment-button__more-options {
   background: {{ settings.button_bg_hover }};
   text-decoration: none;
 }
-
-
-
-
-
-
 
 /*
  * Gridlock v3.2.1
@@ -1251,6 +1245,32 @@ button.shopify-payment-button__more-options {
 * {
   margin: 0;
 }
+.xs-hide{
+  @include mq('phone'){
+    display: none !important;
+  }
+}
+.xs-show{
+  @include mq('tablet-and-up'){
+    display: none !important;
+  }
+}
+.overflow_hidden{
+  overflow: hidden;
+}
+/*image load effect*/
+.blur-up {
+    opacity: 0;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in
+}
+.blur-up.lazyloaded {
+    opacity: 1
+}
+/*end of image load effect*/
 
 
 #page-wrapper {
@@ -1275,8 +1295,6 @@ button.shopify-payment-button__more-options {
     }
   }
 }
-
-
 
 .fill-link::after {
   content: '';

@@ -277,24 +277,70 @@
   }
 }
 
+.select{
+  select{
+    @include mq( 'lap-and-up' ) {
+      width: 50%;
+    }
+  }
+}
+
 #product-add {
-  margin-top: 0;
+    margin-top: 0;
+    @include mq('phone') {
+        margin-top: 15px;
+    }
+    .js-qty{
+        position: relative;
+        .qty-inner{
+            border-top: 1px solid $color--dotted;
+            border-bottom: 1px solid $color--dotted;
+            display: inline-block;
+            float: left;
+
+            .label{
+                display: inline-block;
+                font-weight: $font-weight--bold;
+                text-transform: uppercase;
+                padding-left: 12px;
+                @include fontSize(15px);
+            }
+            input{
+                border: none !important;
+                -webkit-border-radius: 0;
+                font-size: 18px;
+                font-weight: bold;
+                float: none;
+                width: 60px;
+                height: 38px;
+                margin: 0;
+                text-align: center;
+                @include mq('phone') {
+                    min-width: unset;
+                }
+            }
+        }
+    }
 }
 input.add {
-  width: 100%;
+  width: 25%;
   height: 48px;
   margin-top: 0;
-  background: $product--add--to--cart--bg;
-  border: 1px solid $product--add--to--cart--bg;
+  background: $color--text-blue;
   color: $color--white;
-  &:hover{
-  background: $color--white;
-  color: $product--add--to--cart--bg;
-  border:1px solid $product--add--to--cart--bg;
-}
+  font-weight: $font-weight--bold;
+  @include fontSize(18px);
+  letter-spacing: 1px;
+  text-transform: unset;
 
-  @include mq('tablet-and-up') {
-    height: 55px;
+  @include mq('phone-and-tablet') {
+    width: 100%;
   }
 
+  @include mq('tablet-and-up') {
+    height: 40px;
+  }
+  &:hover{
+    background: $color--text-blue;
+  }
 }

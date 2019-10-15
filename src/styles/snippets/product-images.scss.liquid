@@ -80,10 +80,16 @@
   PRODUCT PHOTOS (Desktop Photos)
   -------------------------------- */
 #product-photos {
-  width: 856 / 1350 * 100%;
 
   @include mq( 'phone' ) {
     display: none;
+  }
+  .sharing{
+    display: block;
+    margin-top: 20px;
+    .share-icons{
+      border-top: none;
+    }
   }
 
   .product-video {
@@ -94,12 +100,12 @@
 }
 
 .product-main-images {
-  width: 724 / 856 * 100%;
+  width: 100%;
 }
 
 #thumbnail-gallery {
   position: relative;
-  width: 76 / 856 * 100%;
+  width:100%;
 
 
   // THUMBNAIL
@@ -107,7 +113,7 @@
     cursor: pointer;
     display: inline-block;
     outline: none;
-    width: 100%;
+    width: 80px !important;
     opacity: .5;
 
     &.selected,

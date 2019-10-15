@@ -1,37 +1,37 @@
 {% comment %} :: BUY BUTTON - What Text to Show :: {% endcomment %}
 {% assign call_to_action = 'products.product.add_to_cart' | t %}
 {% unless current_variant.available %}
-  {% assign call_to_action = 'products.product.sold_out' | t %}
+{% assign call_to_action = 'products.product.sold_out' | t %}
 {% endunless %}
 
 
 {% comment %} :: SAFETY CHECK - PDP Merge Vars :: Checks for 'product-merger' passed vars & stubs if missing, product-form used more than in just product-template section {% endcomment %}
 {% if productVariants == blank %}
-  {% comment %} :: VARIANTS VAR :: Build variants var if not present yet, in case we use this places other than product-template.liquid {% endcomment %}
-  {% assign productVariants = product.variants %}
+{% comment %} :: VARIANTS VAR :: Build variants var if not present yet, in case we use this places other than product-template.liquid {% endcomment %}
+{% assign productVariants = product.variants %}
 {% endif %}
 
 {% if productTags == blank %}
-  {% comment %} :: MERGED TAGS :: Fallback to product.tags if array isn't present for whatever reason {% endcomment %}
-  {% assign productTags = product.tags %}
+{% comment %} :: MERGED TAGS :: Fallback to product.tags if array isn't present for whatever reason {% endcomment %}
+{% assign productTags = product.tags %}
 {% endif %}
 
 {% if productInfo == blank %}
-  {%- capture productInfo -%}
-    {
-      {%- for variant in productVariants %}
-        {{- variant.id -}}:{
-          "description":{{ product.description | json }},
-          "title":{{ product.title | json }}
-        }{% unless forloop.last == true %},{% endunless %}
-      {%- endfor -%}
-    }
-  {%- endcapture -%}
+{%- capture productInfo -%}
+{
+  {%- for variant in productVariants %}
+  {{- variant.id -}}:{
+  "description":{{ product.description | json }},
+  "title":{{ product.title | json }}
+}{% unless forloop.last == true %},{% endunless %}
+{%- endfor -%}
+}
+{%- endcapture -%}
 {% endif %}
 
 {% if option1_values == blank %}
-  {% comment %} :: OPTION VARS :: Builds 'option#_name' & option#_values' to use with product-form {% endcomment %}
-  {% include 'product-merger-util--option-values' %}
+{% comment %} :: OPTION VARS :: Builds 'option#_name' & option#_values' to use with product-form {% endcomment %}
+{% include 'product-merger-util--option-values' %}
 {% endif %}
 
 
@@ -49,8 +49,8 @@
   // THEME.JS ACCESS : Pass product json to an accessable global for theme.js to ingest
   if ( !window.Shopify ) {
     window.Shopify = {};
-  }
-  window.Shopify.productObj = productObj;
+}
+window.Shopify.productObj = productObj;
 </script>
 
 
@@ -58,60 +58,68 @@
 {% comment %} :: PRODUCT FORM :: {% endcomment %}
 {% form 'product', product, id: "AddToCartForm", class: "product_form", data-product-form:product_form_config %}
 
-  {%- if settings.show_multiple_currencies -%}
-    {% assign price = current_variant.price | money_with_currency %}
-    {% assign compare_price = current_variant.compare_at_price | money_with_currency %}
-  {%- else -%}
-    {% assign price = current_variant.price | money %}
-    {% assign compare_price = current_variant.compare_at_price | money %}
-  {%- endif -%}
+{%- if settings.show_multiple_currencies -%}
+{% assign price = current_variant.price | money_with_currency %}
+{% assign compare_price = current_variant.compare_at_price | money_with_currency %}
+{%- else -%}
+{% assign price = current_variant.price | money %}
+{% assign compare_price = current_variant.compare_at_price | money %}
+{%- endif -%}
 
 
-  {% comment %} :: PRICE - SALE :: {% endcomment %}
-  {% if current_variant.compare_at_price > current_variant.price %}
+{% comment %} :: PRICE - SALE :: {% endcomment %}
+{% if current_variant.compare_at_price > current_variant.price %}
 
-    <div id="product-price" class="has-compare-price">
-      <span class="product-price" itemprop="price">
+{% if product.compare_at_price_max > product.price %}
+{% assign discount_percent = product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'%}
+{% endif %}
+
+<div id="product-price" class="has-compare-price">
+    <span class="product-price" itemprop="price">
         <span class="money bfx-price">{{ price }}</span>
-      </span>
-        <span class="was">
-          <span class="money bfx-price">{{ compare_price }}</span>
-        </span>
-    </div>
+    </span> 
+    <span class="was">
+        <span class="money bfx-price">{{ compare_price }}</span>
+    </span>
+    <span class="discount-percent">
+        {{'products.general.discount_text' | t}} {{ discount_percent }}%
+    </span>
+</div>
 
-  {% comment %} :: PRICE - FULL :: {% endcomment %}
-  {% else %}
+{% comment %} :: PRICE - FULL :: {% endcomment %}
+{% else %}
 
-    <div id="product-price">
-      <span class="product-price" itemprop="price">
-        <span class="money bfx-price">{{ price }}</span>
-      </span>
-    </div>
+<div id="product-price">
+  <span class="product-price" itemprop="price">
+    <span class="money bfx-price">{{ price }}</span>
+</span>
+</div>
 
-  {% endif %}
+{% endif %}
+{% if section.settings.vendor %}
+<h2 class="vendor-name">{{ product.vendor }}</h2>
+{% endif %}
 
-
-
-  {% comment %} :: REVIEWS - STAR RATING :: {% endcomment %}
-  {% if settings.app_wk_enabled %}
-    <div class="product-star-rating">
-      {% comment %}{% include 'pr-review-snippet' %}{% endcomment %}
+{% comment %} :: REVIEWS - STAR RATING :: {% endcomment %}
+{% if settings.app_wk_enabled %}
+<div class="product-star-rating">
+  {% comment %}{% include 'pr-review-snippet' %}{% endcomment %}
       {% comment %}
         THIS SHOULD NOT BE HARD CODED - REPLACE BEFORE USING REVIEWS!!
         <a href="/pages/reviews?&amp;pr_merchant_id=683283&amp;pr_api_key=ecee97b3-ae68-483f-ae4b-756350853c06&amp;pr_merchant_group_id=79437&amp;pr_page_id=123456789" class="product-star-rating__write-review">Write a Review</a>
-      {% endcomment %}
+        {% endcomment %}
     </div>
-  {% endif %}
+    {% endif %}
 
 
-  <div class="clear"></div>
+    <div class="clear"></div>
 
 
-  {% comment %} :: SKU :: {% endcomment %}
-  {% if section.settings.show_sku and product.url != '/products/gift-card' %}
+    {% comment %} :: SKU :: {% endcomment %}
+    {% if section.settings.show_sku and product.url != '/products/gift-card' %}
     <div class="product-number">
-      Item# <span class="product-sku">{{ current_variant.sku | split: '-' | first }}</span>
-    </div>
+      {{'products.general.sku' | t}} <span class="product-sku">{{ current_variant.sku | split: '-' | first }}</span>
+  </div>
   {% endif %}
 
   <div class="clear"></div>
@@ -126,59 +134,59 @@
 
     EX: "Size" (7,8,9,10) & "Color" (Red, Green, Blue)
     PDP-MERGE NOTE : Options must be congruent to do a merge, so its okay to use product object when checking OPTIONS only
-  {% endcomment %}
-  {% if product.options.size > 1 %}
+    {% endcomment %}
+    {% if product.options.size > 1 %}
 
     {% comment %} :: OPTIONS DISPLAY - SWATCHES :: {% endcomment %}
     {% if section.settings.variant_display_type == 'swatches' %}
 
-      {% comment %} :: VARIANT ID INDICATOR :: (Tells 'addToCart' which variant ID to add, updates via js) {% endcomment %}
-      <input
-        id="selected-variant-id"
-        type="hidden"
-        name="id"
-        value="{{ current_variant.id }}" />
+    {% comment %} :: VARIANT ID INDICATOR :: (Tells 'addToCart' which variant ID to add, updates via js) {% endcomment %}
+    <input
+    id="selected-variant-id"
+    type="hidden"
+    name="id"
+    value="{{ current_variant.id }}" />
 
-      {% comment %} :: BUILD - Swatch Elements for Option #1 :: (separate as we can't build liquid-usable objects using liquid){% endcomment %}
-      {% if option1_name != blank %}
-        {% include 'option-picker',
-          option_name: option1_name,
-          option_position: 1,
-          option_values: option1_values,
-          product_variants: productVariants %}
-      {% endif %}
+    {% comment %} :: BUILD - Swatch Elements for Option #1 :: (separate as we can't build liquid-usable objects using liquid){% endcomment %}
+    {% if option1_name != blank %}
+    {% include 'option-picker',
+    option_name: option1_name,
+    option_position: 1,
+    option_values: option1_values,
+    product_variants: productVariants %}
+    {% endif %}
 
-      {% comment %} :: BUILD - Swatch Elements for Option #2 :: {% endcomment %}
-      {% if option2_name != blank %}
-        {% include 'option-picker',
-          option_name: option2_name,
-          option_position: 2,
-          option_values: option2_values,
-          product_variants: productVariants %}
-      {% endif %}
+    {% comment %} :: BUILD - Swatch Elements for Option #2 :: {% endcomment %}
+    {% if option2_name != blank %}
+    {% include 'option-picker',
+    option_name: option2_name,
+    option_position: 2,
+    option_values: option2_values,
+    product_variants: productVariants %}
+    {% endif %}
 
-      {% comment %} :: BUILD - Swatch Elements for Option #3 :: {% endcomment %}
-      {% if option3_name != blank %}
-        {% include 'option-picker',
-          option_name: option3_name,
-          option_position: 3,
-          option_values: option3_values,
-          product_variants: productVariants %}
-      {% endif %}
+    {% comment %} :: BUILD - Swatch Elements for Option #3 :: {% endcomment %}
+    {% if option3_name != blank %}
+    {% include 'option-picker',
+    option_name: option3_name,
+    option_position: 3,
+    option_values: option3_values,
+    product_variants: productVariants %}
+    {% endif %}
 
-      {% comment %} :: BUILD - Swatch Elements for Extra Options :: (remember, 3 variant levels max, these are usually customizations and such) {% endcomment %}
-      {% if extraOption_name != blank %}
-        {% include 'option-picker',
-          option_name: extraOption_name,
-          option_position: 4,
-          option_values: extraOption_values,
-          product_variants: productVariants %}
-      {% endif %}
+    {% comment %} :: BUILD - Swatch Elements for Extra Options :: (remember, 3 variant levels max, these are usually customizations and such) {% endcomment %}
+    {% if extraOption_name != blank %}
+    {% include 'option-picker',
+    option_name: extraOption_name,
+    option_position: 4,
+    option_values: extraOption_values,
+    product_variants: productVariants %}
+    {% endif %}
 
 
     {% comment %} :: OPTIONS DISPLAY - DROP-DOWNS :: {% endcomment %}
     {% else %}
-      {% include 'option-select' %}
+    {% include 'option-select' %}
     {% endif %}
 
 
@@ -190,21 +198,21 @@
     2. Variant Count: Multiple
 
     EX: "Color" (Red, Green, Blue)
-  {% endcomment %}
-  {% elsif product.options.size == 1 and productVariants.size > 1 %}
+    {% endcomment %}
+    {% elsif product.options.size == 1 and productVariants.size > 1 %}
 
     {% comment %} :: OPTION DISPLAY - SWATCH :: {% endcomment %}
     {% if section.settings.variant_display_type == 'swatches' %}
-      {% include 'option-picker',
-        option_name: option1_name,
-        option_position: 1,
-        option_values: option1_values,
-        product_variants: productVariants %}
+    {% include 'option-picker',
+    option_name: option1_name,
+    option_position: 1,
+    option_values: option1_values,
+    product_variants: productVariants %}
 
 
     {% comment %} :: OPTION DISPLAY - DROP-DOWN :: {% endcomment %}
     {% else %}
-      {% include 'option-select' %}
+    {% include 'option-select' %}
     {% endif %}
 
 
@@ -217,8 +225,8 @@
 
     EX: One item with no variants / options (technically ONE variant, but yeah)
     NOTE: Single item select so the form data still parses properly
-  {% endcomment %}
-  {% elsif productVariants.size == 1 %}
+    {% endcomment %}
+    {% elsif productVariants.size == 1 %}
 
     {% comment %} :: Display Single Variant Info (So form data still works) :: {% endcomment %}
     {% include 'option-select' %}
@@ -233,18 +241,18 @@
     2. Variant Count: ???
 
     EX: Safety net, not sure honestly how we'd end up here unless product.variants was broken?
-  {% endcomment %}
-  {% else %}
+    {% endcomment %}
+    {% else %}
     <div class="what-is-it">
       {% if product.options.first != 'Title' %}
-        <label>{{ product.options.first }}:</label>
-        {% for variant in productVariants %}
-          <span class="it-is">{{ variant.option1 | escape }}</span>
-        {% endfor %}
+      <label>{{ product.options.first }}:</label>
+      {% for variant in productVariants %}
+      <span class="it-is">{{ variant.option1 | escape }}</span>
+      {% endfor %}
       {% endif %}
-    </div>
-    <div class="product-variants"></div><!-- product variants -->
-    <input  type="hidden" id="{{ productVariants[0].id }}" name="id" data-sku="{{ productVariants[0].sku }}" value="{{ productVariants[0].id }}" />
+  </div>
+  <div class="product-variants"></div><!-- product variants -->
+  <input  type="hidden" id="{{ productVariants[0].id }}" name="id" data-sku="{{ productVariants[0].sku }}" value="{{ productVariants[0].id }}" />
 
   {% endif %}
   {% comment %} :: END - OPTIONS LOGIC SETS :: {% endcomment %}
@@ -252,34 +260,42 @@
 
   <div class="clear"></div>
 
-
-  {% comment %} :: SKU :: {% endcomment %}
-  {% if section.settings.show_sku %}
-    <div class="sku">
-      <label style="line-height: 1.6em;">{{ 'customer.order.details.sku' | t }}:</label> <span class="variant_sku">{{ current_variant.sku }}</span>
-    </div><div class="clear"></div>
-  {% endif %}
-
-
   {% comment %} :: ADD TO CART ::{% endcomment %}
   {% if product.available %}
-    <div id="product-add">
+  <div id="product-add">
       {% if section.settings.show_quantity %}
-        <div class="quanity-select">
-          <label for="quantity">{{ 'products.product.quantity' | t }}</label>
+      <div class="quanity-select">
+          {% comment %}<label for="quantity">{{ 'products.product.quantity' | t }}</label>{% endcomment %}
           <input min="1" type="number" id="quantity" name="quantity" value="1" />
-        </div>
+      </div>
       {% endif %}
 
       {% if section.settings.show_payment_button %}<div class="clear"></div>{% endif %}
       <input type="submit" name="button" class="add clearfix AddtoCart{% if section.settings.show_payment_button %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
       {% if section.settings.show_payment_button %}
-       {{ form | payment_button }}
+      {{ form | payment_button }}
       {% endif %}
 
-    </div>
-    <p class="add-to-cart-msg"></p>
+  </div>
+  <p class="add-to-cart-msg"></p>
   {% endif %}
 
-  <div class="clear"></div>
+  {% if section.settings.show_availability %}
+  <div class="product-availability">
+    <span class="available-title">{{'products.general.availibility_title' | t}}</span>
+
+    {% if product.available %}
+    <span class="available-txt">{{'products.general.availibility_txt' | t}}</span>
+    {% else %} 
+    <span class="available-txt">{{'products.general.sold' | t}}</span>
+    {% endif %}
+
+  </div>
+{% endif %}
+
+<div class="sharing">
+  {% include 'social' %}
+</div>
+
+<div class="clear"></div>
 {% endform %}
