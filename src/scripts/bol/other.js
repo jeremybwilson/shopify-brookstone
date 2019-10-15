@@ -6,6 +6,10 @@ theme.clickEvent = function(){
     $(".nav-sub-header").click(function(){
         $(this).parent().toggleClass('active').siblings().removeClass('active');
     });
+
+    $(".left-nav .opener").click(function() {
+        $(this).siblings('.dropdown').slideToggle();
+    });
 };
 theme.collectionProductSoting = function(){
     if($(window).width() < 1024  ){
