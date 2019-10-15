@@ -50,19 +50,7 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
 <div class="collection-content-wrap">
     <!-- New collection page Start -->
     <div id="collection-wrapper" class="clearfix grid-max-width">
-        <div class="filter-wrapper">
-            <div id="filter-list-mobile-wrap" class="clearfix">
-                <div id="filter-list-button-wrap">
-                    {% comment %} FILTER BUTTON {% endcomment %}
-                    <div id="filter-button-mobile">
-                        <div id="bc-sf-filter-tree-mobile"></div>
-                    </div>
-                </div>
-                {% comment %} FILTERS LIST {% endcomment %}
-                <div id="bc-sf-filter-tree"></div>
-            </div>
-            <div class="mobile-sortby"></div>
-        </div>
+        
         <div class="side-filter desktop-3">
             <div id="collection-filters">
                 {% comment %} :: FILTER + SORT - Desktop Component (Sort also on mobile) :: {% endcomment %}
@@ -81,16 +69,6 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
                             </div>
                         </div>
                         {% comment %} :: FILTER - Mobile Component :: {% endcomment %}
-                        <div id="filter-list-mobile-wrap">
-                            <div id="filter-list-button-wrap">
-                                {% comment %} FILTER BUTTON {% endcomment %}
-                                <div id="filter-button-mobile">
-                                    <div id="bc-sf-filter-tree-mobile"></div>
-                                </div>
-                            </div>
-                            {% comment %} FILTERS LIST {% endcomment %}
-                            <div id="bc-sf-filter-tree"></div>
-                        </div>
                     </div> {% comment %} END : #collection-filters {% endcomment %}
                 </div>
                 <div class="select-collection desktop-9">
@@ -122,6 +100,21 @@ data-transparent-landing="{{ section.settings.nav_transparent_landing }}">
                             {% endif %}
                         </ul>
                     </div>
+
+                    <div class="filter-wrapper">
+                        <div id="filter-list-mobile-wrap" class="clearfix">
+                            <div id="filter-list-button-wrap">
+                                {% comment %} FILTER BUTTON {% endcomment %}
+                                <div id="filter-button-mobile">
+                                    <div id="bc-sf-filter-tree-mobile"></div>
+                                </div>
+                            </div>
+                            {% comment %} FILTERS LIST {% endcomment %}
+                            <div id="bc-sf-filter-tree"></div>
+                        </div>
+                        <div class="mobile-sortby"></div>
+                    </div>    
+
                     {% comment %} :: PRODUCT LOOP :: {% endcomment %}
                     <div id="collection-product-wrap">
                         {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
