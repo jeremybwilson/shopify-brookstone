@@ -312,6 +312,7 @@ body.template-name-collection{
             @include mq( 'phone-and-tablet' ) {
                 display:flex;
                 padding:0 15px;
+                margin-bottom:20px;
             }
             @include mq( 'tablet' ) {
                 padding:0px;
@@ -502,12 +503,18 @@ body.template-name-collection{
                 }
                 .sort-label{
                     display: inline-block;
+                    @include mq( 'phone' ) {
+                        display:none;
+                    }
                 }
                 .styled-select{
                     float: none;
                     margin: 0;
                     margin-left: 10px;
                     border-radius: 0;
+                    @include mq( 'phone' ) {
+                        display:none;
+                    }
                     &:before{
                         transform: rotate(0deg);
                         border-bottom: none;
