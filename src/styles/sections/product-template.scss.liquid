@@ -236,10 +236,23 @@
   .available-title{
     font-weight: $font-weight--bold;
     @include fontSize(12px);
-}
-.available-txt{
+  }
+  .available-txt{
     @include fontSize(12px);
+  }
 }
+
+#product-right{
+  .sharing{
+    @include mq('tablet-and-up') {
+      display: none;
+    }
+    .share-icons{
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+
 }
 
 /* Product Form Snippet

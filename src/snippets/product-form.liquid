@@ -290,8 +290,12 @@ window.Shopify.productObj = productObj;
     <span class="available-txt">{{'products.general.sold' | t}}</span>
     {% endif %}
 
-</div>
+  </div>
 {% endif %}
+
+<div class="sharing">
+  {% include 'social' %}
+</div>
 
 <div class="clear"></div>
 {% endform %}

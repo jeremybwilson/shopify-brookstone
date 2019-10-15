@@ -81,6 +81,10 @@
         {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
         {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
+
+        <div class="sharing mobile-hide">
+          {% include 'social' %}
+        </div>
     </div>
 
     <div id="product-right" class="{% if section.settings.related_products == 'right' %}desktop-7{% else %}desktop-7{% endif %} tablet-4">
