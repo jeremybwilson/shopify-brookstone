@@ -3,7 +3,7 @@
   
   <div class="newsletter-wrapper">
     <div class="newsletter-inner">
-      <div>
+      <div class="newsletter-heading-wrapper">
         {% unless section.settings.heading == blank %}
           <h2 class="newsletter-heading">{{ section.settings.heading }}</h2>
         {% endunless %}
@@ -19,7 +19,9 @@
         <input type="submit" name="submit-email" value="Submit">
         <!-- <label id="button-footer-newsletter-submit" for="footer-newsletter-submit">
           <input id="footer-newsletter-submit" type="submit" value="Subscribe">
-{%comment%}          {% include 'svg-icon-caret-right-submit' %}  {%endcomment%}
+          {%comment%}
+          {% include 'svg-icon-caret-right-submit' %}
+          {%endcomment%}
         </label> -->
       </form>
       <div id="newsletter-form--response">
