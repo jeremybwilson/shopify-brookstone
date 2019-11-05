@@ -1,16 +1,21 @@
 theme.clickEvent = function(){
+    // cms pages navbar collapse (mobile)
 	$(".customer-navigation-title").click(function(){
 		$(this).parent().toggleClass("active");
     });
     
+    // collapse toggle for footer menu links
     $(".nav-sub-header").click(function(){
         $(this).parent().toggleClass('active').siblings().removeClass('active');
     });
 
+    // faq page sidenav opener
     $(".left-nav .opener").click(function() {
         $(this).siblings('.dropdown').slideToggle();
     });
 };
+
+// filter button mobile sorting function
 theme.collectionProductSoting = function(){
     if($(window).width() < 1024  ){
         var filterProductMobile = $("#sortme").html();
@@ -19,6 +24,7 @@ theme.collectionProductSoting = function(){
     }
 };
 
+// product page tabs toggle function
 theme.productTabs = function(){
 	var tab = $(".product-page .product-description--area .tab-content");
 	tab.click(function(event) {
@@ -31,17 +37,21 @@ theme.productTabs = function(){
 	});
 };
 
+// product page description read more function
 theme.readMore = function(){
 	$(".product-page #product-description #read-more").click(function(event) {
 		$(".product-description--area #description-guide").find(".toggle-content").slideDown();
 	});
 };
 
+// contact page message hide function
 theme.contactMessage = function(){
 	setTimeout(function(){
 		$(".successForm").hide();
 	}, 10000);
 };
+
+// cart page related items slider function
 theme.relatedItems = function() {
     $("#cart-related-collection").slick({
         infinite: true,
@@ -63,6 +73,7 @@ theme.relatedItems = function() {
         ]
     });
 }
+
 theme.init = function(){
 	theme.clickEvent();
 	theme.productTabs();

@@ -1680,13 +1680,13 @@
     ]
   },
   {
-    "name": "ContactUs",
+    "name": "Contact Us",
     "settings": [
       {
         "type": "textarea",
         "id": "contact_us_my_question",
-        "label": "contact us my question",
-        "info": "Create contact us my questions dropdown using semicolon (;) "
+        "label": "Questions for contact us page",
+        "info": "Create questions for 'my questions' dropdown on contact us page using semicolon (;) "
       }
     ]
   },
