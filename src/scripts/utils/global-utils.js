@@ -93,7 +93,7 @@ function debounce(fn, wait, immediate) {
    * DISCOUNT ENGINE (React Component)
    * ----------------------------------------------------------------------------------------------------
    */
-  require('../react-components/discounts/DiscountParent.js');
+  // require('../react-components/discounts/DiscountParent.js');
 
 $(document).ready(function () {
 

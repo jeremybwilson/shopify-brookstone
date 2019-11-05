@@ -1,0 +1,84 @@
+.template-name-career{
+    #site-map-page{
+        .row{
+            @include mq(phone){
+                padding: 0;
+            }
+        }
+    }
+    .career-top-section{
+        margin-bottom:25px;
+        @include mq(phone-and-tablet){
+            margin-bottom:0;
+        }
+        .career-block-img-with-text{
+            @include mq(phone-and-tablet){
+                margin-bottom: 25px;
+            }
+            .career-block-title{
+                margin: 10px 0;
+                @include mq(tablet-landscape){
+                    min-height: 40px;
+                }
+                @include mq(lap-and-desk){
+                    min-height: 40px;
+                }
+            }
+            .career-block-text{
+                p{
+                    line-height: 20px;
+                    @include mq(tablet-landscape){
+                        min-height: 80px;
+                    }
+                    @include mq(lap-and-desk){
+                        min-height: 80px;
+                    }
+                }
+            }
+            .career-block-url-btn-block{
+                .career-block-url-btn{
+                    display: block;
+                    padding: 10px;
+                    text-align: center;
+                    font-weight: $font-weight--black;
+                    text-transform: uppercase;
+                    letter-spacing: .06em;
+                    @include fontSize(14px);
+                    border-radius: 10px;
+                    cursor: pointer;
+                    text-decoration: none;
+                }   
+            }
+        }
+    }
+    .career-bottom-section{
+        margin-top: 50px;
+        @include mq(phone-and-tablet){
+            margin: 0;  
+        }
+        .tabbed-tab{
+            margin-bottom: 15px;
+            .tabbed-title{
+                display: inline-block;
+                padding: 10px;
+                text-align: center;
+                font-weight: $font-weight--black;
+                text-transform: uppercase;
+                letter-spacing: .06em;
+                @include fontSize(14px);
+                border-radius: 10px;
+                cursor: pointer;
+                text-decoration: none;
+            }
+        }
+
+        .tabbed-content-text{
+            margin: 50px 0;
+            padding-left: 50px;
+            @include mq(phone-and-tablet){
+                padding: 0 25px;
+                margin: 25px 0;  
+            }
+        }
+    }
+}

@@ -1,20 +1,21 @@
-<div id="shopping-cart" class="desktop-12 tablet-6 mobile-3">
+<div id="shopping-cart" class="desktop-12 tablet-6 mobile-3 contained">
 
   <h2>{{ 'cart.general.title' | t }}</h2>
   {% if cart.item_count == 0 %}
+  <div class="checkout-wrapper empty-wrapper text-center">
     <p>{{ 'cart.general.empty' | t }}</p>
-
+  </div>
   {% else %}
-
+    <div class="checkout-wrapper">
     <form action="/cart" method="post" id="cartform" class="bfx-checkout-container">
       <table>
         <thead>
           <tr>
-            <th style="text-align:left"><label>{{ 'cart.general.product' | t }}</label></th>
-            <th class="cart--remove" style="text-align: center;"><label>{{ 'cart.general.remove' | t }}</label></th>
-            <th><label>{{ 'cart.general.price' | t }}</label></th>
-            <th style="text-align: center;"><label>{{ 'cart.general.qty' | t }}</label></th>
-            <th class="cart--total-price"><label>{{ 'cart.general.price' | t }}</label></th>
+            <th style="text-align:left"><label>{{ 'cart.label.product' | t }}</label></th>
+            <th class="cart--remove" style="text-align: center;"><label>{{ 'cart.label.remove' | t }}</label></th>
+            <th><label>{{ 'cart.label.price' | t }}</label></th>
+            <th style="text-align: center;"><label>{{ 'cart.label.qty' | t }}</label></th>
+            <th class="cart--total-price"><label>{{ 'cart.label.price' | t }}</label></th>
           </tr>
         </thead>
         <tbody>
@@ -38,15 +39,17 @@
             {% endif %}
 
             <tr id="cart-line-item-{{ line_item }}" class="bfx-product cart-line-item">
-              <td class="cart-item">
+              <td class="">
 
+                <div class="cart-item">
+                
                 {% comment %} :: ITEM - IMAGE :: {% endcomment %}
-                <div class="cart-image" style="max-width: 100px;">
+                <div class="cart-image">
                   {% if isGiftItem %}
                     <img src="{{ item | img_url: '400x' }}" title="{{ item.product.title | escape }}" alt="{{ item.title | escape }}" />
                   
                   {% else %}
-                    <a href="{{ item.url }}" title="{{ item.product.title | escape }}">
+                    <a href="{{ item.url }}" title="{{ item.product.title | escape }}" class="fill-link">
                       <img src="{{ item | img_url: '400x' }}" alt="{{ item.title | escape }}" />
                     </a>
                   {% endif %}
@@ -83,7 +86,9 @@
                       <br>
                     {% endunless %}
                   {% endfor %}
-                {% endif %}
+                {% endif %}  
+                
+                </div>
               </td>
 
               {% comment %} :: ITEM - REMOVE :: {% endcomment %}
@@ -100,12 +105,31 @@
                 {% endif %}
               </td>
 
-              {% comment %} :: ITEM - QUANTITY :: {% endcomment %}
+              {% comment %} :: ITEM - QUANTITY :: 
               <td class="cart-quantity">
                 {% if isGiftItem %}
                   <div id="updates_{{ item.variant.id }}" class="cart-qty gift-item-cart-qty">{{ item.quantity }}</div>
                 {% else %}
                   <input type="text" class="cart-qty bfx-product-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();"/>
+                {% endif %}
+              </td>
+              {% endcomment %}
+
+              {% comment %} :: ITEM - QUANTITY :: {% endcomment %}
+              <td class="cart-quantity" id="cart-qty-wrapper-{{ item.variant.id }}">
+                {% if isGiftItem %}
+                  <div id="updates_{{ item.variant.id }}" class="cart-qty gift-item-cart-qty">{{ item.quantity }}</div>
+                {% else %}
+                  <div class="input-group">
+                    <button type="button" class="cart-qty-input cart-qty-minus qty-decrement">-</button>
+                    <input type="text" class="cart-qty bfx-product-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();"/>
+                    <button type="button" class="cart-qty-input cart-qty-plus qty-increment">+</button>
+                  </div>
+                  <script type="text/javascript">
+                   $(function(){
+                    theme.utils.cartUtils.setupQtyInput('#cart-qty-wrapper-{{ item.variant.id }}');
+                  });
+                </script>
                 {% endif %}
               </td>
 
@@ -124,15 +148,16 @@
       </table>
 
       {% comment %} :: TOTAL PANEL :: {% endcomment %}
-      <div id="basket-right" class="desktop-4 tablet-6 mobile-3">
-        <h4>
+      <div id="basket-right" class="desktop-4 tablet-6 mobile-3 contained">
+        <h4 class="clearfix">
           <span class="subtotal-header">{{ 'cart.general.subtotal' | t }}</span>
           <span id="cart-page-price" class="money bfx-price bfx-product-subtotal">{{ cart.total_price | money }}</span>
         </h4>
 
-        <input type="submit" name="update" id="update-cart" value="{{ 'cart.general.update' | t }}" class="button" />
-        <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button bfx-checkout" />
-        <div class="clear"></div>
+        <div class="basket-buttons">
+          <input type="submit" name="update" id="update-cart" value="{{ 'cart.general.update' | t }}" class="button" />
+          <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button bfx-checkout" />
+        </div>
         {% if additional_checkout_buttons %}
           {{ content_for_additional_checkout_buttons }}
         {% endif %}
@@ -147,8 +172,14 @@
       {% endif %}
 
     </form>
+    </div>
 
-  {% endif %}
+
+    <div class="related-content">
+      {% section 'cart-related-products' %}
+    </div>
+
+    {% endif %}
 
   {% if settings.nosto_id != blank %}
     <div class="nosto_element cartpage-nosto" id="cartpage-nosto-2"></div>

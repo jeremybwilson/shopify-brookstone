@@ -1,17 +1,21 @@
-<div class="left-nav">
-    <div class="desktop-left-nav">
-        <ul>
-            {% for link in linklists.side-menu.links %}
-            <li>
-              <a href="{{ link.url }}">{{ link.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-
+<div class="left-nav clearfix">
+  <div class="desktop-left-nav">
+    <ul class="acc-page-sidenav">
+      {% for link in linklists.side-menu.links %}
+      <li>
+        <a href="{{ link.url }}" class='{% if link.active %}active{% endif %}'>{{ link.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
   <div class="left-nav--categories">
-    <div class="opener"><span>Select Options</span>{% include 'svg-icon-caret-down' %}</div>
+    <div class="opener">
+      {% if request.path == "/account" %}
+          <span>{{ 'customer.account.title' | t }}</span>
+      {% else %}
+          <span>{{page.title}}</span>
+      {% endif %}
+    {% include 'svg-icon-caret-down' %}</div>
     <div class="dropdown">
       {% for link in linklists.side-menu.links %}
         <!-- <div class="category"> -->
@@ -19,7 +23,6 @@
         <!-- </div> -->
       {% endfor %}
     </div>
-  </div>
-
+  </div>  
 </div>
 

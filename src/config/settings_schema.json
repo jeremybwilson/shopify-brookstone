@@ -22,6 +22,13 @@
     "name": "Analytics + Marketing",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "enable_newsletter_subscribe",
+        "label": "Enable Subscribing Newsletter",
+        "info": "You'll see the checkbox on our login/signup form",
+        "default": true
+      },
+      {
         "type": "header",
         "content": "Google Tag Manager"
       },      
@@ -1670,6 +1677,32 @@
         ],
         "default": "dev"
       }
+    ]
+  },
+  {
+    "name": "Contact Us",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "contact_us_my_question",
+        "label": "Questions for contact us page",
+        "info": "Create questions for 'my questions' dropdown on contact us page using semicolon (;) "
+      }
+    ]
+  },
+  {
+    "name": "Password",
+    "settings": [
+      {
+        "type": "text",
+        "id": "password_redirect_title",
+        "label": "Password redirect title"
+      },
+      {
+        "type": "url",
+        "id": "password_redirect_url",
+        "label": "Password rdirect url"
+      }      
     ]
   }
 ]

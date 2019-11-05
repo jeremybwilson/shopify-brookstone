@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-  color: $color--gray-1;
+  color: $color--primary-1;
 }
 
 {% comment %} Prevent sidways scrolling past page bounds on old iOS devices (9 and earlier){% endcomment %}
@@ -293,12 +293,6 @@ button.shopify-payment-button__more-options {
   background: {{ settings.button_bg_hover }};
   text-decoration: none;
 }
-
-
-
-
-
-
 
 /*
  * Gridlock v3.2.1
@@ -1250,4 +1244,88 @@ button.shopify-payment-button__more-options {
 
 * {
   margin: 0;
+}
+.xs-hide{
+  @include mq('phone'){
+    display: none !important;
+  }
+}
+.xs-show{
+  @include mq('tablet-and-up'){
+    display: none !important;
+  }
+}
+.overflow_hidden{
+  overflow: hidden;
+}
+/*image load effect*/
+.blur-up {
+    opacity: 0;
+    -moz-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -webkit-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in
+}
+.blur-up.lazyloaded {
+    opacity: 1
+}
+/*end of image load effect*/
+
+
+#page-wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 2px;
+  padding-right: 2px;
+  @include mq (tablet-and-up) {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  @include mq (wide-and-up) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .index-section {
+    &.bm-sm {
+      margin-bottom: 15px;
+      @include mq (wide-and-up) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+.fill-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@include mq (phone) {
+  .hide-phone {
+    display: none !important;
+  }
+}
+@include mq (tablet-and-up) {
+  .hide-tablet-up {
+    display: none !important;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.img_blur {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
