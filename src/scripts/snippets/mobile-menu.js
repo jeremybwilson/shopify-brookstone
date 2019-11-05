@@ -1,3 +1,4 @@
+// functions related to left navigation on mobile
 theme.openMobileMenu = function() {
     $("#mobile_drawer").addClass("active");
     theme.blankBgOpen();
