@@ -1,6 +1,5 @@
 .account-header {
   position: relative;
-
   h1 {
     color: $color--primary-1;
   }
@@ -14,8 +13,8 @@
   h5 {
     @include h5;
     line-height: 1.6875em;
-    letter-spacing: .025em;
-    color: $color--primary-1;    
+    letter-spacing: 0.025em;
+    color: $color--primary-1;
     font-weight: 700;
   }
   label {
@@ -32,34 +31,229 @@
     color: $color--accent-1;
   }
 
-  #sign_out {
-    @include h6;
-    @include fontSize( 13px );  
-    position: relative;
-    padding: 13px 16px;
-    top: 20px;
+  .button {
     background: $color--accent-1;
     color: $color--white;
+    &:hover {
+      background: $color--primary-1;
+    }
+  }
+  #customer_orders {
+    @include mq("phone") {
+      margin-top: 50px;
+    }
+  }
+  #account-msg {
+    display: block;
+    width: 100%;
+    text-align: center;
+    h3 {
+      font-size: 1.375rem;
+      color: $color--accent-1;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    p {
+      font-size: 16px;
+    }
+    hr {
+      margin: 25px 0;
+    }
+  }
+}
+
+body.page_account,
+.template-account {
+  #content {
+    padding-bottom: 0;
+    padding-top: 77px;
+  }
+}
+
+body.template-account {
+  #customer-wrapper {
+    padding: 0;
+  }
+  .account-header {
+    position: relative;
+    margin-bottom: 0;
+    @include mq("phone") {
+      margin-top: 28px;
+    }
+    h1 {
+      color: $color--primary-1;
+      @include fontSize(21px);
+      font-weight: $font-weight--medium;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: none !important;
+      @include mq("tablet-and-up") {
+        @include fontSize(24px);
+      }
+    }
+  }
+}
+
+#order_address {
+  float: none;
+}
+
+.orders {
+  #content {
+    padding: 77px 0 !important;
+  }
+}
+
+#customer-wrapper {
+  .errors {
+    ul {
+      list-style: none;
+      li {
+        // color: $mainColor;
+        font-weight: $font-weight--medium;
+      }
+    }
+  }
+  #customer_sidebar {
+    margin-left: 0;
+    #customer_detail {
+      .name {
+        @include fontSize(14px);
+        color: $color--gray-3;
+        text-transform: capitalize;
+      }
+      .note {
+        @include fontSize(16px);
+        font-weight: normal;
+      }
+    }
+  }
+  a#view_address {
+    margin-bottom: 3px;
+    color: $color--gray-1;
+  }
+  #customer_orders {
+    margin-left: 0;
+    clear: both;
+    .name {
+      @include fontSize(24px);
+      color: $mainColor;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+    .no_margin {
+      @include mq("lap-and-up") {
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+    }
+    .no_orders_txt {
+      @include fontSize(15px);
+      font-weight: $font-weight--medium;
+    }
+    .table_responsive {
+      width: 100%;
+      overflow-x: auto;
+      #order_details {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+      }
+      #order_details {
+        thead {
+          background: $mainColor;
+          color: $color--white;
+          th {
+            text-align: left;
+            @include fontSize(14px);
+            padding: 5px 15px;
+            border-right: 1px solid $color--white;
+          }
+        }
+        tbody {
+          tr {
+            td {
+              border: 1px solid $mainColor;
+              padding: 5px 10px;
+              text-align: left;
+              @include fontSize(14px);
+              white-space: nowrap;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+    }
+    .name {
+      font-style: italic;
+    }
+  }
+  h2 {
+    @include h3;
+    color: $color--primary-1;
+    font-weight: normal;
+  }
+  h5 {
+    @include h5;
+    line-height: 1.6875em;
+    letter-spacing: 0.025em;
+    color: $color--primary-1;
+    font-weight: $font-weight--bold;
+  }
+  input[type="checkbox"] {
+    min-width: auto;
+    width: auto;
+    vertical-align: middle;
+  }
+  label {
+    @include h7;
+    color: $color--gray-1;
+    padding-bottom: 5px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    color: $color--gray-1;
+    font-family: $sans;
+  }
+  a {
+    color: $color--accent-1;
+    font-weight: normal;
+  }
+  #customer_detail {
+    margin-bottom: 30px;
+    background-color: $color--light-gray;
+    padding: 15px;
+    @include mq("tablet-and-up") {
+      display: inline-block;
+    }
+  }
+
+  #sign_out {
+    @include fontSize(14px);
+    position: relative;
+    color: $mainColor;
     outline: none;
     cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-
-    &:hover {
-      background: $color--primary-1;
-    }
-}
+    display: inline-block;
+    margin-top: 12px;
+  }
   .button {
-    background: $color--accent-1;
+    background: $mainColor;
     color: $color--white;
+    width: 100%;
 
     &:hover {
       background: $color--primary-1;
     }
   }
   #customer_orders {
-    @include mq('phone') {
+    @include mq("phone") {
       margin-top: 50px;
     }
   }
@@ -73,13 +267,18 @@
       font-size: 1.375rem;
       color: $color--accent-1;
       text-transform: uppercase;
-      letter-spacing: .1em;
+      letter-spacing: 0.1em;
+      font-weight: 500;
     }
     p {
       font-size: 16px;
+      font-weight: $font-weight--medium;
+      @include mq("tablet") {
+        padding: 0 40px;
+      }
     }
     hr {
-       margin: 25px 0;
+      margin: 25px 0;
     }
   }
 }

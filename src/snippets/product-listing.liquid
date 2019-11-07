@@ -1,6 +1,6 @@
 {% comment %} THIS FILE DOES NOTHING, IT IS NOT USED ON COLLECTION AT LEAST... {% endcomment %}
 
-{% comment %}<div class="prod-container">
+<div class="prod-container">
   {% if product.available %}
    {% for col in product.collections %}
    {% if col.handle == 'new' %}
@@ -76,4 +76,4 @@
 
 {% if settings.quickview %}
   <a class="fancybox.ajax product-modal" rel="no-index nofollow" href="{{ product.url }}?view=quick">{{ 'products.general.quick_view' | t }}</a>
-{% endif %}{% endcomment %}
+{% endif %}

@@ -4,8 +4,9 @@
     {{ 'shoprunner.scss.css' | asset_url | stylesheet_tag }}
 {% endcomment %}
 {% include 'shoprunner-init-script' %}
-
+{%- comment -%}
 <div id="shy">&shy;</div>
+{%- endcomment -%}
 <div id="sr_form" style="display:none!important;"></div>
 
 <script>

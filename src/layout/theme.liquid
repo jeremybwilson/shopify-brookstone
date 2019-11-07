@@ -142,7 +142,7 @@
   {{ content_for_header }}
 </head>
 
-<body class="bfx-price-container bfx-remove-element-container template-{{ template.name }} gridlock shifter {% if template contains 'product' %}product{% elsif template contains 'collection' %}collection{% else %}{{ template }}{% endif %}">
+<body class="bfx-price-container bfx-remove-element-container template-name-{{ template | split: '.' | last }} gridlock shifter {% if template contains 'product' %}product{% elsif template contains 'collection' %}collection{% else %}{{ template }}{% endif %}">
   {% include 'script-google-tag-body' %}
   {% include 'timber-cart' %}
 
@@ -226,7 +226,10 @@
   <!-- Global Components
   ================================================== -->
   {% include 'cookie-banner' %}
+
+  {% comment %}
   {% include 'newsletter-popup' %}
+  {% endcomment %}
 
   {% comment %} CURRENTLY UNUSED - Was making invisible scroll-to-top click regions
     {% include 'scroll-to-top' %}
@@ -310,13 +313,18 @@
   <!-- FILTER APP (PLP) -->
   {% include 'bc-sf-filter' %}
 
-  {% comment %} :: GIFT WITH PURCHASE MODAL :: {% endcomment %}
+  {% comment %} :: GIFT WITH PURCHASE MODAL :: 
   {% section 'gift-with-purchase' %}
+  {% endcomment %}
 
   <!-- NOSTO TAGGING -->
   {% if settings.nosto_id != blank %}
     {% include 'nosto-tagging' %}
   {% endif %}
+
+  <!-- yottaa-rapid-scripts -->
+  {% include 'yottaa-rapid-script' %}
+
 
  </body>
 </html>

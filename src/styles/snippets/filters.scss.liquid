@@ -20,7 +20,7 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
     @include align-items( center );
     position: relative;
     width: 100%;
-    padding: 15px 30px;
+    padding:15px 0px;
     background: $filterBg;
     z-index: 25; // Prevent it going on top of navbar when scrolling down long lists of filters
     margin: 0 auto 20px;
@@ -32,23 +32,12 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
         margin: 65px 0 55px;
     }
 
-    @include mq( 'desk-and-up' ) {
-        padding: 15px 30px;
-    }
-
-    .filter-list-desktop-wrap {
-        @include flexbox;
-        @include align-items( center );
-    }
-
-
     // FILTERS : LABEL : "Filter" on desktop
     .filter-label {
         position: relative;
         display: none; // Hide on mobile since other label takes over
         color: $filterTextColor;
         margin-bottom: 0;
-        margin-right: 5px; //for 1024 - 1240 spacing
 
         @include mq( 'lap-and-up' ) {
             display: block;
@@ -57,7 +46,6 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
 
         @include mq( 'desk-and-up' ) {
             @include fontSize( 16px );
-            margin-right: 20px;
             margin-top: 0;
         }
     }
@@ -75,7 +63,6 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
         .bc-sf-filter-option-block {
             position: relative; // So the giant menu will align with items, comment out to make full width menus
             margin-bottom: 0; 
-            padding-top: 3px; // So line is cleanly centered horizontally
 
             // FILTER : WRAPPER : Padding Wrapper, didn't think we needed to go ham with nesting :p
             .bc-sf-filter-block-content-inner {
@@ -86,12 +73,10 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
             .bc-sf-filter-block-title a {
                 border: none;
                 background: transparent;
-                padding: 5px 16px 5px 9px;
-                margin-right: 11px;
+                padding: 0px 16px 0px 0px;
 
                 @include mq( 'desk-and-up' ) {
-                    // padding: 5px 32px 5px 9px;
-                    margin-right: 20px;
+                    // padding: 5px 32px 5px 0px;
                 }
 
                 // ARROW : Yes its visually after, no clue why they did a before tag, but w.e
@@ -132,8 +117,8 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
             .bc-sf-filter-block-content {
                 background: $filterBg;
                 border: none;
-                width: 190px;
-                top: 54px !important; //Has to override inline set style by js
+                width: 100%;
+                top: 41px !important; //Has to override inline set style by js
                 border: $filterBarBorder;
 
                 // CLEAR : Hide the in-filter list clear button, desktop has exposed list of filters already
@@ -430,7 +415,7 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
     #filter-list-button-wrap {
         position: absolute;
         z-index: 25;
-        width: 50%;
+        width: 100%;
         left: 0;
         top: {{ settings.filter_bar_border_width }}px; //Adjust top position for border settings
         height: 27px;
@@ -509,6 +494,9 @@ $filterBarBorder: {{ settings.filter_bar_border_width }}px solid {{ settings.fil
         z-index: 25;
         padding: 15px 20px;
         background: $filterBg;
+        @include mq( 'tablet' ) {
+            top:30px;
+        }
 
         // SET : WRAP : Wrapper around each filter block on mobile
         .bc-sf-filter-option-block {

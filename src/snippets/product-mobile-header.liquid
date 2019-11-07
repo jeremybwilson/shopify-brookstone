@@ -1,44 +1,48 @@
 {% assign call_to_action = 'products.product.add_to_cart' | t %}
 
 {% unless current_variant.available %}
-  {% assign call_to_action = 'products.product.sold_out' | t %}
+{% assign call_to_action = 'products.product.sold_out' | t %}
 {% endunless %}
 
-  <div class="product--mobile-header">
+<div class="product--mobile-header">
 
     <div class="mobile-header--top">
-      <div class="header-text">
-        <span class="product-title product-title-content">{{ product.title }}</span>
+        <div class="header-text text-center">
+            <span class="product-title product-title-content">{{ product.title }}</span>
 
-        {%- if settings.show_multiple_currencies -%}
-          {% assign price = current_variant.price | money_with_currency %}
-          {% assign compare_price = current_variant.compare_at_price | money_with_currency %}
-        {%- else -%}
-          {% assign price = current_variant.price | money %}
-          {% assign compare_price = current_variant.compare_at_price | money %}
-        {%- endif -%}
+            {%- if settings.show_multiple_currencies -%}
+            {% assign price = current_variant.price | money_with_currency %}
+            {% assign compare_price = current_variant.compare_at_price | money_with_currency %}
+            {%- else -%}
+            {% assign price = current_variant.price | money %}
+            {% assign compare_price = current_variant.compare_at_price | money %}
+            {%- endif -%}
+            {% comment %}PRICE-------------------{% endcomment %}
 
-        {% comment %}
+            <div id="product-price--mobile">
+                <span class="product-price" itemprop="price">
+                    <span class="money">{{ price }}</span>
+                </span>
+                {% if current_variant.compare_at_price > current_variant.price %}
+                <span class="was">
+                    <span class="money">{{ compare_price }}</span>
+                </span>
 
-        PRICE
-        -------------------
+                {% if product.compare_at_price_max > product.price %}
+                {% assign discount_percent = product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'%}
+                {% endif %}
+                
+                <span class="discount-percent">
+                    {{'products.general.discount_text' | t}} {{ discount_percent }}%
+                </span>
+                {% endif %}
+            </div><div class="clear"></div>
 
-        {% endcomment %}
+        </div>
 
-        <div id="product-price--mobile">
-          <span class="product-price" itemprop="price">
-            <span class="money">{{ price }}</span>
-          </span>
-          {% if current_variant.compare_at_price > current_variant.price %}
-            <span class="was">
-              <span class="money">{{ compare_price }}</span>
-            </span>
-          {% endif %}
-        </div><div class="clear"></div>
-
-      </div>
-
+      {% comment%}
       <input type="submit" name="button" class="add product--mobile-header--add AddtoCart{% if section.settings.show_payment_button %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+      {% endcomment %}
     </div><!--.mobile-header--top -->
 
-  </div>
+</div>

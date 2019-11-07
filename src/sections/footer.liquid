@@ -2,30 +2,25 @@
   <footer class="site-footer">
     
     {% comment %} :: ROW #1 -- Footer Menu + Brand Links :: {% endcomment %}
-    <div class="row">
+    <div class="row fluid-mobile">
 
       {% comment %} :: FOOTER NAVIGATION :: {% endcomment %}
       {% if section.blocks %}
-        <div class="footer-blocks">
+        <div class="desktop-8 tablet-3 mobile-3 footer-blocks">
           
           {% for block in section.blocks %}
+          {% if block.type == 'link_list' %}
             {% assign menu = linklists[block.settings.menu_id] %} 
-            <div class="footer-nav">
+            <div class=" footer-nav">
               <nav>
 
-                {% comment %} :: TITLE : Basic title if no nested menus inside footer :: {% endcomment %}
-                {% if menu.levels < 2 and block.settings.show_headings %}
-                  <h4 class="nav-sub-header">{{ menu.title }}</h4>
-                {% endif %}
-
-
                 {% comment %} :: LINKS : Menu Content links :: {% endcomment %}
-                <ul>
+                <ul class="row" id="footer-links-row">
                   {% for link in menu.links %}
                     
                     {% comment %} :: NESTED MENU :: {% endcomment %}
                     {% if link.levels > 0 %}
-                      <li class="footer-sub-nav-wrapper" data-link-size="{{ link.links.size }}">
+                      <li class="desktop-4 tablet-6 mobile-3 footer-sub-nav-wrapper" data-link-size="{{ link.links.size }}">
                         
                         {% comment %} :: SUB-NAV HEADER :: {% endcomment %}
                         {% if block.settings.show_headings %}
@@ -43,7 +38,7 @@
 
                     {% comment %} :: ELSE, REGULAR SINGLE LINK :: {% endcomment %}
                     {% else %}
-                       <li>{{ link.title | link_to: link.url }}</li>
+                       <li class="desktop-4 tablet-6 mobile-3 footer-sub-nav-wrapper">{{ link.title | link_to: link.url }}</li>
                     {% endif %}
 
                   {% endfor %}
@@ -51,17 +46,25 @@
 
               </nav>
             </div><!-- .footer-nav -->
+        {% endif %} 
           {% endfor %}
 
-        </div><!--.footer-blocks-->      
+        </div><!--.footer-blocks-->
       {% endif %}
 
 
       {% comment %} :: VISIT OUR BRANDS :: {% endcomment %}
-      <div class="visit-our-brands">
+      <div class="desktop-4 tablet-3 mobile-3 visit-our-brands">
         <div class="section-title">
-          <h4>Visit Our Brands</h4>
+          <div id="footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></div>
+          <div id="git-card-img"><img src="{{ 'footerGiftCard.jpg' | file_img_url: 'master' }}">
+          </div>
+          <div id="gift-card-text">
+            <p id="card-desc">Give the perfect gift every time</p>
+            <a href="#"><p id="card-link">SHOP GIFT CARDS</p></a>
+          </div>
         </div>
+
 
         <div class="brands--list">
 
@@ -81,148 +84,165 @@
       </div><!-- .visit-our-brands -->
     </div>
 
+<!-- Social wrapper starts -->
+  <div class="social-wrapper">
+    <div class="social-inner">
+      {% unless section.settings.social_heading == blank %}
+        <h4 class="section-title">{{ section.settings.social_heading }}</h4>
+      {% endunless %}
+      <ul id="social-icons" class="desktop-4 tablet-2 mobile-3">
+        {% include 'social-icons' %}
+      </ul><!-- #social-icons -->
+    </div><!-- .social-inner -->    
+  </div><!-- .social-wrapper -->
 
-    {% comment %} :: ROW #2 -- Telephone, Payment and Trust Icons :: {% endcomment %}
+
+    {% comment %} :: ROW #2 -- Telephone, Description and Contact Us :: {% endcomment %}
     <div class="row footer--bottom-row">
-      <div class="brands--telephone">
-        <a href="tel:{{ section.settings.tel_number }}"><h4>TEL</h4><span>{{ section.settings.tel_text }}</span></a>
-      </div><!-- .brands--telephone -->
 
-      <div id="payment" >
-        {% if section.settings.show_credit_cards %}
-          <div class="section-title">
-            <h4>We Accept</h4>
-          </div>
-          <div class="payment-methods">
-            {% include 'svg-icon-visa' %}
-            {% include 'svg-icon-mastercard' %}
-            {% include 'svg-icon-amex' %}
-            {% include 'svg-icon-paypal' %}
-          </div><!-- .payment-methods -->
-              
-          {% comment %}
-            // PENDING - figure out how to actually alter the output SVGs
-            {% for type in shop.enabled_payment_types %}
-              {{ type | payment_type_svg_tag: class:'payment-icon' }}
-            {% endfor %}
-          {% endcomment %}
+      {% if section.settings.footer_cust_contacts != blank %}
+      <div class="footer-contacts">
+        {{ section.settings.footer_cust_contacts }}
+      </div>
+      {% endif %}
 
-        {% endif %}
-      </div><!-- #payment -->
 
-      <div id="trust-icons">
-        {% unless section.settings.trust_icon_image_one == blank %}
-          <img src="{{ section.settings.trust_icon_image_one | img_url }}" alt="{{ section.settings.trust_icon_image_one.alt }}" />
-        {% endunless %}
-        {% unless section.settings.trust_icon_image_two == blank %}
-          <img src="{{ section.settings.trust_icon_image_two | img_url }}" alt="{{ section.settings.trust_icon_image_two.alt }}" />
-        {% endunless %}
-        {% unless section.settings.trust_icon_image_three == blank %}
-          <img src="{{ section.settings.trust_icon_image_three | img_url }}" alt="{{ section.settings.trust_icon_image_three.alt }}" />
-        {% endunless %}
-      </div><!-- #trust-icons -->
+      {% if section.settings.footer_desc_text != blank %}
+      <div class="footer-description">
+        {{ section.settings.footer_desc_text }}
+      </div>
+      {% endif %}
+
+
+      {% if section.settings.footer_copyright_text != blank %}
+      <div class="footer-copyright">
+        <p>{{ section.settings.footer_copyright_text }}</p>
+      </div>
+      {% endif %}
+      
     </div><!-- .footer--bottom-row -->
-
   </footer>
+  <div class="footer-contact-us-bar">
+        <p class="bottom-contact-bar"><a href="{{section.settings.contact_us_page_url}}">Contact Us</a></p>        
+  </div>
 </div>
 
 
 
 {% schema %}
   {
-    "name": "Footer",
-    "settings": [
-     {
-       "type": "header",
-       "content": "Phone Number"
-     },
-     {
-       "type": "text",
-       "id": "tel_text",
-       "label": "Display Text",
-       "default": "855-377-BOOT (2668)",
-       "info": "This is the text that will be displayed on the site."
-     },
-     {
-      "type": "text",
-      "id": "tel_number",
-      "label": "Actual Number",
-      "default": "18553772668",
-      "info": "This is the number that will actually be dialed when the link is clicked on mobile. Do not include dashes or any punctuation."
-     },   
-
-     {
-       "type": "header",
-       "content": "Payment Methods"
-     },
-     {
-       "type": "checkbox",
-       "id": "show_credit_cards",
-       "label": "Show credit card icons",
-       "default": true,
-       "info": "The icons that show are determined by your store's payment settings."
-     },
-     {
-       "type": "header",
-       "content": "Visit Our Brands - #1"
-     },
-     {
-      "type": "url",
-      "id": "visit_brand_link_one",
-      "label": "URL"
-     },
-     {
-      "type": "image_picker",
-      "id": "visit_brand_image_one",
-      "label": "Logo"
-     },  
-     {
-       "type": "header",
-       "content": "Visit Our Brands - #2"
-     },
-     {
-      "type": "url",
-      "id": "visit_brand_link_two",
-      "label": "URL"
-     },
-     {
-      "type": "image_picker",
-      "id": "visit_brand_image_two",
-      "label": "Logo"
-     },  
-     {
-       "type": "header",
-       "content": "Visit Our Brands - #3"
-     },
-     {
-      "type": "url",
-      "id": "visit_brand_link_three",
-      "label": "URL"
-     },
-     {
-      "type": "image_picker",
-      "id": "visit_brand_image_three",
-      "label": "Logo"
-     },  
-     {
-       "type": "header",
-       "content": "Trust Icons"
-     },
-     {
-      "type": "image_picker",
-      "id": "trust_icon_image_one",
-      "label": "Logo #1"
-     },  
-     {
-      "type": "image_picker",
-      "id": "trust_icon_image_two",
-      "label": "Logo #2"
-     },  
-     {
-      "type": "image_picker",
-      "id": "trust_icon_image_three",
-      "label": "Logo #3"
-     }  
+    "name":"Footer",
+    "settings":[
+      {
+        "type":"header",
+        "content":"Phone Number"
+      },
+      {
+        "type":"text",
+        "id":"tel_text",
+        "label":"Display Text",
+        "default":"855-377-BOOT (2668)",
+        "info":"This is the text that will be displayed on the site."
+      },
+      {
+        "type":"url",
+        "id":"contact_us_page_url",
+        "label":"Contact us page url"
+      },
+      {
+        "type":"text",
+        "id":"tel_number",
+        "label":"Actual Number",
+        "default":"18553772668",
+        "info":"This is the number that will actually be dialed when the link is clicked on mobile. Do not include dashes or any punctuation."
+      },
+      {
+        "type":"header",
+        "content":"Payment Methods"
+      },
+      {
+        "type":"checkbox",
+        "id":"show_credit_cards",
+        "label":"Show credit card icons",
+        "default":true,
+        "info":"The icons that show are determined by your store's payment settings."
+      },
+      {
+        "type":"header",
+        "content":"Visit Our Brands - #1"
+      },
+      {
+        "type":"url",
+        "id":"visit_brand_link_one",
+        "label":"URL"
+      },
+      {
+        "type":"image_picker",
+        "id":"visit_brand_image_one",
+        "label":"Logo"
+      },
+      {
+        "type":"header",
+        "content":"Visit Our Brands - #2"
+      },
+      {
+        "type":"url",
+        "id":"visit_brand_link_two",
+        "label":"URL"
+      },
+      {
+        "type":"image_picker",
+        "id":"visit_brand_image_two",
+        "label":"Logo"
+      },
+      {
+        "type":"header",
+        "content":"Visit Our Brands - #3"
+      },
+      {
+        "type":"url",
+        "id":"visit_brand_link_three",
+        "label":"URL"
+      },
+      {
+        "type":"image_picker",
+        "id":"visit_brand_image_three",
+        "label":"Logo"
+      },
+      {
+        "type":"header",
+        "content":"Trust Icons"
+      },
+      {
+        "type":"image_picker",
+        "id":"trust_icon_image_one",
+        "label":"Logo #1"
+      },
+      {
+        "type":"image_picker",
+        "id":"trust_icon_image_two",
+        "label":"Logo #2"
+      },
+      {
+        "type":"image_picker",
+        "id":"trust_icon_image_three",
+        "label":"Logo #3"
+      },
+      {
+        "type":"richtext",
+        "id":"footer_cust_contacts",
+        "label":"Footer contact no."
+      },
+      {
+        "type":"richtext",
+        "id":"footer_desc_text",
+        "label":"Footer description text"
+      },
+      {
+        "type":"text",
+        "id":"footer_copyright_text",
+        "label":"Footer copyright text"
+      }
     ],
     "blocks":[
       {
@@ -230,16 +250,16 @@
         "name":"Menu",
         "settings":[
           {
-            "type": "link_list",
-            "id": "menu_id",
-            "label": "Footer Menu"
+            "type":"link_list",
+            "id":"menu_id",
+            "label":"Footer Menu"
           },
           {
-            "type": "checkbox",
-            "id": "show_headings",
-            "label": "Show Footer Menu Headers",
-            "default": false,
-            "info": "(Hidden by default)"
+            "type":"checkbox",
+            "id":"show_headings",
+            "label":"Show Footer Menu Headers",
+            "default":false,
+            "info":"(Hidden by default)"
           }
         ]
       }

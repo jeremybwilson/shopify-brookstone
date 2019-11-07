@@ -4,38 +4,36 @@
 
 .site-footer {
   background: {{ settings.footer_background }};
-  padding: 0 0 39px;
+  padding: 25px;
+
+  .padding-none {
+    @include mq(phone){
+        padding: 0;
+    }
+  }
+
+  @include mq(phone){
+    padding: 25px 0; 
+  }
 
   @include mq('tablet-and-up') {
-    padding: 96px 40px 39px;
+    padding: 50px 0;
   }
 
   // repeating elements
 
-  .row {
-    width: 100%;
-
-    @include mq('tablet-and-up') {
-      @include flexbox;
-      @include flex-direction(row);
-      @include justify-content(space-between);
-      @include align-items(center);
-      max-width: 1100px;
-      margin-bottom: 74px;
-    }
-  }
   h4 {
-    color: $color--white;
+    color: $color--footer-text;
     border-bottom: none;
     text-transform: uppercase;
   }
   img,
   svg {
     width: auto;
-    margin: 0 10px;
+    margin: 0 6px;
 
     @include mq('tablet-and-up') {
-      margin: 0 18px;
+      margin: 0 8px;
     }
   }
 }
@@ -46,15 +44,11 @@
 
 // SINGLE BLOCKS : Individual menu blocks (should only need one with nesting support, but left as an option)
 .footer-nav {
-  width: 100%;
-  padding: 50px 45px 46px;
-  border-bottom: solid 1px $color--accent-1;
 
   @include mq('tablet-and-up') {
     width: 100%;
     padding: 0;
     border-bottom: none;
-    border-right: solid 1px $color--accent-1;
   }
 
   .section-title {
@@ -62,103 +56,79 @@
   }
 
   nav {
-    background: transparent;
-    font-family: $font-stack--default;
     @include fontSize(14px);
-    line-height: initial;
-    text-align: left;
-
+    line-height: 0.30;
     @include mq('tablet-and-up') {
       @include fontSize(16px);
     }
-
     ul {
-      @include mq('phone') {
-        @include flexbox;
-        @include flex-direction(column);
-        @include justify-content(flex-start);
-        @include align-items(flex-start);
-        margin-bottom: 0;
-
-        li {
-          position: relative;
-          width: 220px;
-          left: 50%;
-          transform: translateX( -50% );
-        }
-
-        // NESTED : Spacing for Nested Nav Sets when headers are turned on
-        .footer-sub-nav-wrapper:not( :first-child ) {
-          .nav-sub-header {
-            margin-top: 25px;
-          }
-        }
-      }
-
-      @include mq('tablet-and-up') {
-        display: block;
-
         .footer-sub-nav-wrapper {
-          position: relative;
-          width: 49%;
-          display: inline-flex;
-          padding-top: 25px;
-        } 
+          @include fontSize(12px);
+          @include mq(phone){
+            text-align: center;
+            margin-bottom:15px;
+          }
+          @include mq(tablet){
+            margin-bottom: 15px;
+          }
 
-        h4.nav-sub-header {
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
-
-        &.footer-sub-nav {
-          columns: 1;
+        .nav-sub-header {
+          @include fontSize(14px);
+          padding: 0;
         }
       }
     }
 
     a {
       display: block;
-      padding: 7px 12px 7px 0;
-      color: $color--white;
+      padding: 5px 0;
+      color: $color--footer-text;
 
       @include mq('tablet-and-up') {
         display: inline-block;
-        padding: 9.5px 12px 9.5px 0;
-      }
-      @include mq('lap-and-up') {
-        padding: 9.5px 0;
       }
     }      
   }
 }
 
-  
-
 .visit-our-brands {
-  padding: 45px 20px 33px;
-  text-align: center;
-
-  @include mq('tablet-and-up') {
-    @include flexbox;
-    @include flex-direction(column);
-    @include justify-content(center);    
-    @include align-items(center);
-    margin: 21px -18px 0 auto;
-    padding: 0;
+  #card-desc {
+    @include fontSize(12px);
+    color: $color--text-1;
   }
-
   .section-title {
-    margin-bottom: 16px;
-
+    display: inline-block;
+    font-weight: $font-weight--book;
+    @include fontSize(24px);
     @include mq('tablet-and-up') {
       margin-bottom: 18px;
     }
   }
+  #gift-card-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-top: 15px;
+    @include mq ('phone') {
+      display: block;
+      margin-left: 0;
+      margin-top: 0;
+    }
+  }
+  #git-card-img {
+    display: inline-block;
+    margin-top: 15px;
+  }
+  #card-link {
+      @include fontSize(14px);
+      text-transform: uppercase;
+      text-decoration: underline;
+      font-weight: $font-weight--bold;
+      color: $color--text-1;
+    }
 
   .section-title h4 {
     @include fontSize(14px);
-    font-weight: $font-weight--bold;
     letter-spacing: .3em;
 
     @include mq('tablet-and-up') {
@@ -172,12 +142,22 @@
     @include align-items(center);
   }
   img {
-    max-height: 40px;
-
+    width: 100px;
+    margin: 0;
     @include mq('tablet-and-up') {
-      max-height: 55px;
-      max-width: none;
-      margin: 0 20px;
+      width: 100px;
+      margin: 0;
+    }
+  }
+  #footer-gift-card-text-2 {
+    font-weight: $font-weight--bold;
+    margin-bottom: 15px;
+  }
+
+  #footer-gift-card-text-1 {
+    font-weight: $font-weight--book;
+    @include mq(phone){
+      @include fontSize(14px);
     }
   }
 }
@@ -185,114 +165,261 @@
   @include mq('tablet-and-up') {
     @include flex-direction(column);
     margin-bottom: 0;
-    padding-top: 24px;
-    border-top: solid 1px {{ settings.footer_border }}; 
+    text-align: center;
+    border-top: solid 1px {{ settings.footer_border }};   
   }
   @include mq('lap-and-up') {
     @include flex-direction(row);
     @include flex-wrap(wrap);
   }
-}
-.brands--telephone {
-  padding-bottom: 42px;
-  border-bottom: solid 1px {{ settings.footer_border }};
 
-  @include mq('tablet-and-up') {
-    margin-top: 7px;
-    margin-bottom: 18px;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-  @include mq('lap-and-up') {
-    margin-bottom: 0;
-  }
+  .contact-number {
+    margin-left: auto;
+    margin-right: auto;
 
-  a {
-    @include flexbox;
-    @include justify-content(center);
-    @include align-items(flex-start);
-    @include fontSize(12px);
-    line-height: initial;
-    letter-spacing: .2em;
+    .font-normal {
+      display: inline-block;
+      width: 100%;
+      font-weight: $font-weight--book;
+      color: $color--text-1;
+      @include fontSize(12px);
+    }
 
-    @include mq('tablet-and-up') {
-      @include fontSize(16px);
+    .contact-number-bold {
+      font-weight: $font-weight--bold;
+      color: $color--text-1;
     }
   }
-  h4 {
-    margin: 0 7px 0 0;
-    padding: 0;
-    font-size: inherit;
-    font-weight: $font-weight--black;
-    letter-spacing: inherit;
+  .footer-description {
+     font-weight: $font-weight--book;
+     letter-spacing: 0;
+     line-height: 1.5;
+     width: 100%;
   }
-  span {
-    color: {{ settings.footer_color }};
-    font-size: inherit;
-    letter-spacing: inherit;
+
+  .footer-description>p {
+     color: $color--footer-text;
+     display: inline-block;
+     @include fontSize(12px);
+  }
+  .footer-description>a {
+    text-decoration: underline;
   }
 }
-#payment {
-  padding-top: 36px;
+
+.footer-contact-us-bar {
+    display: block;
+    width: 100%;
+    background-color: $color--white;
+    text-align: center;
+    padding: 21px 10px;
+
+    .bottom-contact-bar {
+      margin-top: 10px;
+      @include fontSize(14px);
+      text-transform: uppercase;
+
+      a {
+        color: $color--footer-text;
+      }
+      a:hover {
+        color: $color--footer-contact-us;
+      }
+    }
+    @include mq ('phone') {
+      display: none;
+    }
+  }
+
+// social
+
+.social-wrapper {
+  background: {{ settings.social_footer_background }};
+  text-align: center;
+  width: 100%;
+  margin:30px auto;
 
   @include mq('tablet-and-up') {
     @include flexbox;
+    @include flex-direction(row);
     @include align-items(center);
-    padding-top: 6px;
-  }
-  @include mq('lap-and-up') {
-    margin-left: auto;
-  }
-  @include mq('desk-and-up') {
-    margin-right: auto;
+    @include justify-content(center);
   }
 
+  .social-inner {
+    @include flexbox;
+    @include flex-direction(column);
+    margin: 0 auto;
+
+    @include mq('tablet-and-up') {
+      @include flex-direction(row);
+      @include align-items(center);
+      @include justify-content(center);
+    }
+  }
   .section-title {
-    margin-bottom: 16px;
-
+    margin-bottom: 0;
+    color: {{ settings.social_footer_header }};
+    @include fontDim(14px,14px,.2em);
+    font-weight: $font-weight--black;
+    text-transform: uppercase;
+                                                    
     @include mq('tablet-and-up') {
-      margin-top: 5px;
-      margin-bottom: 0;
+      @include fontDim(20px,20px,.04em);
     }
-  }
-
-  h4 {
-    color: {{ settings.footer_color }};
-    @include fontSize(14px);
-    font-weight: $font-weight--bold;
-    letter-spacing: .2em;
+  } 
+  ul#social-icons {
+    margin-top: 16px;
+    text-align: center;
 
     @include mq('tablet-and-up') {
-      @include fontSize(15px);
-      padding-bottom: 0;
+      @include flexbox;
+      @include justify-content(center);
+      @include align-items(center);
+      margin-top: 0;
+      margin-left: 24px;
     }
-  }
+    li {
+      display: inline-block;
+      padding: 0;
+    }
+    a {
+      position: relative;
+      top: 2px;
+      color: {{ settings.icons }};
+      display: inline-block;
+      img{
+        width: 100%;
+        max-width: 40px;
+        height: auto;
+        padding: 0;
+      }
+      svg {
+        width: 22px;
+        height: 22px;
 
-  svg {
-    height: 30px;
-
-    @include mq('tablet-and-up') {
-      margin: 0 10px;
+        @include mq('tablet-and-up') {
+          width: 40px;
+          height: 40px;
+          padding: 0;
+        }
+      }
     }
   }
 }
-#trust-icons {
-  padding-top: 18px;
 
-  @include mq('tablet-and-up') {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  @include mq('lap-and-up') {
-    padding-top: 0;
-    margin-right: -11px;
-  }
+.site-footer {
+    @include mq ('phone') {
+        text-align: center;
+        padding-top: 0;
+        .fluid-mobile {
+            width: 100%;
+            padding: 0;
+            .footer-nav * {
+                text-align: left;
+            }
+            .footer-blocks {
+                width: 100%;
+                margin: 0;
+            }
+            ul#footer-links-row {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                li {
+                    &.footer-sub-nav-wrapper {
+                        width: 100%;
+                        margin: 0;
+                        border-bottom: 2px solid $color--white;
+                        .nav-sub-header {
+                            padding: 16px;
+                            margin-bottom: 0;
+                            background-color: $color--gray-5;
+                            &::after {
+                                content: '\f067';
+                                font-family: fontawesome;
+                                float: right;
+                            }
+                        }
+                        .footer-sub-nav {
+                            margin-bottom: 0;
+                            display: none;
+                            background-color: $color--white;
+                            > li {
+                                padding-left: 35px;
+                                padding-right: 35px;
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid $color--footer-border-solid;
+                                }
+                            }
+                        }
+                        &.active {
+                            .nav-sub-header {
+                                background-color: $mainColor;
+                                color: $color--white;
+                                &::after {
+                                    content: '\f068';
+                                }
+                            }
+                            .footer-sub-nav {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+            .visit-our-brands {
+                display: none;
+            }
+        }
+        
+        .social-wrapper {
+            ul {
+                &#social-icons {
+                    margin-top: 0;
+                }
+            }
+        }
 
-  img {
-    max-height: 34px;
-
-    @include mq('tablet-and-up') {
-      margin: 0 7px;
+        
     }
-  }
+
+    .footer--bottom-row {
+        border-top: 0;
+        @include mq ('phone') {
+            width: 100%;
+            padding: 0;
+            * {
+                @include fontSize(12px);
+            }
+        }
+        .footer-contacts {
+            > * {
+                line-height: 1.2;
+                @include mq ('tablet-and-up') {
+                    display: inline-block;
+                    &:not(:last-child)::after {
+                        content: ' |';
+                    }
+                }
+                @include mq ('phone') {
+                    font-weight: $font-weight--bold;
+                }
+            }
+        }
+        .footer-description {
+            @include mq ('phone') {
+                display: none;
+            }
+            a {
+                text-decoration: underline;
+            }
+        }
+        .footer-copyright {
+            line-height: 1.2;
+            @include mq ('phone') {
+                margin-top: 30px;
+            }
+        }
+    }
 }

@@ -6,16 +6,37 @@ $color--primary-2: #000000;  // Second Main Color (Lets use this for Headers?)
 $color--accent-1: #000000;   // Color For Arrows, Buttons, etc
 $color--accent-2: #000000;   // Alternative accent in some cases (still working this one out)
 
+$product--add--to--cart--bg : #209ccd;
+
 // TEXT
 $color--text-1: #000000;  // Text Color (Ex: Muck is Dark Green)
+$color--text-blue : #079ccd;
+$color--success : #008000;
+$color--text-2: #333333;  // Text Color (Ex: Muck is Dark Green)
+
+//FOOTER
+$color--footer-text: #333333;
+$color--footer-contact-us: #249dd3;
+
+
+// New variables
+$mainColor: #079ccd;
+$logoColor: #59595c;
+$navLinkColor: #59585d;
+$color--border-red: #ad0000;
+
 
 // BACKGROUND + GREYS
 $color--gray-1: #616365;
 $color--gray-2: #757575;
 $color--gray-3: #5b5b5b;
+$color--gray-4: #929292;
+$color--gray-5: #bcbcbc;
 $color--dark-gray: #3e3e3e;
 $color--light-gray: #e6e6e6;
+$color--submit-button: #ad0000;
 $color--border-gray: rgba( 227, 227, 227, 0.65 );
+$color--footer-border-solid: #d9d9d9;
 $color--transparent: rgba( 255, 255, 255, 0 );
 
 $color--general-grey: #666;
@@ -29,7 +50,7 @@ $color--light-primary-1: #e63e57; // Primary color for areas with dark backgroun
 $color--error: {{ settings.error_text }};
 
 // TYPOGRAPHY
-$sans: "Futura-BT", sans-serif;
+$sans: "Helvetica", "Open Sans", Arial, sans-serif;
 $font-stack--default: $sans;
 $font-stack--heading: $sans;
 
@@ -116,7 +137,7 @@ $button--alt-border-hover: {{ settings.alt_button_border_width }}px solid {{ set
  *    EX : @include h1;
  * ------------------------------------------------------------------------- */
 @mixin p {
-  font-weight: $font-weight--bold;
+  font-weight: $font-weight--medium;
   line-height: 26px / 16px * 1em;
   letter-spacing: 0;
 
@@ -462,3 +483,37 @@ $retina:           "(-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi)
 
 
 
+/* MIXIN : TRANSFORM
+ *    EX : @include transform( value )
+ * ------------------------------------------------------------------------- */
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+@mixin transition($transition) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -ms-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+} 
+
+
+
+
+/* MIXIN : Linear Gradient
+ *    EX : @include linearGradient( color1, color2 )
+ * ------------------------------------------------------------------------- */
+@mixin linearGradient($color1, $color2){
+    background: $color1; /* Old browsers */
+    background: -moz-linear-gradient(top,  $color1 0%, $color2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color1), color-stop(100%,$color2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  $color1 0%,$color2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  $color1 0%,$color2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  $color1 0%,$color2 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  $color1 0%,$color2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}

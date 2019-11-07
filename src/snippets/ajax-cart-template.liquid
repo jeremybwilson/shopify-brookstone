@@ -174,7 +174,11 @@
       <button type="button" class="js-qty__adjust js-qty__adjust--minus quantity-increment" data-id="{{id}}" data-qty="{{itemMinus}}">
         <span>&minus;</span>
       </button>
+     <div class="qty-inner">
+      <span class="label">Qty</span>
+      
       <input type="text" class="js-qty__num" value="{{itemQty}}" min="1" data-id="{{id}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+     </div>
       <button type="button" class="js-qty__adjust js-qty__adjust--plus quantity-increment" data-id="{{id}}" data-qty="{{itemAdd}}">
         <span>+</span>
       </button>
