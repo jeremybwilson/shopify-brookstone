@@ -227,9 +227,10 @@
   ================================================== -->
   {% include 'cookie-banner' %}
 
-  {% comment %}
-  {% include 'newsletter-popup' %}
-  {% endcomment %}
+  {% comment %} :: Newsletter Signup :: {% endcomment %}
+  {% if settings.popup %}
+    {% include 'popup' %}
+  {% endif %}
 
   {% comment %} CURRENTLY UNUSED - Was making invisible scroll-to-top click regions
     {% include 'scroll-to-top' %}
