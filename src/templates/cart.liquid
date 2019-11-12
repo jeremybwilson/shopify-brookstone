@@ -156,7 +156,14 @@
 
         <div class="basket-buttons">
           <input type="submit" name="update" id="update-cart" value="{{ 'cart.general.update' | t }}" class="button" />
-          <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button bfx-checkout" />
+          
+          {%- if settings.enable_script_data_layer -%}
+            {% comment %} :: CHECKOUT :: (Hide actual submit, so we can intercept and ensure GTM tracking is accurate when hitting checkout button) {% endcomment %}
+            <div id="checkout" class="button bfx-checkout">{{ 'cart.general.checkout' | t }}</div>
+            <input type="submit" id="hidden-checkout-button" name="checkout" value="{{ 'cart.general.checkout' | t }}" style="display: none;" />
+          {% else %}
+            <input type="submit" name="checkout" id="checkout" value="{{ 'cart.general.checkout' | t }}" class="button bfx-checkout" />
+          {% endif %}
         </div>
         {% if additional_checkout_buttons %}
           {{ content_for_additional_checkout_buttons }}

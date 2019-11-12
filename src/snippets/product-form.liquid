@@ -298,4 +298,18 @@ window.Shopify.productObj = productObj;
 </div>
 
 <div class="clear"></div>
+
+  {% comment %}{- Record collection -}{% endcomment %}
+  <input
+    readonly
+    type="hidden"
+    name="properties[_collection_private]"
+    value="{{ collection.title }}">
+  
+  <input
+    readonly
+    type="hidden"
+    name="properties[_collection_handle_private]"
+    value="{{ collection.handle }}">
+
 {% endform %}
