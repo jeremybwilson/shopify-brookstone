@@ -1,5 +1,5 @@
 # SHOPIFY-BROOKSTONE
-Boilerplate project to spin up new Shopify stores from. Once a store is launched, merge back any new features that can be added as new modules (things like "Compare Tool" or standalone features work best). 
+Brookstone Shopify Theme. Once a store is launched, merge back any new features that can be added as new modules (things like "Compare Tool" or standalone features work best). 
 <br>
 
 
