@@ -227,9 +227,10 @@
   ================================================== -->
   {% include 'cookie-banner' %}
 
-  {% comment %}
-  {% include 'newsletter-popup' %}
-  {% endcomment %}
+  {% comment %} :: Newsletter Signup :: {% endcomment %}
+  {% if settings.popup %}
+    {% include 'popup' %}
+  {% endif %}
 
   {% comment %} CURRENTLY UNUSED - Was making invisible scroll-to-top click regions
     {% include 'scroll-to-top' %}
@@ -274,6 +275,12 @@
     {{ 'ajax-cart.js' | asset_url | script_tag }}
 
     <script>
+      Handlebars.registerHelper('unless_contains', function (l, r, opts) {
+        return l.indexOf(r) === -1
+          ? opts.fn(this)
+          : null
+      });
+      
       jQuery(function($) {
         ajaxCart.init({
           formSelector: '.product_form',

@@ -22,13 +22,6 @@
     "name": "Analytics + Marketing",
     "settings": [
       {
-        "type": "checkbox",
-        "id": "enable_newsletter_subscribe",
-        "label": "Enable Subscribing Newsletter",
-        "info": "You'll see the checkbox on our login/signup form",
-        "default": true
-      },
-      {
         "type": "header",
         "content": "Google Tag Manager"
       },      
@@ -38,6 +31,13 @@
         "label": "Google Tag Manger ID",
         "info": "(Ex: GTM-PM9T3KW)",
         "default": "GTM-NONE"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_newsletter_subscribe",
+        "label": "Enable Subscribing Newsletter",
+        "info": "You'll see the checkbox on our login/signup form",
+        "default": true
       },
       {
         "type": "checkbox",
