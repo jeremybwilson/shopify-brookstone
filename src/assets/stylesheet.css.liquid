@@ -1835,11 +1835,35 @@ ul#popups li.last {
   display: inline-block;
   color: {{ settings.text_color }};
 }
-  .quanity-select {
-    display: block;
-    float: left;
+.quanity-select ,
+.btn-add-to-cart{
+  display: block;
+  float: left;
+  width: 50%;
+  padding-right:15px;
+}
+
+.quanity-select #quantity{
+  padding: 10px !important;
+}
+
+.quanity-select #quantity,
+.btn-add-to-cart .AddtoCart {
     width: 100%;
+    margin: 0;
+}
+
+@media(max-width: 767px){
+  .quanity-select ,
+  .btn-add-to-cart{
+    float: none;
+    width:100%;
   }
+  .quanity-select #quantity,
+  .btn-add-to-cart .AddtoCart {
+    margin-bottom:15px;
+  }
+}
 
 .desc {
   float: left;
