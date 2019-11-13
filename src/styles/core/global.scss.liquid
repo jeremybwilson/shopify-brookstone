@@ -146,6 +146,29 @@ body.cart {
 }
 
 
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  border: 1px solid {{ settings.dotted_color }};
+  height: 40px;
+  line-height: 40px;
+  outline: none;
+  font-family: $sans;
+  @include fontSize(13px);
+  color: {{ settings.text_color }};
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  background: transparent;
+  height: 40px;
+}
+
+
 /* GENERAL BUTTONS
  *  Most of this is coiped from stylesheet.css,
  *  so don't be nervous removing stuff no longer 
