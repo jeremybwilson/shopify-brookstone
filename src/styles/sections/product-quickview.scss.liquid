@@ -102,16 +102,19 @@
 				// lots of important tags in stylesheet.css so don't wanna hurt anything potentially on PDP
 				#AddToCartForm {
 					.swatch.size {
-						width: calc( 100% + 5px ); // 100% + 5 so we can cheat the right margin to account for long and short size tags ("Youth 6" vs "5.5")
+						width: calc( 100% ); // 100% + 5 so we can cheat the right margin to account for long and short size tags ("Youth 6" vs "5.5")
 
 						// Size : "5" or "5.5"
 						.swatch-element.short-label label {
-							width: 46px; //So half sizes = whole size boxes
+							width: 100px; //So half sizes = whole size boxes
+      				margin:10px;
 						}
 
 						// Size : "Youth 6" or "Wide 6"
 						.swatch-element.long-label label {
-							width: 97px; //So half sizes = whole size boxes
+							width: 150px; //So half sizes = whole size boxes
+      				margin:10px;
+
 						}
 					}
 				}

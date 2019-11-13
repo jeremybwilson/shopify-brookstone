@@ -38,16 +38,18 @@
 
   // SIZE SQUARES : Improve size alignment for small and large size squares so they map cleanly into the spacing
   &.size {
-    width: calc( 100% + 5px ); // 100% + 5 so we can cheat the right margin to account for long and short size tags ("Youth 6" vs "5.5")
+    width: calc( 100% ); // 100% + 5 so we can cheat the right margin to account for long and short size tags ("Youth 6" vs "5.5")
 
     // Size : "5" or "5.5" or "10.5"
     .swatch-element.short-label label {
-      width: 46px; //So half sizes = whole size boxes
+      min-width: 100px; //So half sizes = whole size boxes
+      margin:10px;
     }
 
     // Size : "Youth 6" or "Wide 6"
     .swatch-element.long-label label {
-      width: 97px; //So half sizes = whole size boxes
+      min-width: 150px; //So half sizes = whole size boxes
+      margin:10px;
     }
   }
 
@@ -83,8 +85,8 @@
     }
     label:hover,
     input:checked + label {
-      background-color: $color--primary-1;
-      border-color: $color--primary-1;
+      background-color: $product--add--to--cart--bg;
+      border-color: $product--add--to--cart--bg;
       color: $color--white;
     }
 
@@ -290,6 +292,7 @@
     @include mq('phone') {
         margin-top: 15px;
     }
+
     .js-qty{
         position: relative;
         .qty-inner{
