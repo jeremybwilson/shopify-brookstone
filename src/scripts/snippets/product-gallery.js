@@ -148,9 +148,10 @@ theme.ProductGallery = function (context, events) {
       $('#product-photos .thumbnail-slider').slick({
         vertical: false,
         arrows: false,
-        slidesToShow: 4,
+        slidesToShow: 3,
         slidesToScroll: 1,
-        asNavFor: '.product-image-container'
+        asNavFor: '.product-image-container',
+         centerMode: true
       });
 
       $( '.thumbnail-slider .slick-slide' ).on( 'click', function () {

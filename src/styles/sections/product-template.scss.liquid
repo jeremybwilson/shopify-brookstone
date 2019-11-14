@@ -201,7 +201,7 @@
 
         }
         #read-more{
-            display: inline-block;
+            display: none;
             padding-top: 15px;
             a{
                 text-decoration: underline;
@@ -346,6 +346,7 @@ dd {
 
 .product-description--area {
     padding: 15px 50px;
+    display:none;
     @include mq('lap-and-up') {
       margin-top: 50px;
     }
@@ -738,3 +739,24 @@ svg {
 
 }
 }
+
+
+/*shipping information css*/
+.shipping_information_wrap {
+  margin: 25px 0;
+  .shipping_information_heading{
+    font-size: 16px;
+  margin: 0;
+  }
+  .shipping_info{
+    margin: 10px 0;
+    p{
+      margin-bottom: 0px;
+      font-size: 13px;
+      &.title{
+        color: $color--text-2;
+      }
+    }
+  }
+}
+/*shipping information css*/

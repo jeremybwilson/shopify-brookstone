@@ -82,7 +82,7 @@ window.Shopify.productObj = productObj;
         <span class="money bfx-price">{{ compare_price }}</span>
     </span>
     <span class="discount-percent">
-        {{'products.general.discount_text' | t}} {{ discount_percent }}%
+        {{'products.general.discount_text' | t }} {{ discount_percent }}%
     </span>
 </div>
 
@@ -118,7 +118,7 @@ window.Shopify.productObj = productObj;
     {% comment %} :: SKU :: {% endcomment %}
     {% if section.settings.show_sku and product.url != '/products/gift-card' %}
     <div class="product-number">
-      {{'products.general.sku' | t}} <span class="product-sku">{{ current_variant.sku | split: '-' | first }}</span>
+      {{'products.product.sku' | t}} <span class="product-sku">: {{ current_variant.sku | split: '-' | first }}</span>
   </div>
   {% endif %}
 
@@ -135,9 +135,10 @@ window.Shopify.productObj = productObj;
     EX: "Size" (7,8,9,10) & "Color" (Red, Green, Blue)
     PDP-MERGE NOTE : Options must be congruent to do a merge, so its okay to use product object when checking OPTIONS only
     {% endcomment %}
-    {% if product.options.size > 1 %}
+    {% if product.options.size >= 1 %}
 
     {% comment %} :: OPTIONS DISPLAY - SWATCHES :: {% endcomment %}
+
     {% if section.settings.variant_display_type == 'swatches' %}
 
     {% comment %} :: VARIANT ID INDICATOR :: (Tells 'addToCart' which variant ID to add, updates via js) {% endcomment %}
@@ -146,7 +147,7 @@ window.Shopify.productObj = productObj;
     type="hidden"
     name="id"
     value="{{ current_variant.id }}" />
-
+    {% if product.variants[0].title != 'Default Title' %}
     {% comment %} :: BUILD - Swatch Elements for Option #1 :: (separate as we can't build liquid-usable objects using liquid){% endcomment %}
     {% if option1_name != blank %}
     {% include 'option-picker',
@@ -182,7 +183,7 @@ window.Shopify.productObj = productObj;
     option_values: extraOption_values,
     product_variants: productVariants %}
     {% endif %}
-
+{% endif %}
 
     {% comment %} :: OPTIONS DISPLAY - DROP-DOWNS :: {% endcomment %}
     {% else %}
@@ -266,12 +267,20 @@ window.Shopify.productObj = productObj;
       {% if section.settings.show_quantity %}
       <div class="quanity-select">
           {% comment %}<label for="quantity">{{ 'products.product.quantity' | t }}</label>{% endcomment %}
-          <input min="1" type="number" id="quantity" name="quantity" value="1" />
+          <select id="quantity" name="quantity">
+            {% for i in (1..10) %}
+            <option value="{{i}}">
+              {{i}}
+            </option>
+            {% endfor %}
+          </select>
       </div>
       {% endif %}
 
       {% if section.settings.show_payment_button %}<div class="clear"></div>{% endif %}
+      <div class="btn-add-to-cart">
       <input type="submit" name="button" class="add clearfix AddtoCart{% if section.settings.show_payment_button %} secondary-button{% endif %}" value="{{ call_to_action }}" {% unless current_variant.available %}disabled{% endunless %} />
+      </div>
       {% if section.settings.show_payment_button %}
       {{ form | payment_button }}
       {% endif %}

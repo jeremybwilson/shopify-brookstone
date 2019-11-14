@@ -278,26 +278,6 @@ fieldset {
   margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea,
-select {
-  border: 1px solid {{ settings.dotted_color }};
-  height: 40px;
-  line-height: 40px;
-  outline: none;
-  font: 13px {{ main_font.family }};
-  color: {{ settings.text_color }};
-  margin: 0;
-  width: 100%;
-  max-width: 100%;
-  display: block;
-  border-radius: 3px;
-  margin-bottom: 10px;
-  background: transparent;
-  height: 40px;
-}
 
 select {
   padding: 0;
@@ -1835,11 +1815,35 @@ ul#popups li.last {
   display: inline-block;
   color: {{ settings.text_color }};
 }
-  .quanity-select {
-    display: block;
-    float: left;
+.quanity-select ,
+.btn-add-to-cart{
+  display: block;
+  float: left;
+  width: 50%;
+  padding-right:15px;
+}
+
+.quanity-select #quantity{
+  padding: 10px !important;
+}
+
+.quanity-select #quantity,
+.btn-add-to-cart .AddtoCart {
     width: 100%;
+    margin: 0;
+}
+
+@media(max-width: 767px){
+  .quanity-select ,
+  .btn-add-to-cart{
+    float: none;
+    width:100%;
   }
+  .quanity-select #quantity,
+  .btn-add-to-cart .AddtoCart {
+    margin-bottom:15px;
+  }
+}
 
 .desc {
   float: left;

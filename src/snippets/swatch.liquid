@@ -62,7 +62,7 @@
       {% endif %}
 
       {% capture radio_button %}
-        <input type="radio" id="{{ id }}" name="{{ option_name }}" value="{{ value | escape }}" data-position="{{ option.position }}" {{ checked }} />
+        <input type="radio" id="{{ id }}"  value="{{ value | escape }}" data-position="{{ option.position }}" {{ checked }} />
       {% endcapture %}
 
       {% capture sold_out_image %}
