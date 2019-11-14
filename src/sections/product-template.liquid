@@ -179,7 +179,14 @@
             {% endif %}
 
             <div class="product-descr">
+              <br />
+                
                 <div class="product-descr-wrapper">
+                    
+                    {% if split_found %}
+                    <h3>Product Description</h3>
+                    {% endif %}
+                    
                     {{small_description}}
                 </div>
                 {% if split_found %}
@@ -194,6 +201,22 @@
             </div>
 
         </div>
+
+        <div class="shipping_information_wrap">
+          <h3 class="shipping_information_heading">{{ section.settings.shipping_information_heading}}</h3>
+
+          {% for block in section.blocks %}
+          <div class="shipping_info">
+            <p class="title">
+              {{ block.settings.shipping_info_title }}
+            </p>
+            <p class="shipping_info_text">
+              {{ block.settings.shipping_info_text }}
+            </p>
+          </div>
+          {% endfor %}
+        </div>
+
         {% unless template == 'product.quick' %}
         {% if section.settings.related_products == 'right' %}
         <div id="related" class="desktop-2 tablet-hide mobile-hide">
@@ -609,6 +632,7 @@
         }
         ]
     },
+
     {
         "type": "checkbox",
         "id": "show_recently_viewed",
@@ -697,7 +721,30 @@
         "type": "text",
         "id": "inner_tab_three_name",
         "label": "Inner tab three name"
+    },
+    {
+        "type": "text",
+        "id": "shipping_information_heading",
+        "label": "Shipping information Heading"
     }
-    ]
+    ],
+    "blocks": [
+    {
+      "type": "shipping_information",
+      "name": "shipping_information",
+      "settings": [
+        {
+          "label": "Shipping info title",
+          "id": "shipping_info_title",
+          "type": "text"
+        },
+        {
+          "label": "Shipping info text",
+          "id": "shipping_info_text",
+          "type": "richtext"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
