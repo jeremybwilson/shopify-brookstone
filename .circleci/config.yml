@@ -18,11 +18,19 @@ jobs:
   build:
     <<: *defaults
     working_directory: ~/repo
+
     steps:
       - checkout
 
+      - run:
+          name: "Pull Submodules"
+          command: |
+            git submodule update --init --recursive --remote
+
       # Store NPM Token so we can access the private BOL Slate Tools
-      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - run:
+          name: Add NPM Token for pulling @branded-online private modules
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 
       # Download and cache dependencies
       - restore_cache:
@@ -52,22 +60,34 @@ jobs:
   # TASK : DEPLOY - DEVELOP
   deploy_develop:
     <<: *defaults
+
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ~/repo
+
+      # Store NPM Token so we can access the private BOL Slate Tools
+      - run:
+          name: Add NPM Token for pulling @branded-online private modules
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
         
-        #Install BOL Slate deployment / build tool
-      - run: sudo npm i -g @branded-online/slate
+      # Install BOL Slate deployment / build tool
+      - run: 
+          name: Install Custom BOL Slate Tool
+          command: |
+            npm i @branded-online/slate
+
       - run:
           name: Generate dev env setting
           command: | #Change theme ID for each level 
             echo '
             development:
               password:' $SLATE_PASSWORD '
-              theme_id: "50143625270" # Temp, will change back once validated. This is a dev theme ID.
-              store: thefryecompany.myshopify.com
+              theme_id: "79099527271" # Theme: 'CI-Develop Branch'
+              store: brookstone-prod.myshopify.com
               ignore_files:
+                - "*.shogun*.liquid"
+                - shogun-*.liquid
                 # - settings_data.json #This is commented out so we keep in sync with repo' > ./config.yml
       - run:
           name: Deploy
@@ -81,8 +101,17 @@ jobs:
           # Must be absolute path or relative path from working_directory
           at: ~/repo
 
-        #Install BOL Slate deployment / build tool
-      - run: sudo npm i -g @branded-online/slate
+      # Store NPM Token so we can access the private BOL Slate Tools
+      - run:
+          name: Add NPM Token for pulling @branded-online private modules
+          command: echo '//registry.npmjs.org/:_authToken='$NPM_TOKEN >> ~/.npmrc
+
+      # Install BOL Slate deployment / build tool
+      - run: 
+          name: Install Custom BOL Slate Tool
+          command: |
+            npm i @branded-online/slate
+            
       - run:
           name: Generate prod env setting
           command: | #Change theme ID for each level
@@ -90,13 +119,15 @@ jobs:
             production:
               password:' $SLATE_PASSWORD '
               theme_id: "live"
-              store: bol-seed.myshopify.com
+              store: brookstone-prod.myshopify.com
               ignore_files:
                 - settings_data.json
+                - "*.shogun*.liquid"
+                - shogun-*.liquid           
                 - en.default.json' > ./config.yml
       - run:
           name: Deploy
-          command: slate deploy -e production
+          command: npm run deployProd
 
 
 # WORKFLOW : Execution Order of Tasks & When they run

@@ -48,23 +48,26 @@ theme.Newsletter = (function() {
 
           // success state
 
-          zaius.subscribe({
-              list_id: 'newsletter',
-              email: ui.textbox.val()
-            },
+          if ( typeof zaius !== 'undefined' ) {
+            zaius.subscribe({
+                list_id: 'newsletter',
+                email: ui.textbox.val()
+              },
 
-            // success state
-            function() {
-              ui.formId.fadeOut( () => {
-                ui.successMsg.fadeIn();
-              });
-            },
+              // success state
+              function () {
+                ui.formId.fadeOut(() => {
+                  ui.successMsg.fadeIn();
+                });
+              },
 
-            // fail state
-            function(error) {
-              console.log(error);
-            }
-          );
+              // fail state
+              function (error) {
+                console.log(error);
+              }
+            );
+          }
+          
         }
       });
     }
