@@ -164,7 +164,13 @@
     "tumblr_url": "",
     "youtube_url": "http:\/\/www.youtube.com\/user\/OneInnovationWay",
     "googleplus_url": "",
-    "instagram_id": "http:\/\/instagram.com\/brookstonegifts",
+    "instagram_url": "https:\/\/instagram.com\/brookstonegifts",
+    "instagram_id": "brookstonegifts",
+    "share_facebook": true,
+    "share_twitter": false,
+    "share_pinterest": true,
+    "share_instagram": true,
+    "share_youtube": true,
     "popup": true,
     "email_image": "",
     "email_popup_title": "FRONT ROW &amp; CENTER",
@@ -223,9 +229,6 @@
     "checkout_error_color": "#dc2828",
     "color_grey": "#9b9b9b",
     "nav_transparent_landing_color": "#ffffff",
-    "share_facebook": true,
-    "share_twitter": true,
-    "share_pinterest": true,
     "share_email": true,
     "email_popup_error_birthdate": "Please enter a valid birthdate",
     "international_store_version": "US",
@@ -742,12 +745,12 @@
           "slider_speed": 8
         }
       },
-      "home-instagram_feed": {
+      "home-instagram-feed": {
         "type": "instagram",
         "settings": {
-          "heading": "@Aquatalia",
+          "heading": "@BrookstoneGifts",
           "text": "",
-          "link": "http:\/\/www.instagram.com\/aquatalia",
+          "link": "http:\/\/www.instagram.com\/brookstonegifts",
           "cta_text": "FOLLOW US",
           "instagram_access_token": "1022365975.1677ed0.a29a97191f864ee0afeb65ef0024312b"
         }
@@ -1051,7 +1054,7 @@
       "home-featured_products_list",
       "home-about_slideshow",
       "home-feature_highlight_slideshow",
-      "home-instagram_feed"
+      "home-instagram-feed"
     ]
   }
 }

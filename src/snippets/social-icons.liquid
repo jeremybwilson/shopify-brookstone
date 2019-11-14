@@ -1,20 +1,20 @@
-{% if settings.facebook_url != blank %}
+{%- if settings.share_facebook == true and settings.facebook_url != blank -%}
   <li>
     <a href="{{ settings.facebook_url }}" target="_blank">
       {% include 'svg-icon-facebook' %}
     </a>
   </li>
-{% endif %}
+{%- endif -%}
 
-{% if settings.instagram_id != blank %}
+{%- if settings.share_instagram == true and settings.instagram_id != blank -%}
     <li>
-      <a href="//instagram.com/{{ settings.instagram_id }}" target="_blank">
+      <a href="{{ settings.instagram_url }}" target="_blank">
         {% include 'svg-icon-instagram' %}
       </a>
     </li>
-{% endif %}
+{%- endif -%}
 
-{% if settings.youtube_url != blank %}
+{% if settings.share_youtube == true and settings.youtube_url != blank %}
   <li>
     <a href="{{ settings.youtube_url }}" target="_blank">
       {% include 'svg-icon-youtube' %}
@@ -22,35 +22,35 @@
   </li>
 {% endif %}
 
-{% if settings.twittername != blank %}
+{%- if settings.share_twitter == true and settings.twittername != blank -%}
   <li>
     <a href="{{ settings.twittername }}" target="_blank">
       {% include 'svg-icon-twitter' %}
     </a>
   </li>
-{% endif %}
+{%- endif -%}
 
-{% if settings.pinterest_url != blank %}
+{%- if settings.share_pinterest == true and settings.pinterest_url != blank -%}
   <li>
     <a href="{{ settings.pinterest_url }}" target="_blank">
       {% include 'svg-icon-pinterest' %}
     </a>
   </li>
-{% endif %}
+{%- endif -%}
 
-{% if settings.tumblr_url != blank %}
+{%- if settings.tumblr_url != blank -%}
   <li>
     <a href="{{ settings.tumblr_url }}" target="_blank">
       <i class="fa fa-tumblr fa-2x"></i>
     </a>
   </li>
-{% endif %}
+{%- endif -%}
 
-{% if settings.googleplus_url != blank %}
+{%- if settings.googleplus_url != blank -%}
   <li>
     <a href="{{ settings.googleplus_url }}" target="_blank">
       <i class="fa fa-google-plus fa-2x"></i>
     </a>
   </li>
-{% endif %}
+{%- endif -%}
 
