@@ -22,6 +22,7 @@
     "bootstrap": "npm i",
     "build": "slate build",
     "deploy": "slate deploy",
+    "deployProd": "slate deploy -e production",    
     "start": "slate deploy && slate watch",
     "watch": "slate watch"
   }
