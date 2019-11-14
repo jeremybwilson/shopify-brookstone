@@ -119,7 +119,7 @@
     display: inline-block;
     margin-top: 15px;
   }
-  #card-link {
+  .card-link {
       @include fontSize(14px);
       text-transform: uppercase;
       text-decoration: underline;
@@ -156,6 +156,9 @@
 
   #footer-gift-card-text-1 {
     font-weight: $font-weight--book;
+    p{
+      font-size: inherit;
+    }
     @include mq(phone){
       @include fontSize(14px);
     }

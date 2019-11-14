@@ -56,12 +56,17 @@
       {% comment %} :: VISIT OUR BRANDS :: {% endcomment %}
       <div class="desktop-4 tablet-3 mobile-3 visit-our-brands">
         <div class="section-title">
-          <div id="footer-gift-card-text-1">Easy to Send. <span id="footer-gift-card-text-2">Fun to Spend.</span></div>
-          <div id="git-card-img"><img src="{{ 'footerGiftCard.jpg' | file_img_url: 'master' }}">
+          <div id="footer-gift-card-text-1">{{ section.settings.gift_description }}</div>
+          <div id="git-card-img">
+            <a href='{{section.settins.gift_url}}'>
+            <img src="{{ section.settings.gift_img | img_url: 'grande' }}" alt='{{section.settings.gift_img.alt}}'>
+          </a>
           </div>
           <div id="gift-card-text">
-            <p id="card-desc">Give the perfect gift every time</p>
-            <a href="#"><p id="card-link">SHOP GIFT CARDS</p></a>
+            <p id="card-desc">{{ section.settings.gift_description }}</p>
+            <a href='{{section.settins.gift_url}}' class='card-link'>
+            {{section.settings.gift_btn_text}}
+          </a>
           </div>
         </div>
 
@@ -169,8 +174,38 @@
       },
       {
         "type":"header",
+        "content":"Gift-card section"
+      },
+      {
+        "type":"richtext",
+        "label":"Heading text",
+        "id":"gift_title"
+      },
+      {
+        "type":"text",
+        "label":"Description",
+        "id":"gift_description"
+      },
+      {
+        "type":"image_picker",
+        "id":"gift_img",
+        "label":"Gift card image"
+      },
+      {
+        "type":"text",
+        "label":"Button text",
+        "id":"gift_btn_text"
+      },
+      {
+        "type":"url",
+        "id":"gift_url",
+        "label":"Gift card URL"
+      },
+      {
+        "type":"header",
         "content":"Visit Our Brands - #1"
       },
+   
       {
         "type":"url",
         "id":"visit_brand_link_one",
