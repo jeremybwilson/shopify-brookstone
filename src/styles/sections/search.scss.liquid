@@ -97,14 +97,42 @@ body.search {
 
     /* LAYOUT : Overrides for filter / collection styles
      * ------------------------------------------------- */
-    #filter-list-mobile-wrap {
-        position: relative;
-        margin-top: -69px;
-    }
+
+     .filter-wrapper{
+        #filter-list-mobile-wrap {
+            position: relative;
+            margin-top: -69px;
+            @include mq( 'phone-and-tablet' ) {
+                margin-top: unset;
+                top: 0;
+            }
+
+            #filter-list-button-wrap{
+                @include mq( 'phone-and-tablet' ) {
+                    position: static;
+                    width: 55%;
+                    height: 35px;
+                }
+                #filter-button-mobile{
+
+                    @include mq( 'phone-and-tablet' ) {
+                        position: static;
+                    }   
+                }
+            }
+        }
+
+        .mobile-sortby{
+
+        }
+     }
 
     .filter-wrap-desktop {
         @include mq( 'lap-and-up' ) {
-            margin-top: 5px;
+            margin-top: 20px;
+        }
+        @include mq( 'phone-and-tablet' ) {
+            display: none;
         }
     }
 
