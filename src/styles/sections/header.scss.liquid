@@ -1035,7 +1035,7 @@ body.js-drawer-open {
                     @include fontSize( 16px );
                     font-weight: $font-weight--medium;
                     padding-top: 3px; // make up size for 3px bottom border on links
-                    border-bottom: 1px solid transparent;
+                    border-bottom: 2px solid transparent;
 
                     @include mq( 'desk-and-up' ) {
                         @include fontSize( 20px );
@@ -1043,7 +1043,7 @@ body.js-drawer-open {
                 }
 
                 &:hover > a {
-                    border-bottom: 1px solid {{ settings.nav_links_hover }};
+                    border-bottom: 2px solid {{ settings.nav_links_hover }};
                 }
 
                 &:hover {
@@ -2010,11 +2010,17 @@ nav {
             border-color: $mainColor;
             margin-bottom: 0;
             height: 37px;
-            text-indent: 4px;
-            font-size: 12px;
+            @include fontSize(12px);
             line-height: 18px;
             font-weight: 700;
             background-color: $color--white;
+
+            &::webkit-input-placeholder,
+            &:-ms-input-placeholder,
+            &::placeholder {
+                letter-spacing: 0;
+            }
+
             @include mq(wide-and-up) {
                 max-width: 550px;
             }
