@@ -202,7 +202,11 @@
 
         </div>
 
-        <div class="shipping_information_wrap">
+        {% if product.type == 'Gift Card' %}
+        <p>To redeem a previously purchased gift card please call  800-846-3000</p>
+        {% endif %}
+
+        <div class="shipping_information_wrap {{product.type}}">
           <h3 class="shipping_information_heading">{{ section.settings.shipping_information_heading}}</h3>
 
           {% for block in section.blocks %}
@@ -637,6 +641,12 @@
         "type": "checkbox",
         "id": "show_recently_viewed",
         "label": "Show recently viewed products"
+    },
+
+    {
+        "type": "text",
+        "id": "gift_card_txt",
+        "label": "Gift card verbiage"
     },
 
     {

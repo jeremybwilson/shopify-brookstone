@@ -14,7 +14,21 @@
         {% endunless %}
       </div>
 
-      <form id="footer-newsletter">
+      {% form 'customer' %}
+      <div class="form_vertical">
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+        <p class="note form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+        {% else %}
+        <input type="email" class="form-control" value="{% if customer %}{{ customer.email }}{% endif %}" id="email" name="contact[email]"  placeholder="{{section.settings.newsletter_placeholder}}" required>
+
+        <input type="submit" class="btn" name="subscribe"  value="Submit">
+        {% endif %}
+        
+      </div>
+      {% endform %}
+
+      {% comment %}<form id="footer-newsletter">
        <input class="form-control" type="email" id="email" name="email" placeholder="{{section.settings.newsletter_placeholder}}">
         <input type="submit" name="submit-email" value="Submit">
       </form>
@@ -22,7 +36,7 @@
         <span id="newsletter-error-response" style="display:none;">{{ section.settings.newsletter_error }}</span>
         <span id="newsletter-success-response" style="display:none;">
         {{ section.settings.newsletter_success }}</span>
-      </div>
+      </div>{% endcomment %}
 
     </div><!-- .newsletter-inner -->
   </div><!-- .newsletter-wrapper -->
