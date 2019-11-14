@@ -4,50 +4,32 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:10.16.0-browsers
-
- # list of branches to build 
+    - image: circleci/node:8.11.3-browsers
 general:
   branches:
     only:
-      - develop
+      - develop # list of branches to build
       - release
+      
 jobs:
-
-  # TASK : BUILD THEME
   build:
     <<: *defaults
     working_directory: ~/repo
-
     steps:
       - checkout
-
-      - run:
-          name: "Pull Submodules"
-          command: |
-            git submodule update --init --recursive --remote
-
-      # Store NPM Token so we can access the private BOL Slate Tools
-      - run:
-          name: Add NPM Token for pulling @branded-online private modules
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-
       # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}-bootstrapped
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
-
-      # NPM Install (Just runs 'npm i' but if we ever need more use again..)
+      # NPM Install & Overwrite the slate build-js file with our custom one that compiles ES6 / React
       - run: npm run bootstrap
-
       # Save the cached setup
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}-bootstrapped
-
       # Persist the specified paths (workspace/echo-output) into the workspace for use in deploy job.
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a  
@@ -57,33 +39,21 @@ jobs:
           paths:
             - .
 
-  # TASK : DEPLOY - DEVELOP
   deploy_develop:
     <<: *defaults
-
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ~/repo
-
-      # Store NPM Token so we can access the private BOL Slate Tools
-      - run:
-          name: Add NPM Token for pulling @branded-online private modules
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-        
-      # Install BOL Slate deployment / build tool
-      - run: 
-          name: Install Custom BOL Slate Tool
-          command: |
-            npm i @branded-online/slate
-
+        #Install slate to use slate deploy commands (v0.14)
+      - run: sudo npm i -g @shopify/slate
       - run:
           name: Generate dev env setting
           command: | #Change theme ID for each level 
             echo '
             development:
               password:' $SLATE_PASSWORD '
-              theme_id: "79099527271" # Theme: 'CI-Develop Branch'
+              theme_id: "79099527271"
               store: brookstone-prod.myshopify.com
               ignore_files:
                 - "*.shogun*.liquid"
@@ -93,25 +63,14 @@ jobs:
           name: Deploy
           command: npm run deploy
 
-  # TASK : DEPLOY - RELEASE
   deploy_release:
     <<: *defaults
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ~/repo
-
-      # Store NPM Token so we can access the private BOL Slate Tools
-      - run:
-          name: Add NPM Token for pulling @branded-online private modules
-          command: echo '//registry.npmjs.org/:_authToken='$NPM_TOKEN >> ~/.npmrc
-
-      # Install BOL Slate deployment / build tool
-      - run: 
-          name: Install Custom BOL Slate Tool
-          command: |
-            npm i @branded-online/slate
-            
+        #Install slate to use slate deploy commands (v0.14)
+      - run: sudo npm i -g @shopify/slate
       - run:
           name: Generate prod env setting
           command: | #Change theme ID for each level
@@ -123,14 +82,12 @@ jobs:
               ignore_files:
                 - settings_data.json
                 - "*.shogun*.liquid"
-                - shogun-*.liquid           
+                - shogun-*.liquid
                 - en.default.json' > ./config.yml
       - run:
           name: Deploy
-          command: npm run deployProd
+          command: slate deploy -e production
 
-
-# WORKFLOW : Execution Order of Tasks & When they run
 workflows:
   version: 2
   build_deploy_dev:
