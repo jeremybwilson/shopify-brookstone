@@ -6,7 +6,7 @@
   </li>
 {%- endif -%}
 
-{%- if settings.share_instagram == true and settings.instagram_id != blank -%}
+{%- if settings.share_instagram == true and settings.instagram_url != blank -%}
     <li>
       <a href="{{ settings.instagram_url }}" target="_blank">
         {% include 'svg-icon-instagram' %}
