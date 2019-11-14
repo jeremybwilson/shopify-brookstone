@@ -201,9 +201,9 @@
             </div>
 
         </div>
-
-        {% if product.type == 'Gift Card' %}
-        <p>To redeem a previously purchased gift card please call  800-846-3000</p>
+        {% assign product_type = product.type | handleize %}
+        {% if product_type == 'gift-card' and section.settings.gift_card_txt != blank %}
+        <p>{{section.settings.gift_card_txt}}</p>
         {% endif %}
 
         <div class="shipping_information_wrap {{product.type}}">
@@ -646,7 +646,8 @@
     {
         "type": "text",
         "id": "gift_card_txt",
-        "label": "Gift card verbiage"
+        "label": "Gift card verbiage",
+        "default":"To redeem a previously purchased gift card please call  800-846-3000"
     },
 
     {
