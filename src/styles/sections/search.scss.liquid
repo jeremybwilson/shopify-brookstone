@@ -151,6 +151,21 @@ body.template-name-search{
     #search-template{
         #collection-wrapper{
             padding:0px;
+            .search-title{
+                @include mq( 'phone' ) {
+                    left:0px;
+                    padding-left:10px;
+                }
+            }
+            .bc-sf-search-result-number{
+                @include mq( 'phone' ) {
+                    left:0px;
+                    padding-left:10px;
+                }
+                @include mq( 'tablet' ) {
+                    margin-bottom:10px;
+                }
+            }
             #collection-filters{
                 #full-width-filter{
                     margin-top:20px;
