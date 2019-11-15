@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.contact-section{
+  ul{
+    list-style: none;
+  }
+}
+
 #contact-muck {
   td {
     vertical-align: top;
@@ -110,6 +116,19 @@
     @include mq('tablet-and-up') {
       width: 90%;
       padding: 50px;
+    }
+    textarea{
+      resize: none;
+      width: 100%;
+      background: $color--white;
+      height: 200px;
+      margin: 0px;
+      margin-bottom: 40px;
+      max-width: 100%;
+      text-indent: 10px;
+      padding: 10px 0;
+      outline: none;
+      min-height: 60px;
     }
     label {
       margin-bottom: 5px;
