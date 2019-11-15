@@ -305,6 +305,7 @@ body.template-name-collection, body.template-name-search {
         margin: 0 auto;
         float: none;
         padding:50px 0px;
+        position:relative;
         @include mq( 'phone-and-tablet' ) {
             padding:20px 0px;
         }
@@ -401,6 +402,39 @@ body.template-name-collection, body.template-name-search {
                         }
                         .filter-label{
                             margin-bottom:20px;
+                        }
+                    }
+                    #bc-sf-filter-tree-h{
+                        .bc-sf-filter-selection-wrapper{
+                            position:static;
+                            padding:0px;
+                            .bc-sf-filter-selected-items{
+                                padding:0px;
+                                .selected-item{
+                                    background:$color--light-gray;
+                                    border-radius:0px;
+                                    padding:5px 10px;
+                                    margin-right:7px;
+                                    .bc-sf-filter-option-label{
+                                        text-transform:capitalize;
+                                        font-weight: $font-weight--medium;
+                                        @include fontSize( 14px );
+                                    }
+                                }
+                            }
+                            .bc-sf-filter-clear-all{
+                                top:17px;
+                                text-transform:capitalize;
+                                font-weight: $font-weight--medium;
+                            }
+                        }
+                        .bc-sf-filter-block-title{
+                            padding-top:8px;
+                            padding-bottom:8px;
+                        }
+                        .bc-sf-filter-block-content{
+                            position:static;
+
                         }
                     }
                 }
@@ -512,6 +546,8 @@ body.template-name-collection, body.template-name-search {
                     margin: 0;
                     margin-left: 10px;
                     border-radius: 0;
+                    height: 35px;
+                    line-height: 18px;
                     @include mq( 'phone' ) {
                         display:none;
                     }

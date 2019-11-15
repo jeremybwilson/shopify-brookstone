@@ -35,7 +35,12 @@ theme.Collection = (function() {
 
     // EVENTS : Bind DOM events when ready
     $(document).ready( () => {
-
+      if ($(window).width() > 1023) {
+        setTimeout(()=>{
+          $('.bc-sf-filter-option-block-price .bc-sf-filter-block-title').find('a').addClass('selected');
+          $('.bc-sf-filter-option-block-price .bc-sf-filter-block-content').show();
+        },1000);
+      }
       // FILTER MENU : STATE : Open state indicator for filters
       const toggleFilterOpen = () => {
         ui.collectionWrap.toggleClass( 'filter-open' );

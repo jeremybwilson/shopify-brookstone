@@ -172,32 +172,37 @@
             {% assign split_found = false %}
 
             {% if product.description contains '<!-- split -->' %}
-            {% assign split_found = true %}
-            {% assign small_description = product.description | split: '<!-- split -->' | first %}
-            {% assign full_description = product.description | split: '<!-- split -->' | last %}
-
+                {% assign split_found = true %}
+                {% assign small_description = product.description | split: '<!-- split -->' | first %}
+                {% assign full_description = product.description | split: '<!-- split -->' | last %}
             {% endif %}
 
             <div class="product-descr">
-              <br />
                 
                 <div class="product-descr-wrapper">
                     
-                    {% if split_found %}
-                    <h3>Product Description</h3>
-                    {% endif %}
-                    
-                    {{small_description}}
+                    <div class="rte">
+
+                        {% if split_found %}
+                            {{ small_description }}
+                            {{ full_description }}
+                        {% else %}
+                            {{ product.description }}
+
+                        {% endif %}
+
+                    </div>
+
+
                 </div>
-                {% if split_found %}
-                <span id="read-more">
+                {% comment %} <span id="read-more">
                     <a href="#description-guide" title="{{'products.general.read_more' | t}}" tabindex="0">{{'products.general.read_more' | t}}
                         <span class="caret-icon">
                             {% include 'svg-icon-caret-down' %}
                         </span>
                     </a>
-                </span>
-                {% endif %}
+                </span> {% endcomment %}
+                
             </div>
 
         </div>

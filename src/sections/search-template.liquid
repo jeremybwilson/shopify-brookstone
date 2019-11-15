@@ -6,14 +6,15 @@
   
   <div id="collection-wrapper" class="clearfix grid-max-width">
     <h2 class="search-title">{{ 'general.search.title' | t }}: <span>"{{ search.terms }}"</span></h2>
-  <p class="bc-sf-search-result-number"></p>
+    <div class="bc-sf-search-result-number">
 
-  <div id="search-bar" class="desktop-12 mobile-3">
-    <form action="/search" method="get">
-      <input type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
-      {% include 'svg-icon-search' %}
-    </form>
-  </div>
+    </div>
+    <div id="search-bar" class="desktop-12 mobile-3">
+      <form action="/search" method="get">
+        <input type="text" name="q" id="q" placeholder="{{ 'general.search.placeholder' | t }}" />
+        {% include 'svg-icon-search' %}
+      </form>
+    </div>
     <div class="side-filter desktop-3">
       <div id="collection-filters"> 
       {% comment %} :: FILTER + SORT - Desktop Component :: {% endcomment %}
@@ -53,19 +54,21 @@
           <div class="mobile-sortby"></div>
         </div> 
         {% comment %} :: PRODUCT LIST :: {% endcomment %}
-        <div id="product-loop" data-bc-sort="{{ collection.default_sort_by }}">
-          {% assign products-per-row = section.settings.products-per-row %}
-          {% if collection.image %}
-          <div class="product-index {{ grid_item_width }}" data-alpha="{{ collection.title }}">     
-            {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}     
-          </div>  
-          {% endif %}
+        <div id="collection-product-wrap">
+          <div id="product-loop" data-bc-sort="{{ collection.default_sort_by }}">
+            {% assign products-per-row = section.settings.products-per-row %}
+            {% if collection.image %}
+            <div class="product-index {{ grid_item_width }}" data-alpha="{{ collection.title }}">     
+              {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}     
+            </div>  
+            {% endif %}
 
-          {% for product in collection.products %}
-          <div class="product-index {{ grid_item_width }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
-            {% include 'product-listing' %}
+            {% for product in collection.products %}
+            <div class="product-index {{ grid_item_width }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
+              {% include 'product-listing' %}
+            </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
     </div>
   </div>
