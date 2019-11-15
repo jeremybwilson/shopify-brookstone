@@ -140,6 +140,12 @@
   </script>
 
   {{ content_for_header }}
+
+  {% comment %} SHOGUN :: HEADER {% endcomment %}
+  {% capture shogun_head_check %}{% include 'shogun-head' %}{% endcapture %}
+  {% unless shogun_head_check contains 'Liquid error' %}
+    {{ shogun_head_check }}
+  {% endunless %}
 </head>
 
 <body class="bfx-price-container bfx-remove-element-container template-name-{{ template | split: '.' | last }} gridlock shifter {% if template contains 'product' %}product{% elsif template contains 'collection' %}collection{% else %}{{ template }}{% endif %}">
