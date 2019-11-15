@@ -359,6 +359,9 @@
 {% unless template == 'product.quick' %}
 {% comment %} BOTTOM CONTENT {% endcomment %}
 
+{% comment %} SHOGUN CONTENT {% endcomment %}
+{{product.metafields.shogun.below}}    
+
 {% if section.settings.related_products == 'bottom' %}
 <div id="related" class="bottom-related">
     {% include 'related-products' %}
