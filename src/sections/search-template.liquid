@@ -2,7 +2,10 @@
 
 <div id="search-template" class="desktop-12 tablet-6 mobile-3" data-section-id="{{ section.id }}" data-section-type="search-template">
 
-  <h2 class="search-title">{{ 'general.search.title' | t }}: <span>"{{ search.terms }}"</span></h2>
+  
+  
+  <div id="collection-wrapper" class="clearfix grid-max-width">
+    <h2 class="search-title">{{ 'general.search.title' | t }}: <span>"{{ search.terms }}"</span></h2>
   <p class="bc-sf-search-result-number"></p>
 
   <div id="search-bar" class="desktop-12 mobile-3">
@@ -11,59 +14,62 @@
       {% include 'svg-icon-search' %}
     </form>
   </div>
-  
-      
-  {% comment %} :: FILTER + SORT - Desktop Component :: {% endcomment %}
-  <div id="full-width-filter" class="filter-wrap-desktop">
-    <h4 class="filter-label">FILTER</h4>
-    <div id="bc-sf-filter-tree-h" class="filter-list-desktop"></div>
-    
-    <ul id="sortme" class="sort-options animate25">
-      <li id="bc-sf-filter-top-sorting" class="clearfix filter"></li>
-    </ul>
-  </div>
-  
-
-  {% comment %} :: FILTER - Mobile Component :: {% endcomment %}
-
-  <div class="filter-wrapper">
-    <div id="filter-list-mobile-wrap">
-      <div id="filter-list-button-wrap">
-
-        {% comment %} FILTER BUTTON {% endcomment %}
-        <div id="filter-button-mobile">
-          <div id="bc-sf-filter-tree-mobile"></div>
-          <div id="filter-button-arrow"></div>
+    <div class="side-filter desktop-3">
+      <div id="collection-filters"> 
+      {% comment %} :: FILTER + SORT - Desktop Component :: {% endcomment %}
+        <div id="full-width-filter" class="filter-wrap-desktop">
+          {% comment %} :: FILTER SETS - JS Overwrites .filter-list-desktop div content :: {% endcomment %}
+          <div class="filter-list-desktop-wrap">
+            {% comment %} :: FILTER LABEL :: {% endcomment %}
+            <h4 class="filter-label">FILTER</h4>
+            {% comment %} :: FILTER SETS :: {% endcomment %}
+            <div id="bc-sf-filter-tree-h" class="filter-list-desktop"></div>
+                {% comment %} :: Extra Clear Button :: Can move this elsewhere if needed somewhere - Use as reference
+                <div id="filter-clear-button-desktop" onClick="clearAllFilterOptions(event)">Clear Filters</div>
+                {% endcomment %}
+            </div>
         </div>
       </div>
-
-      {% comment %} FILTERS LIST {% endcomment %}
-      <div id="bc-sf-filter-tree"></div>
     </div>
-    
-    <div class="mobile-sortby">
-      
+    <div class="select-collection desktop-9">
+        {% comment %} :: FILTER SETS :: {% endcomment %}
+        <div class="collection-sort-wrap">
+          <ul id="sortme" class="sort-options animate25">
+            <li id="bc-sf-filter-top-sorting" class="clearfix filter"></li>
+          </ul>
+        </div>
+        {% comment %} :: FILTER - Mobile Component :: {% endcomment %}
+        <div class="filter-wrapper">
+          <div id="filter-list-mobile-wrap" class="clearfix">
+            <div id="filter-list-button-wrap">
+              {% comment %} FILTER BUTTON {% endcomment %}
+              <div id="filter-button-mobile">
+                <div id="bc-sf-filter-tree-mobile"></div>
+              </div>
+            </div>
+            {% comment %} FILTERS LIST {% endcomment %}
+            <div id="bc-sf-filter-tree"></div>
+          </div>
+          <div class="mobile-sortby"></div>
+        </div> 
+        {% comment %} :: PRODUCT LIST :: {% endcomment %}
+        <div id="product-loop" data-bc-sort="{{ collection.default_sort_by }}">
+          {% assign products-per-row = section.settings.products-per-row %}
+          {% if collection.image %}
+          <div class="product-index {{ grid_item_width }}" data-alpha="{{ collection.title }}">     
+            {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}     
+          </div>  
+          {% endif %}
+
+          {% for product in collection.products %}
+          <div class="product-index {{ grid_item_width }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
+            {% include 'product-listing' %}
+          </div>
+          {% endfor %}
+        </div>
     </div>
   </div>
-
-
-
-  {% comment %} :: PRODUCT LIST :: {% endcomment %}
-  <div id="product-loop" data-bc-sort="{{ collection.default_sort_by }}">
-    {% assign products-per-row = section.settings.products-per-row %}
-    {% if collection.image %}
-      <div class="product-index {{ grid_item_width }}" data-alpha="{{ collection.title }}">     
-          {{ collection.image.src | collection_img_url: 'grande' | img_tag: collection_title }}     
-      </div>  
-    {% endif %}
-
-    {% for product in collection.products %}
-      <div class="product-index {{ grid_item_width }}" data-alpha="{{ product.title }}" data-price="{{ product.price }}">     
-        {% include 'product-listing' %}
-      </div>
-    {% endfor %}
-  </div>
-
+  
 
   {% comment %} :: PAGINATION :: {% endcomment %}
   <div id="pagination" class="desktop-12 tablet-6 mobile-3">
