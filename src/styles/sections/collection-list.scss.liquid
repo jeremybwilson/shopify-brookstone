@@ -1,0 +1,40 @@
+body.template-name-list-collections{
+    .collection-list-template{
+        margin: 0 auto;
+        float: none;
+        padding: 50px 0px;
+        @include mq( 'phone' ) {
+            padding: 50px 15px;
+        }
+
+        #breadcrumb{
+            width: 100%;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        #collection-description{
+
+        }
+
+        #product-loop{
+            .prod-container{
+                .box-ratio{
+                    height: unset;
+                    background-color: unset;
+                }
+                img{
+                    max-height: 350px;
+                    width: auto;
+                    height: 250px;
+                    max-width: 100%;
+                    display: block;
+                    margin: 0 auto;
+                    @include mq( 'phone' ) {
+                        height: 150px;
+                    }
+                }
+            }
+        }
+    }
+}

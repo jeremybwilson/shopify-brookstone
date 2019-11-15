@@ -1,4 +1,4 @@
-<div data-section-id="{{ section.id }}" class="collection-list-template">
+<div data-section-id="{{ section.id }}" class="collection-list-template clearfix grid-max-width">
 
   {% case section.settings.grid %}
   {% when 2 %}
@@ -33,7 +33,7 @@
       {% endif %}
     </div>
 
-    <div id="product-loop">
+    <div id="product-loop" class="clearfix">
       {% for collection in collections %}
       {% assign products-per-row = section.settings.products_per_row %}
         {% include 'collection-grid-item' %}

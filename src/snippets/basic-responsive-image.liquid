@@ -8,7 +8,7 @@
     {% assign imageid = image.id %}
   {%- endif -%}
 
-  <div class="box-ratio" style="padding-bottom: {{ image_box_ratio }};">
+  <div class="box-ratio" {% unless template == 'list-collections' %}style="padding-bottom: {{ image_box_ratio }};"{% endunless %}>
     <img class="lazyload lazyload-fade"
       id="{{ imageid }}"
       data-src="{{ img_url }}"
