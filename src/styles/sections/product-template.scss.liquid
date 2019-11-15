@@ -248,6 +248,18 @@
       border-top: none;
       padding-top: 0;
     }
+
+    .share-icons a {
+      vertical-align: middle;
+      color: #999;
+    }
+    
+    .share-text {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+
   }
 
 }
@@ -740,6 +752,7 @@ svg {
 
 /*shipping information css*/
 .shipping_information_wrap {
+  display: none;
   margin: 25px 0;
   .shipping_information_heading{
     @include fontSize( 14px );
@@ -758,3 +771,7 @@ svg {
   }
 }
 /*shipping information css*/
+
+#related h4 {
+  @include fontSize( 24px );
+}
