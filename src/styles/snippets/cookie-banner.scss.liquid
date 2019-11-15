@@ -61,7 +61,7 @@ $gdprAltButtonBgHover: {{ settings.gdpr_alt_button_bg_hover }};
   }
   .desktop-text {
     max-width: 880px;
-    @include fontDim(12px,20px,.04em);
+    @include fontDim(12px,20px,0);
 
     @include mq('phone') {
       display: none;
@@ -81,7 +81,6 @@ $gdprAltButtonBgHover: {{ settings.gdpr_alt_button_bg_hover }};
 
     a {
       text-decoration: none;
-      letter-spacing: .25em;
       font-weight: $font-weight--black;
 
       @include mq('phone') {

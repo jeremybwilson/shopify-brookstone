@@ -1249,16 +1249,31 @@
     "name": "Social media",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Enable Twitter social sharing/icons"
+      },
+      {
         "type": "text",
         "id": "twittername",
         "label": "Your Twitter link",
         "info": "Example: //twitter.com/shopify"
       },
       {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Enable Facebook social sharing/icons"
+      },
+      {
         "type": "text",
         "id": "facebook_url",
         "label": "Your facebook url",
         "info": "Example: //facebook.com/shopify"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Enable Pinterest social sharing/icons"
       },
       {
         "type": "text",
@@ -1273,6 +1288,11 @@
         "info": "Example: //shopify.tumblr.com"
       },
       {
+        "type": "checkbox",
+        "id": "share_youtube",
+        "label": "Enable Youtube social sharing/icons"
+      },
+      {
         "type": "text",
         "id": "youtube_url",
         "label": "Your YouTube url",
@@ -1285,10 +1305,21 @@
         "info": "Example: //plus.google.com/shopify"
       },
       {
+        "type": "checkbox",
+        "id": "share_instagram",
+        "label": "Enable Instagram social sharing/icons"
+      },
+      {
+        "type": "text",
+        "id": "instagram_url",
+        "label": "Your full Instagram URL",
+        "info": "Example: https://www.instagram.com/brookstonegifts"
+      },
+      {
         "type": "text",
         "id": "instagram_id",
         "label": "Your Instagram ID",
-        "info": "Example: shopify"
+        "info": "Example: brookstonegifts"
       }
     ]
   },
