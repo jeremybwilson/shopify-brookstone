@@ -36,9 +36,11 @@ body.search {
     width: 100%;
     margin: 75px 0 0;
     float: none;
-
+    @include mq( 'phone-and-tablet' ) {
+        margin: 35px 0 0;
+    }
     @include mq( 'lap-and-up' ) {
-        margin-top: 95px;
+        margin-top: 50px;
     }
 
 
@@ -62,11 +64,14 @@ body.search {
         margin: 0 $searchMobileGutter;
         border: none;
         float: none;
-
+        @include mq( 'tablet' ) {
+            margin: 0px;
+            width:100%;
+        }
         @include mq( 'lap-and-up' ) {
             position: absolute;
             width: 320px;
-            top: 13px;
+            top: 0px;
             right: 0;
         }
 
@@ -126,12 +131,7 @@ body.search {
                 }
             }
         }
-
-        .mobile-sortby{
-
-        }
      }
-
     .filter-wrap-desktop {
         @include mq( 'lap-and-up' ) {
             margin-top: 20px;
@@ -142,68 +142,91 @@ body.search {
     }
 
     #product-loop {
-        padding-top: 100px;
+        padding-top:0px;
     }
 }
 
+/* New search Scss start */
+body.template-name-search{
+    #search-template{
+        #collection-wrapper{
+            padding:0px;
+            .search-title{
+                @include mq( 'phone' ) {
+                    left:0px;
+                    padding-left:10px;
+                }
+            }
+            .bc-sf-search-result-number{
+                @include mq( 'phone' ) {
+                    left:0px;
+                    padding-left:10px;
+                }
+                @include mq( 'tablet' ) {
+                    margin-bottom:10px;
+                }
+            }
+            #collection-filters{
+                #full-width-filter{
+                    margin-top:20px;
+                    #bc-sf-filter-tree-h{
+                        .bc-sf-filter-selection-wrapper{
+                            position:static;
+                            padding:0px;
+                            .bc-sf-filter-selected-items{
+                                padding:0px;
+                                .selected-item{
+                                    background:$color--light-gray;
+                                    border-radius:0px;
+                                    padding:5px 10px;
+                                    margin-right:7px;
+                                    .bc-sf-filter-option-label{
+                                        text-transform:capitalize;
+                                        font-weight: $font-weight--medium;
+                                        @include fontSize( 14px );
+                                    }
+                                }
+                            }
+                            .bc-sf-filter-clear-all{
+                                top:16px;
+                                text-transform:capitalize;
+                                font-weight: $font-weight--medium;
+                            }
+                        }
+                        .bc-sf-filter-block-title{
+                            padding-top:8px;
+                            padding-bottom:8px;
+                        }
+                        .bc-sf-filter-block-content{
+                            position:static;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        }
+                    }
+                }
+            }
+            #product-loop{
+                .product-info{
+                    .product-title{
+                        @include fontSize( 14px );
+                        letter-spacing: 0px;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+            .select-collection{
+                .collection-sort-wrap{
+                    @include mq( 'phone' ) {
+                        display:none;
+                    }
+                }
+            }
+        }
+        #sortme{
+            .styled-select{
+                height: 35px;
+                line-height: 18px;
+            }
+        }
+    }
+}
+/* New search Scss End */
