@@ -333,7 +333,6 @@ input.add {
   color: $color--white;
   font-weight: $font-weight--bold;
   @include fontSize(18px);
-  letter-spacing: 1px;
   text-transform: unset;
 
   @include mq('phone-and-tablet') {
@@ -342,6 +341,7 @@ input.add {
 
   @include mq('tablet-and-up') {
     height: 40px;
+    line-height: 40px;
   }
   &:hover{
     background: $color--text-blue;
