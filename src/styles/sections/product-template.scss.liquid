@@ -8,21 +8,17 @@
   }
 
   .product {
-      #breadcrumb {
-        @include fontSize(14px);
+    #breadcrumb {
 
-        @include mq('tablet-and-up') {
-          @include fontSize(16px);
-      }
       & > *:nth-last-child(-n+3) {
           // hides and shows the page-title, the separator before it, and the #results-count div
           display: none;
 
           @include mq('tablet-and-up') {
             display: inline;
-        }
+          }
+      }
     }
-}
 }
 
 .product--mobile-header {
@@ -125,9 +121,9 @@
 .product {
   #content {
     h1 {
-      color: $product--add--to--cart--bg;
-      @include fontDim(15px,16px,0);
-      font-weight: $font-weight--black;
+      //color: $product--add--to--cart--bg;
+      @include fontDim(25px,25px,0);
+      font-weight: $font-weight--light;
       text-align: center;
       text-transform: capitalize;
       margin-bottom: 15px;
@@ -137,7 +133,7 @@
     }
 
     @include mq('tablet-and-up') {
-        @include fontDim(25px,34px,0);
+        @include fontDim(32px,32px,0);
         text-align: left;
     }
 }
@@ -163,7 +159,7 @@
 }
 
 @include mq('tablet-and-up') {
-    @include fontSize(18px);
+    @include fontSize(24px);
     text-align: left;
 }
 
@@ -197,8 +193,15 @@
     }
 
     .product-descr{
-        .product-descr-wrapper{
+        margin-top: 25px;
 
+        .product-descr-wrapper{
+          h3 {
+            @include fontSize( 14px );
+          }
+          .rte {
+            @include fontSize( 12px );
+          }
         }
         #read-more{
             display: none;
@@ -216,12 +219,6 @@
             }
         }
     }
-}
-
-#product-right {
-  @include mq('lap-and-up') {
-    margin-top: 70px;
-}
 }
 
 .product-number{
@@ -745,16 +742,17 @@ svg {
 .shipping_information_wrap {
   margin: 25px 0;
   .shipping_information_heading{
-    font-size: 16px;
-  margin: 0;
+    @include fontSize( 14px );
+    margin: 0;
   }
   .shipping_info{
     margin: 10px 0;
-    p{
+    p {
       margin-bottom: 0px;
-      font-size: 13px;
+      
       &.title{
         color: $color--text-2;
+        font-weight: $font-weight--bold;
       }
     }
   }
