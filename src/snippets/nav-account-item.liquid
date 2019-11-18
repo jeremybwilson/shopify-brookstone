@@ -3,7 +3,7 @@
   <a href="/account" tabindex="0" title="account" area-label="account">
     {% if section.settings.account_icon == 'person' %}
       {% comment %}{% include 'svg-icon-account' %}{% endcomment %}
-      <img src="{{ 'profile.png' | file_img_url }}" alt="profile link">
+      <img src="{{ 'profile-icon.svg' | file_url }}" alt="profile link">
     {% else %}
       <div class="account-text account-username">
         {% if customer.first_name and section.settings.account_show_user_name %}
@@ -21,7 +21,9 @@
     {% if section.settings.account_icon == 'person' %}
       {% comment %}{% include 'svg-icon-account' %}{% endcomment %}
       <img src="{{ 'profile-icon.svg' | file_url }}" alt="profile link">
+      {% unless customer %}
       <span>Log In</span>
+      {% endunless %}
     {% else %}
       <div class="account-text">{{ section.settings.account_icon_text_value }}</div>
     {% endif %}

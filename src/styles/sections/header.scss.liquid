@@ -92,6 +92,9 @@ body.js-drawer-open {
     @include mq( 'lap-and-up' ){
         height: $navBarDesktopHeight;
     }
+    @include mq( 'lap-and-up' ){
+        z-index:999999;
+    }
     
     /*
      * SHADING : Add shadows for the sticky navigation states
@@ -1706,6 +1709,9 @@ nav {
 #nav-bar-wrapper {
     height: auto;
     border-bottom: 1px solid $logoColor;
+    @include mq ($lap-and-up) {
+        z-index:99999;
+    }
     &:hover,
     &.isStuck {
         box-shadow: none;
@@ -1776,7 +1782,7 @@ nav {
                 }
                 &#nav-user-list {
                     .nav-account {
-                        width: 45%;
+                        width: auto;
                     }
                 }
             }
