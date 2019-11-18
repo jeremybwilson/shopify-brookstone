@@ -20,7 +20,7 @@
   <a href="/account" tabindex="0" title="account" area-label="account">
     {% if section.settings.account_icon == 'person' %}
       {% comment %}{% include 'svg-icon-account' %}{% endcomment %}
-      <img src="{{ 'profile.png' | file_img_url }}" alt="profile link">
+      <img src="{{ 'profile-icon.svg' | file_url }}" alt="profile link">
       <span>Log In</span>
     {% else %}
       <div class="account-text">{{ section.settings.account_icon_text_value }}</div>
