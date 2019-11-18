@@ -92,9 +92,6 @@ body.js-drawer-open {
     @include mq( 'lap-and-up' ){
         height: $navBarDesktopHeight;
     }
-    @include mq( 'lap-and-up' ){
-        z-index:999999;
-    }
     
     /*
      * SHADING : Add shadows for the sticky navigation states
@@ -2078,6 +2075,9 @@ nav {
             }
         }        
     }
+}
+.bc-sf-search-suggestion-wrapper{
+    z-index:1 !important;
 }
 
 /* new header icon scss End */
