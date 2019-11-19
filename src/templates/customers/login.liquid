@@ -2,7 +2,9 @@
 
   <div id="account-msg">
     <h3>Sign in to your account</h3>
-    <p>Our brand new site is live. Please create a new account to explore this experience</p>
+    {% if settings.enable_relaunch_banner %}
+      {% include 'relaunch-banner' %}
+    {% endif %}
     <hr />
   </div>
 

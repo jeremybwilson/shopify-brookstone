@@ -1722,6 +1722,40 @@
     ]
   },
   {
+    "name": "Relaunch Announcement Banner",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Announcement text banner that will appear in My Account and Checkout"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_relaunch_banner",
+        "label": "Enable",
+        "default": true
+      },
+      {
+          "type": "richtext",
+          "id": "relaunch_banner_rich_text",
+          "label": "Text",
+          "info": "Use basic HTML to format text",
+          "default": "<p>Use this section to tell customers about your store or add content from one of your pages which makes it easy to add images, video or any other content.</p>"
+      },
+      {
+          "type": "color",
+          "id": "relaunch_banner_text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+      },
+      {
+          "type": "color",
+          "id": "relaunch_banner_bg_color",
+          "label": "Background Color",
+          "default": "#000"
+      }      
+    ]
+  },
+  {
     "name": "Password",
     "settings": [
       {

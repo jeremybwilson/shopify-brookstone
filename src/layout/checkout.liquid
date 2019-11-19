@@ -11,6 +11,7 @@
 
     {% comment %} :: LIBRARY SCRIPTS :: {% endcomment %}
     {{ 'jquery-2.2.4.min.js' | asset_url | script_tag }}
+    {{ 'checkout.scss.css' | asset_url | stylesheet_tag }}
 
   <!-- Data Layer for GTM
   ================================================== -->
@@ -20,6 +21,11 @@
       {% include 'script-data-layer' %}
     {%- endif -%}
 
+    {% comment %} SHOGUN :: HEADER {% endcomment %}
+    {% capture shogun_head_check %}{% include 'shogun-head' %}{% endcapture %}
+    {% unless shogun_head_check contains 'Liquid error' %}
+      {{ shogun_head_check }}
+    {% endunless %}
   </head>
 
   <body>
@@ -50,6 +56,10 @@
             {{ alternative_payment_methods }}
           </div>
           <div class="main__content">
+            {% if settings.enable_relaunch_banner %}
+              {% include 'relaunch-banner' %}
+            {% endif %}            
+
             {{ content_for_layout }}
           </div>
           <div class="main__footer">

@@ -1,0 +1,25 @@
+.relaunch-banner {
+    background: {{ settings.relaunch_banner_bg_color }};
+    padding: 12px 24px;
+
+    // Checkout style
+    .main__content & {
+        margin-bottom: 20px;
+    }
+
+    .rte {
+        margin-bottom: 0;
+        color: {{ settings.relaunch_banner_text_color }};
+        @include fontSize( 12px );
+        text-align: center;
+
+        p, strong, a {
+            color: inherit;
+            font-size: inherit;
+        }
+        p {
+            margin-bottom: 0;
+            text-align: inherit;
+        }
+    }
+}
