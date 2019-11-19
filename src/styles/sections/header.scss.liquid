@@ -88,6 +88,9 @@ body.js-drawer-open {
     z-index: 50; //entire wrapper, this relates to the header to rest of site so no need var
     border-bottom-width: 0;
     transition: $navShadowAni;
+    @include mq( 'lap' ){
+        z-index:1;
+    }    
 
     @include mq( 'lap-and-up' ){
         height: $navBarDesktopHeight;
