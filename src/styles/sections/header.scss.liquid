@@ -88,6 +88,9 @@ body.js-drawer-open {
     z-index: 50; //entire wrapper, this relates to the header to rest of site so no need var
     border-bottom-width: 0;
     transition: $navShadowAni;
+    @include mq( 'lap' ){
+        z-index:99;
+    }    
 
     @include mq( 'lap-and-up' ){
         height: $navBarDesktopHeight;
@@ -492,6 +495,9 @@ body.js-drawer-open {
                     }
 
                     // Count of wishlist items, hidden on this design
+                    .wk-count {
+                        display: none;
+                    }
 
                     &.wk-filled svg path {
                         fill-opacity: 1;
@@ -2058,3 +2064,28 @@ nav {
         }
     }
 }
+/* new header icon scss start */
+#nav-user{
+    #nav-user-list{
+        width:100%;
+        .nav-account{
+            width:100%;
+            img{
+                max-width:20px;
+            }
+        }        
+    }
+}
+.bc-sf-search-suggestion-wrapper{
+    @include mq (tablet-and-up) {
+        z-index:1 !important;
+    }
+}
+.bc-sf-search-suggestion-mobile-top-panel 
+{
+    #bc-sf-search-box-mobile{
+        display:inline-block;
+    }
+}
+
+/* new header icon scss End */
