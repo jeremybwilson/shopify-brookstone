@@ -1,0 +1,26 @@
+.content-announcement {
+    padding: 12px 0;
+
+    .page-wrap .index-sections &.index-section {
+        margin-bottom: 0;
+    }
+    .rte {
+        margin-bottom: 0;
+        @include fontSize( 14px );
+        text-align: center;
+
+        @include mq( 'tablet-and-up' ) {
+            @include fontSize( 16px );
+        }
+
+        p, strong, em, a {
+            color: inherit;
+            font-size: inherit;
+        }
+
+        p {
+            margin-bottom: 0;
+            text-align: inherit;
+        }
+    }
+}
