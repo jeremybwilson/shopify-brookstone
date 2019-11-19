@@ -5,7 +5,8 @@ var bcSfFilterSettings = {
         // Optional
         loadProductFirst: true,
         refineByHorizontalPosition: 'top',
-        breakpointMobile: '1023'
+        breakpointMobile: '1023',
+        isIpadMobile: $(window).width() < 1024 ? true : false
     },
     selector: {
         products: '#product-loop'
@@ -450,7 +451,9 @@ BCSfFilter.prototype.buildFilterSorting = function() {
 
 // Build additional attributes of product items
 BCSfFilter.prototype.buildExtrasProductList = function(data) {
-
+    if(bcSfFilterSettings.general.isIpadMobile && data.length < 2){
+        $('#collection-wrapper .filter-wrapper').hide();
+    }
     // THE ONE IN THEME.JS SEEMS TO ACTUALLY DO SOMETHING,
     // NOT SURE WHAT THIS IS DOING AS NOTHING BROKE COMMENTING IT OUT..
 
