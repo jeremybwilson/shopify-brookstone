@@ -1706,6 +1706,9 @@ nav {
 #nav-bar-wrapper {
     height: auto;
     border-bottom: 1px solid $logoColor;
+    @include mq ($lap-and-up) {
+        z-index:99999;
+    }
     &:hover,
     &.isStuck {
         box-shadow: none;

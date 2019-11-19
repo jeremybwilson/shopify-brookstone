@@ -1,0 +1,84 @@
+<!-- Left Section Start -->
+<div class="contact-section clearfix">
+    <div class="desktop-6 mobile-full contained tablet-3">
+        {% if section.settings.address_content %}
+        <div class="contact-address wrapper">
+            <h3 class="address-title">{{section.settings.address-title}}</h3>
+            <p>{{section.settings.address_content | stripe_html }}</p>
+        </div>
+        {% endif %}
+        {% if section.settings.email_content %}
+        <div class="email-content wrapper">
+            <h3 class="email-title">{{section.settings.email_title}}</h3>
+            <a href="mailto:{{section.settings.email_content}}" title="{{section.settings.email_content}}" tabindex="0">{{section.settings.email_content}}</a>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Left Section End -->
+
+    <!-- Right Section Start -->
+    <div class="desktop-6 mobile-full contained tablet-3">
+        {% if section.settings.phone_content %}
+        <div class="phone-content wrapper">
+            <h3 class="email-title">{{section.settings.phone_title}}</h3>
+            <p>{{section.settings.email_description | stripe_html }}</p>
+            <a href="tel:{{section.settings.phone_content}}" tabindex="0" title="{{section.settings.phone_content}}"><b>{{section.settings.phone_content}}</b></a>
+        </div>
+        {% endif %}
+    </div>
+    <!-- Right Section End -->
+</div>
+{% schema %}
+{
+    "name": "Contact page",
+    "settings": [
+    {
+        "type": "header",
+        "content": "Address"
+    },  
+    {
+        "type": "text",
+        "id": "address-title",
+        "label": "Address Title"
+    },
+    {
+        "type": "html",
+        "id": "address_content",
+        "label": "Contact Address (HTML)"
+    },
+    {
+        "type": "header",
+        "content": "Phone"
+    },  
+    {
+        "type": "text",
+        "id": "phone_title",
+        "label": "Phone Title"
+    },
+    {
+        "type": "html",
+        "id": "email_description",
+        "label": "phone (HTML)"
+    },
+    {
+        "type": "text",
+        "id": "phone_content",
+        "label": "Phone Text"
+    },
+    {
+        "type": "header",
+        "content": "Email"
+    },
+    {
+        "type": "text",
+        "id": "email_title",
+        "label": "Email title"
+    },
+    {
+        "type": "text",
+        "id": "email_content",
+        "label": "Email Address"
+    }
+    ]
+}
+{% endschema %}

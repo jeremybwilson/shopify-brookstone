@@ -231,24 +231,26 @@
               </style>
             {% endfor %}
           </ul>
-        </div><!-- .flexslider -->
 
-        {% comment %} New navigation {% endcomment %}
-        {% if section.blocks.size > 1 %}
+          {% comment %} New navigation {% endcomment %}
+          {% if section.blocks.size > 1 %}
           <div class="slider--nav {% if section.settings.show_nav_pagination == false %} hide-nav {% endif %}">
             <a href="#" class="flex-prev">
               {% include 'svg-icon-arrow-left' %}
             </a>
-            <div class="pagination">
+            {% comment %}<div class="pagination">
               <span class="flexslider--current-slide"></span>
               <span class="slash">/</span>
               <span class="flexslider--total-slides"></span>
-            </div>
+            </div>{% endcomment %}
             <a href="#" class="flex-next">
               {% include 'svg-icon-arrow-right' %}
             </a>
           </div><!-- .slider--nav -->
-        {% endif %}
+          {% endif %}
+        </div><!-- .flexslider -->
+
+        
 
       {% endif %}
 
