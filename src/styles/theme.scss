@@ -51,6 +51,7 @@
 @import url('./sections/policies-pages.scss.liquid');
 @import url('./sections/career.scss.liquid');
 @import url('./sections/collection-list.scss.liquid');
+@import url('./sections/content-announcement.scss.liquid');
 
 
 /*================ Snippets ================*/
@@ -62,7 +63,7 @@
 @import url('./snippets/yotpo-reviews.scss.liquid');
 @import url('./snippets/nosto-element.scss.liquid');
 @import url('./snippets/mobile-menu.scss.liquid');
-
+@import url('./snippets/relaunch-banner.scss.liquid');
 
 /*============= ReactComponents ============*/
 @import url('./react-components/react-badge.scss.liquid');

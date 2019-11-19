@@ -1,0 +1,59 @@
+{% assign s_id = section.id %}
+
+<section class="homepage-section content-announcement index-section" data-section-id="{{ s_id }}" id="content-announcement-{{ s_id }}">
+  <div class="row">
+
+    <div class="desktop-12 tablet-6 mobile-3">
+
+      <div class="pages-content">
+          <div class="rte text-center">
+            {{ section.settings.rich_text }}
+          </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+    #content-announcement-{{ s_id }} {
+        background-color: {{ section.settings.bg_color }};
+    }
+    #content-announcement-{{ s_id }} .rte {
+        color: {{ section.settings.text_color }};
+    }
+</style>
+
+
+{% schema %}
+{
+  "name": "Content Announcement",
+  "settings": [
+        {
+            "type": "richtext",
+            "id": "rich_text",
+            "label": "Text",
+            "info": "Use basic HTML to format text",
+            "default": "<p>Use this section to tell customers about your store or add content from one of your pages which makes it easy to add images, video or any other content.</p>"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#000"
+        }
+   ],
+   "presets":[
+      {
+       "name":"Content Announcement",
+       "category":"Text"
+      }
+   ]
+}
+{% endschema %}
