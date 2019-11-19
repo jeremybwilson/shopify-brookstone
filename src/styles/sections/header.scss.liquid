@@ -2074,7 +2074,15 @@ nav {
     }
 }
 .bc-sf-search-suggestion-wrapper{
-    z-index:1 !important;
+    @include mq (tablet-and-up) {
+        z-index:1 !important;
+    }
+}
+.bc-sf-search-suggestion-mobile-top-panel 
+{
+    #bc-sf-search-box-mobile{
+        display:inline-block;
+    }
 }
 
 /* new header icon scss End */
