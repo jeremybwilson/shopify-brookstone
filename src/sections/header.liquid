@@ -81,9 +81,11 @@
               {% comment %} :: Wishlist King App :: {% endcomment %}
               {% if settings.app_wk_enabled %}
                 {% comment %}<img src="{{ 'favorites.png' | file_img_url }}" alt="wishlist link">{% endcomment %}
+                <img src="{{ 'wishlist-icon.svg' | file_url }}" alt="wishlist link">
+
                 <!-- include 'wishlist-link' -->
 
-              {% else %}
+              {% else %}  
                 {% comment %} :: Heart Icon Placeholder :: {% endcomment %}
                 {% include 'svg-icon-heart' %}
               {% endif %}
@@ -98,7 +100,8 @@
               
               {% if section.settings.cart_icon == 'cart' %}
                 {% comment %}{% include 'svg-icon-cart' %}{% endcomment %}
-                <img src="{{ 'cart.png' | file_img_url }}" alt="cart link">
+                {% comment %}<img src="{{ 'cart.png' | file_img_url }}" alt="cart link">{% endcomment %}
+                <img src="{{ 'cart-icon.svg' | file_url }}" alt="cart link">
 
               
               {% elsif section.settings.cart_icon == 'bag' %}
