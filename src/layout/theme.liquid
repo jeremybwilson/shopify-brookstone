@@ -69,7 +69,7 @@
   <!-- {{ 'jquery.fs.shifter.js' | asset_url | script_tag }} -->
 
   {% include 'script-yotpo' %}
-  {% include 'script-zendesk' %}
+  {% comment %} {% include 'script-zendesk' %} {% endcomment %}
 
   {% if template contains 'customers' %}
     {{ "shopify_common.js" | shopify_asset_url | script_tag }}
