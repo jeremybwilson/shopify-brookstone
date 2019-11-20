@@ -76,21 +76,19 @@
 
           {% comment %} ..:: WISHLIST ::.. {% endcomment %}
           {% if section.settings.show_wishlist %}
-            <li class="nav-item nav-wishlist">
-              
-              {% comment %} :: Wishlist King App :: {% endcomment %}
-              {% if settings.app_wk_enabled %}
-                {% comment %}<img src="{{ 'favorites.png' | file_img_url }}" alt="wishlist link">{% endcomment %}
-                <img src="{{ 'wishlist-icon.svg' | file_url }}" alt="wishlist link">
+          <li class="nav-item nav-wishlist">
+            
+            {% comment %} :: Wishlist King App :: {% endcomment %}
+            {% if settings.app_wk_enabled %}
+              {% comment %}<img src="{{ 'favorites.png' | file_img_url }}" alt="wishlist link">{% endcomment %}
+              <!-- include 'wishlist-link' -->
 
-                <!-- include 'wishlist-link' -->
+            {% else %}
+              {% comment %} :: Heart Icon Placeholder :: {% endcomment %}
+              {% include 'svg-icon-heart' %}
+            {% endif %}
 
-              {% else %}  
-                {% comment %} :: Heart Icon Placeholder :: {% endcomment %}
-                {% include 'svg-icon-heart' %}
-              {% endif %}
-
-            </li>
+          </li>
           {% endif %}
 
 
