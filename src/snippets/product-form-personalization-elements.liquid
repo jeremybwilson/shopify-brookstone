@@ -1,0 +1,116 @@
+
+<div class="personalization-wrapper">
+    <div class="check-personalization">
+        <label class="enable-personalized">
+            <span class="text-personalized">Personalized</span>
+            <input type="checkbox" id="is_personalized"/>
+            <span class="checkbox-label">Yes</span>
+        </label>
+    </div>
+    
+    <!-- personalization details element here -->
+</div>
+
+<script>
+
+  $(document).ready(function () {
+    var validationErr = function () {
+      $('#custom_message').removeClass('field-required').addClass('field-required');
+      $('#custom_message_validation_error').show();
+    };
+
+    var validationGood = function () {
+      $('#custom_message').removeClass('field-required');
+      $('#custom_message_validation_error').hide();
+    };
+
+    var charLeftCount = function (msg) {
+      var charMaxCount = $('#custom_message').prop('maxlength');
+      if (msg && msg.length) {
+        $('.character-remaining-count').text(charMaxCount - msg.length);
+      } else {
+        $('.character-remaining-count').text(charMaxCount);
+      }
+    };
+
+    $(document).on('blur', '#custom_message', function (e) {
+      var msg = $(this).val();
+      if (!msg.trim()) {
+        validationErr();
+      } else {
+        validationGood();
+      }
+    });
+
+    $(document).on('focus', '#custom_message', function (e) {
+      var msg = $(this).val();
+      if (msg.trim()) {
+        validationGood();
+      }
+    });
+
+    $(document).on('keyup', '#custom_message', function (e) {
+      var msg = $(this).val();
+      charLeftCount(msg);
+    });
+
+    // $(document).on('click', 'input.AddtoCart', function (e) {
+    //   var msg = $('#custom_message').val();
+    //   if (!msg.trim()) {
+    //     validationErr();
+    //     e.preventDefault();
+    //     return;
+    //   }
+    // });
+    
+    function setMaxLength (count) {
+      var $elementCustomMessage = $('#custom_message');
+      $elementCustomMessage.val('');
+      $elementCustomMessage.prop('maxlength', count);
+      $('.character-remaining-count').text(count);
+      $elementCustomMessage.focus();
+    }
+    
+    $(document).on('change', '#monogramming', function (e) {
+      var monogramming = $(this).val();
+      if (monogramming === 'Full Name Monogramming') {
+        setMaxLength(25);
+      } else {
+        setMaxLength(3);
+      }
+    });
+    
+    var $personalizationDetails = '<div class="personalization-details">' +
+          '<label for="monogramming" class="label-detail">Choose Option</label>' +
+          '<select id="monogramming" class="detail-monogramming" name="properties[Option]">' +
+              '<option value="Initials Monogramming">Initials Monogramming</option>' +
+              '<option value="Full Name Monogramming">Full Name Monogramming</option>' +
+          '</select>' +
+          '<div class="detail-content">' +
+              '<input type="text" id="custom_message" name="properties[Monogram]" maxlength="3" class="custom-message-input" required/>' +
+              '<div class="character-status">' +
+                  '<span class="character-remaining-count">3</span>' +
+                  '<span class="character-left"> chars left</span>' +
+              '</div>' +
+          '</div>' +
+          '<label for="personalized-style" class="label-detail">Choose Style</label>' +
+          '<select id="personalized-style" class="detail-style" name="properties[Style]">' +
+              '<option value="Debossed">Debossed</option>' +
+              '<option value="Silver Foil Stamp">Silver Foil Stamp</option>' +
+              '<option value="Gold Foil Stamp">Gold Foil Stamp</option>' +
+          '</select>' +
+      '</div>';
+    var $personalizedWrapper = $('.personalization-wrapper');
+    
+    $(document).on('change', '#is_personalized', function (e) {
+      var isPersonalized = $(this).prop('checked');
+      var $elementPersonalizedDetails = $('.personalization-details');
+      if (isPersonalized && !$elementPersonalizedDetails.length) {
+        $personalizedWrapper.append($personalizationDetails);
+      } else if (!isPersonalized && $elementPersonalizedDetails.length) {
+        $elementPersonalizedDetails.remove();
+      }
+    });
+  });
+
+</script>

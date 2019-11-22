@@ -35,6 +35,11 @@
 {% endif %}
 
 
+{% for tag in product.tags %}
+  {% if tag == 'personalization' %}
+    {% assign personalization = true %}
+  {% endif %}
+{% endfor %}
 
 
 {% comment %} :: PDP-MERGER - Pass Data to Theme.js :: {% endcomment %}
@@ -260,6 +265,11 @@ window.Shopify.productObj = productObj;
 
 
   <div class="clear"></div>
+
+  {% if personalization == true %}
+    {% include 'product-form-personalization-elements' %}
+  {% endif %}
+
 
   {% comment %} :: ADD TO CART ::{% endcomment %}
   {% if product.available %}
