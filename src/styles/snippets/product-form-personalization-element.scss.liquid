@@ -1,0 +1,88 @@
+
+.personalization-wrapper {
+  margin-bottom: 30px;
+  
+  .check-personalization {
+    label.enable-personalized {
+      display: flex;
+      align-items: center;
+      
+      .text-personalized {
+        text-transform: uppercase;
+        font-size: 18px;
+        font-weight: 700;
+        margin-right: 30px;
+      }
+      
+      input[type=checkbox] {
+        -ms-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+      }
+      
+      .checkbox-label {
+        font-size: 18px;
+        margin-left: 10px;
+      }
+    }
+  }
+  
+  .personalization-details {
+    margin: 25px 0;
+    max-width: 400px;
+    
+    label, select {
+      font-size: 16px;
+      margin: 10px 0;
+      max-width: 280px;
+      padding: 0 5px;
+    }
+    
+    .detail-content {
+      display: flex;
+      align-items: center;
+      
+      input {
+        max-width: 280px;
+        font-size: 16px;
+      }
+      
+      .character-status {
+        margin-left: 10px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 740px) {
+    
+    .check-personalization {
+      label.enable-personalized {
+        input[type=checkbox] {
+          min-width: 20px;
+          width: 20px;
+        }
+      }
+    }
+
+    .personalization-details {
+      max-width: 100%;
+
+      label, select {
+        max-width: 100%;
+      }
+
+      .detail-content {
+        align-items: flex-end;
+        flex-direction: column;
+
+        input {
+          max-width: 100%;
+        }
+      }
+    }
+    
+  }
+}
