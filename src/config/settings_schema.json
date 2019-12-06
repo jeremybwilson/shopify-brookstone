@@ -519,7 +519,13 @@
         "info": "(For React Swatches on Collection Views)",
         "default": "#9a9a9a"
       },
-
+      {
+        "type": "color",
+        "id": "persistent_note_color",
+        "label": "Persistent Note",
+        "info": "Text that appears from PLP to checkout",
+        "default": "#9F1F14"
+      },
 
       {
         "type": "header",

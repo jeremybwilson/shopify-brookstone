@@ -39,11 +39,15 @@ var bcSfFilterTemplate = {
                                     '{{wishlistButton}}' +
                                     '<div class="product-price-wrap bfx-price">{{itemPrice}}</div>' +
                                     '{{itemSwatch}}' +
+                                    '{{itemPersistentNote}}'+                                    
                                 '</div>' +
                             '</div>',
 
     // Badge Template
     'itemBadgeHtml': '<div class="react-badge" data-badge=\'{{badgeTags}}\'></div>',
+
+    // Note Template
+    'itemNoteHtml': '<h4 class="persistent-note">{{noteMsg}}</h4>',        
 
     // Wishlist Heart Template
     'wishlistBtnHtml': '<button class="button-wishlist-product" data-on-wishlist="false" data-product-id="{{itemProductId}}" data-variant-id="{{itemVaraintId}}">' +
@@ -347,6 +351,33 @@ BCSfFilter.prototype.buildProductGridItem = function(data, index, totalProduct) 
         }
     }
     itemHtml = itemHtml.replace(/{{itemSwatch}}/g, itemSwatchHtml);
+
+    // PERSISTENT NOTE
+
+    if ( data.tags ) {
+        var findTag = function(searchString) {
+            var foundTags = data.tags.filter( function( tag ) {
+                return tag.indexOf( searchString ) >= 0; 
+            });
+
+            return foundTags || [];
+        };
+
+        // POPULATE : Build array of tags with only the ones we want
+        var noteTag = findTag( 'persistent_note_' );
+        if ( noteTag.length > 0 ) {            
+
+            noteTag = noteTag[0].replace('persistent_note_','');
+
+            // RENDER : Drop populated note template into itemHtml template
+            var itemNoteHtml = bcSfFilterTemplate.itemNoteHtml; //Don't modify original :)
+            itemNoteHtml = itemNoteHtml.replace( /{{noteMsg}}/g, noteTag );
+            itemHtml = itemHtml.replace( /{{itemPersistentNote}}/g, itemNoteHtml );
+
+        } else {
+            itemHtml = itemHtml.replace(/{{itemPersistentNote}}/g, '' ); //No tag, remove block
+        }
+    }    
 
 
     // INFO : Add main attributes for product data
