@@ -30,11 +30,16 @@
                   {{#properties}}
                     {{#each this}}
                       {{#if this}}
+	                      {{#if_contains @key 'persistent_note'}}
+                          <span class="ajaxcart__product-meta persistent-note">{{this}}</span>
+                        {{/if_contains}}                      
                         {{#if_not_eq @key '_discountItem'}}
                           {{#if_not_eq @key '_sr_token'}}
                             {{#if_not_eq @key '_collection_private'}}
                               {{#unless_contains @key '_private'}}
-                                <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                                {{#unless_contains @key 'persistent_note'}}
+                                  <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>	                            <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                                {{/unless_contains}}
                               {{/unless_contains}}
                             {{/if_not_eq}}
                           {{/if_not_eq}}
@@ -142,10 +147,11 @@
               {% raw %}<p class="text-center">{% endraw %}{{ 'cart.general.no_po_box_shipping' | t }}{% raw %}</p>{% endraw %}
           {% endif %}
           <!-- PDM-264 Start -->
-
+          {% comment %}
           {% if additional_checkout_buttons %}
             <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
           {% endif %}
+          {% endcomment %}
         {% raw %}
       </div>
     </form>

@@ -4,7 +4,6 @@
 {% assign call_to_action = 'products.product.sold_out' | t %}
 {% endunless %}
 
-
 {% comment %} :: SAFETY CHECK - PDP Merge Vars :: Checks for 'product-merger' passed vars & stubs if missing, product-form used more than in just product-template section {% endcomment %}
 {% if productVariants == blank %}
 {% comment %} :: VARIANTS VAR :: Build variants var if not present yet, in case we use this places other than product-template.liquid {% endcomment %}
@@ -62,6 +61,10 @@ window.Shopify.productObj = productObj;
 
 {% comment %} :: PRODUCT FORM :: {% endcomment %}
 {% form 'product', product, id: "AddToCartForm", class: "product_form", data-product-form:product_form_config %}
+
+{% comment %} PERSISTENT NOTE {% endcomment %}
+
+{% include 'product-persistent-note' %}
 
 {%- if settings.show_multiple_currencies -%}
 {% assign price = current_variant.price | money_with_currency %}

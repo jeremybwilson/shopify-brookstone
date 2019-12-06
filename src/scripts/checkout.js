@@ -91,12 +91,32 @@ bolCheckout.SailThruCheckout = (function() {
   return SailThruCheckout;
 })();
 
+/*============================================================================
+  PERSISTENT NOTE
+==============================================================================*/
+
+bolCheckout.persistentNote = (function() {
+  // Persistent Note editing
+
+  function persistentNote() {
+    $( ".product__description__property" ).each(function( index ) {
+      var html_property = $.trim($(this).html());
+      if(html_property.indexOf('persistent_note:') > -1){
+        var persistent_note = html_property.replace('persistent_note:','');
+        $(this).html('<span class="persistent-note">' + persistent_note + '</span>');
+      }
+    });
+  }
+  return persistentNote;
+})();
+
 
 /*============================================================================
   INITALIZER : Add all initalizers here
 ==============================================================================*/
 bolCheckout.init = function() {
-	// bolCheckout.SailThruCheckout(); // <-- UNUSED CURRENTLY
+  // bolCheckout.SailThruCheckout(); // <-- UNUSED CURRENTLY
+  bolCheckout.persistentNote();
 };
 
 
