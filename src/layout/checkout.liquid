@@ -83,5 +83,12 @@
 
     {% comment %} :: BOL - Checkout Customizations :: {% endcomment %}
     {{ 'checkout.js' | asset_url | script_tag }}
+
+    <style>
+      .persistent-note {
+        font-weight: 700;
+        color: {{ settings.persistent_note_color }};
+      }
+    </style>    
   </body>
 </html>
