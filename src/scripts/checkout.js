@@ -5,6 +5,11 @@
 	  	- Jquery added to layout/checkout.liquid (shoprunner needs, so prob already there)
 */
 
+/*====== Default to open Order Summary on Mobile ====*/
+$(document).ready( function() {  
+  $('div.order-summary').removeClass('order-summary--is-collapsed');
+});
+
 // IMPORT : Load in any modules you need here
 const assignIn = require('lodash.assignin');
 
