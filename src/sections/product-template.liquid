@@ -362,10 +362,12 @@
 {{product.metafields.shogun.below}}    
 
 {% if section.settings.related_products == 'bottom' %}
-<div id="related" class="bottom-related">
-    {% include 'related-products' %}
-</div>
-<div class="clear"></div>
+    {% unless product_type == 'gift-card' %}
+        <div id="related" class="bottom-related">
+            {% include 'related-products' %}
+        </div>
+    {% endunless %}
+    <div class="clear"></div>
 {% endif %}
 
 {% comment %} NOSTO {% endcomment %}
