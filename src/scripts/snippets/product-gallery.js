@@ -150,8 +150,8 @@ theme.ProductGallery = function (context, events) {
         arrows: false,
         slidesToShow: 3,
         slidesToScroll: 1,
-        asNavFor: '.product-image-container',
-         centerMode: true
+        asNavFor: '.product-image-container'
+        //  centerMode: true
       });
 
       $( '.thumbnail-slider .slick-slide' ).on( 'click', function () {
