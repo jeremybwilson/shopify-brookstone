@@ -147,10 +147,12 @@ theme.ProductGallery = function (context, events) {
       // INITALIZE : Declare initial config / start image gallery
       $('#product-photos .thumbnail-slider').slick({
         vertical: false,
-        arrows: false,
+        arrows: true,
         slidesToShow: 3,
         slidesToScroll: 1,
-        asNavFor: '.product-image-container'
+        asNavFor: '.product-image-container',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-chevron-left"></i></button>',
         //  centerMode: true
       });
 
