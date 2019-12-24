@@ -1026,7 +1026,7 @@ body.js-drawer-open {
                 }
 
                 &.nav-simple-menu {
-                    position: relative;
+                    position:unset;
                 }
 
                 .nav-category-header { //Center the nav link item vertically 
@@ -1844,13 +1844,25 @@ nav {
                 }
 
                 .submenu {
-                    left: 0;
+                    left:auto;
                     @include transform(translateX(0));
                     text-align: left;
-                    padding: 10px 20px 20px;
+                    padding:0;
                     @include fontSize(14.4px);
                     border: 1px solid $navLinkColor;
-                    width: 520px;
+                    width:200px;
+                    .submenu-links {
+                        width: 100% !important;
+                        display: inline-block;
+                        float: unset !important;
+
+                        .has_sub_menu {
+                            display: inline-block;
+                            width: 100%;
+                            padding: 10px 20px 10px;
+                        }
+                    }
+
                     .submenu-links,
                     .menu-product {
                         float: left;
@@ -1863,7 +1875,7 @@ nav {
                     }
                     .submenu-links {
                         list-style: none;
-                        padding-right: 20px;
+                        padding-right: 0px;
                         li {
                             a {
                                 font-weight: 600;
