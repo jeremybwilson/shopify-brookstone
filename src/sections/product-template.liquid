@@ -411,7 +411,7 @@
   {% endif %}
   {% if section.settings.thumbnails == 'bottom' and product.images.size > 4 %}
   .product-thumbnail {
-      width: 100% !important;
+      {% comment %} width: 100% !important; {% endcomment %}
       margin-top: 20px;
   }
   .thumbnail-slider .owl-wrapper-outer {
