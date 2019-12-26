@@ -300,6 +300,10 @@ window.Shopify.productObj = productObj;
 
   </div>
   <p class="add-to-cart-msg"></p>
+  {% else %}
+    <div class="btn-add-to-cart">
+      <input type="submit" name="button" class="add clearfix AddtoCart{% if section.settings.show_payment_button %} secondary-button{% endif %}" value="{{ 'products.product.sold_out' | t }}" {% unless current_variant.available %}disabled{% endunless %} />
+    </div>
   {% endif %}
 
   {% if section.settings.show_availability %}
