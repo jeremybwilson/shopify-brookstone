@@ -20,7 +20,7 @@
         {% if form.posted_successfully? %}
         <p class="note form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
         {% else %}
-        <input type="email" class="form-control" value="{% if customer %}{{ customer.email }}{% endif %}" id="email" name="contact[email]"  placeholder="{{section.settings.newsletter_placeholder}}" required>
+        <input type="email" class="form-control" value="{% if customer %}{{ customer.email }}{% endif %}" id="email" name="contact[email]"  placeholder="{{section.settings.newsletter_placeholder}}" required aria-label="emailid">
 
         <input type="submit" class="btn" name="subscribe"  value="Submit">
         {% endif %}
