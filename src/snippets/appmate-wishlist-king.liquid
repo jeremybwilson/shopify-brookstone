@@ -389,7 +389,7 @@ function initAppmate(Appmate){
 {% else %}
   {% assign link_icon = 'wishlist-icon-empty' %}
 {% endif %}
-<a href="{{ wishlist.url }}" class="wk-link wk-{{ wishlist.state }}" title="View Wishlist"><div class="wk-icon">{% include link_icon %}</div><span class="wk-label"></span> <span class="wk-count">({{ wishlist.item_count }})</span></a>
+<a href="{{ wishlist.url }}" class="wk-link wk-{{ wishlist.state }}" title="View Wishlist" aria-label="View Wishlist"><div class="wk-icon">{% include link_icon %}</div><span class="wk-label"></span> <span class="wk-count">({{ wishlist.item_count }})</span></a>
 </script>
 
 <script id="wishlist-link-li" data="wishlist" type="text/x-template" app="wishlist-king">
