@@ -86,7 +86,7 @@
     <h6 class="current-option">{{ current_variant[current_option] }}</h6>
 
     {% comment %} :: HEADER - SIZE CHART :: {% endcomment %}
-    {% if lowercase_option_name contains 'size' and template != 'product.quick' %}
+    {% if lowercase_option_name contains 'size' and template != 'product.quick' and section.settings.show_size_chart %}
       <a href="#size-chart--popup" class="fancybox size-chart--trigger">Size Chart</a>
     {% endif %}
 
