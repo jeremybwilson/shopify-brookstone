@@ -55,7 +55,7 @@ theme.ProductGallery = function (context, events) {
       return false;
     }
 
-    // events.on( "thumbnail:click", selectMainImg );
+    events.on( "thumbnail:click", selectMainImg );
 
     function selectMainImg (id) {
       var image = $elements.filter("[data-image-id=" + id + "]");
