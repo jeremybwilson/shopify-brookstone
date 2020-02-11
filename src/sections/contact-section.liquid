@@ -10,7 +10,7 @@
         {% if section.settings.email_content %}
         <div class="email-content wrapper">
             <h3 class="email-title">{{section.settings.email_title}}</h3>
-            <a href="mailto:{{section.settings.email_content}}" title="{{section.settings.email_content}}" tabindex="0">{{section.settings.email_content}}</a>
+            <a href="mailto:{{section.settings.email_content}}" aria-label="email" title="{{section.settings.email_content}}" tabindex="0">{{section.settings.email_content}}</a>
         </div>
         {% endif %}
     </div>
@@ -22,7 +22,7 @@
         <div class="phone-content wrapper">
             <h3 class="email-title">{{section.settings.phone_title}}</h3>
             <p>{{section.settings.email_description | stripe_html }}</p>
-            <a href="tel:{{section.settings.phone_content}}" tabindex="0" title="{{section.settings.phone_content}}"><b>{{section.settings.phone_content}}</b></a>
+            <a href="tel:{{section.settings.phone_content}}" tabindex="0" aria-label="tel" title="{{section.settings.phone_content}}"><b>{{section.settings.phone_content}}</b></a>
         </div>
         {% endif %}
     </div>

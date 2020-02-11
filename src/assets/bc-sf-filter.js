@@ -10,6 +10,9 @@ var bcSfFilterSettings = {
     },
     selector: {
         products: '#product-loop'
+    },
+    template:{
+        filterOptionRange: '<div><div class="bc-sf-filter-option-range-amount" id="{{rangeAmountId}}"><input class="bc-sf-filter-option-range-amount-min" type="text" aria-label="min amount" /><div class="bc-sf-filter-option-range-amount-split"> - </div><input class="bc-sf-filter-option-range-amount-max" type="text" aria-label="max amount" /></div><div class="bc-sf-filter-option-range-slider {{itemSelected}}" id="{{rangeSliderId}}" data-id="{{itemParentId}}" data-value="{{itemValue}}" data-parent-label="{{itemParentLabel}}"></div></div>',
     }
 };
 
@@ -50,7 +53,7 @@ var bcSfFilterTemplate = {
     'itemNoteHtml': '<h4 class="persistent-note">{{noteMsg}}</h4>',        
 
     // Wishlist Heart Template
-    'wishlistBtnHtml': '<button class="button-wishlist-product" data-on-wishlist="false" data-product-id="{{itemProductId}}" data-variant-id="{{itemVaraintId}}">' +
+    'wishlistBtnHtml': '<button class="button-wishlist-product" data-on-wishlist="false" data-product-id="{{itemProductId}}" data-variant-id="{{itemVaraintId}}" aria-label="wishlist">' +
         '<svg version="1.1" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 64 60.833">' +
             '<path stroke="#000" stroke-width="5" stroke-miterlimit="10" d="M45.684,2.654c-6.057,0-11.27,4.927-13.684,10.073 c-2.417-5.145-7.63-10.073-13.687-10.073c-8.349,0-15.125,6.776-15.125,15.127c0,16.983,17.134,21.438,28.812,38.231 c11.038-16.688,28.811-21.787,28.811-38.231C60.811,9.431,54.033,2.654,45.684,2.654z"></path>' +
         '</svg>' +
@@ -65,7 +68,7 @@ var bcSfFilterTemplate = {
     'paginateHtml': '<span class="count"></span>{{previous}}{{pageItems}}{{next}}',
 
     // Sorting Template
-    'sortingHtml': '<h4 class="sort-label">' + bcSfFilterConfig.label.sorting + '</h4><select class="styled-select">{{sortingItems}}</select>',
+    'sortingHtml': '<h4 class="sort-label">' + bcSfFilterConfig.label.sorting + '</h4><select class="styled-select" aria-label="styled-select">{{sortingItems}}</select>',
 
     // Apply Btn Template (Mobile) : Filter constructor not exposed, so func binding close not available, hence this sad click..
     'mobileApplyBtnHtml': '<button class="mobile-apply-button" onClick="$(\'#bc-sf-filter-tree-mobile-button\').click()">Apply</button>'
