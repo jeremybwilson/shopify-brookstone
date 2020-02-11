@@ -128,7 +128,7 @@
                 {% else %}
                   <div class="input-group">
                     <button type="button" class="cart-qty-input cart-qty-minus qty-decrement">-</button>
-                    <input type="text" class="cart-qty bfx-product-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();"/>
+                    <input type="text" class="cart-qty bfx-product-qty" size="4" name="updates[{{ item.id }}]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" onfocus="this.select();" aria-label="quantity"/>
                     <button type="button" class="cart-qty-input cart-qty-plus qty-increment">+</button>
                   </div>
                   <script type="text/javascript">

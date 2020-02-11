@@ -30,12 +30,12 @@
   <h3>Leave a Message</h3>
   <p class="form-name">
     <label>{{ 'contact.form.name' | t }}<span class="req">*</span></label>    
-    <input type="text" id="contactFormName" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}" />
+    <input type="text" id="contactFormName" name="contact[name]" placeholder="{{ 'contact.form.name' | t }}" aria-label="name"/>
   </p>
 
   <p class="form-email">
     <label>{{ 'contact.form.email' | t }}<span class="req">*</span></label>
-    <input type="email" id="contactFormEmail" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" />
+    <input type="email" id="contactFormEmail" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" aria-label="email"/>
   </p>
 
   <p class="form-phone">
@@ -45,7 +45,7 @@
 
   <p class="form-message">
     <label>{{ 'contact.form.message' | t }}<span class="req">*</span></label>
-    <textarea rows="15" cols="90" id="contactFormMessage" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}"></textarea>
+    <textarea rows="15" cols="90" id="contactFormMessage" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}" aria-label="message"></textarea>
   </p>
   <p class="form-submit">
     <input type="submit" id="contactFormSubmit" class="secondary button" value="{{ 'contact.form.send' | t }}" />
