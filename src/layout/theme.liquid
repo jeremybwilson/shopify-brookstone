@@ -150,6 +150,12 @@
 </head>
 
 <body class="bfx-price-container bfx-remove-element-container template-name-{{ template | split: '.' | last }} gridlock shifter {% if template contains 'product' %}product{% elsif template contains 'collection' %}collection{% else %}{{ template }}{% endif %}">
+
+  {% comment %} Surefoot - Page Conceal Snippet  {% endcomment %}
+  {% if settings.surefoot_page_conceal_enabled %}
+    {% include 'script-surefoot-antiflicker' %}
+  {% endif %}  
+  
   {% include 'script-google-tag-body' %}
   {% include 'timber-cart' %}
 

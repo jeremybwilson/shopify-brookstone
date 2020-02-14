@@ -29,6 +29,11 @@
   </head>
 
   <body>
+    {% comment %} Surefoot - Page Conceal Snippet  {% endcomment %}
+    {% if settings.surefoot_page_conceal_enabled %}
+      {% include 'script-surefoot-antiflicker' %}
+    {% endif %}
+
     {% include 'script-google-tag-body' %}
 
     <p>
@@ -80,6 +85,11 @@
     <div id="sr_logic">{% include 'shoprunner-logic', isCheckout: true %}</div>
 
     {{ tracking_code }}
+
+    {% comment %} Surefoot - Checkout Step Labels  {% endcomment %}
+    {% if settings.surefoot_checkout_enabled %}
+      {% include 'script-surefoot-ga-checkout-step-labels' %}
+    {% endif %}
 
     {% comment %} :: BOL - Checkout Customizations :: {% endcomment %}
     {{ 'checkout.js' | asset_url | script_tag }}
