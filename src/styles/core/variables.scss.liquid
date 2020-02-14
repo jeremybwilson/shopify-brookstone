@@ -24,7 +24,7 @@ $mainColor: #079ccd;
 $logoColor: #59595c;
 $navLinkColor: #59585d;
 $color--border-red: #ad0000;
-
+$light-red:#ca4644;
 
 // BACKGROUND + GREYS
 $color--gray-1: #616365;
@@ -417,6 +417,7 @@ $button--alt-border-hover: {{ settings.alt_button_border_width }}px solid {{ set
 /* MIXIN : MEDIA QUERIES
  *    EX : @include mq( 'lap-and-up' ) { CODE }
  * ------------------------------------------------------------------------- */
+$phone-portrait:   "screen and (max-width: 567px)";
 $phone:            "screen and (max-width: 767px)";
 $tablet:           "screen and (min-width: 768px) and (max-width: 1023px)";
 $phone-and-tablet: "screen and (max-width: 1023px)";
@@ -433,6 +434,10 @@ $retina:           "(-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi)
 @mixin mq($alias) {
   @if $alias == "phone" {
     @media #{$phone} {
+      @content;
+    }
+  } @else if $alias == "phone-portrait" {
+    @media #{$phone-portrait} {
       @content;
     }
   } @else if $alias == "tablet" {
