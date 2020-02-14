@@ -1775,5 +1775,47 @@
         "label": "Password rdirect url"
       }      
     ]
-  }
+  },
+  {
+    "name": "Surefoot",
+    "settings": [
+      {
+        "type": "header",
+        "content": "A/B Test Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "surefoot_page_conceal_enabled",
+        "default": false,
+        "label": "Enable Page Conceal Anti-Flicker"
+      },
+      {
+        "type": "number",
+        "id": "surefoot_page_conceal_delay",
+        "default": 2000,
+        "label": "Page Conceal Delay in ms (1000 = 1 sec)"
+      },
+      {
+        "type": "header",
+        "content": "Checkout Scripts"
+      },
+      {
+        "type": "checkbox",
+        "id": "surefoot_checkout_enabled",
+        "default": false,
+        "label": "Enable Checkout Script"
+      },
+      {
+        "type": "text",
+        "id": "surefoot_optimize_container_id",
+        "label": "Google Optimize Container ID",
+        "info": "(This value accepts ONLY Google Optimize Container IDs, NOT Google Tag Manager IDs)"
+      },
+      {
+        "type": "text",
+        "id": "surefoot_ga_container_id",
+        "label": "GA Container ID"
+      }
+    ]
+  }  
 ]
