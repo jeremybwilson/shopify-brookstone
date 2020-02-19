@@ -55,7 +55,7 @@ theme.ProductGallery = function (context, events) {
       return false;
     }
 
-    // events.on( "thumbnail:click", selectMainImg );
+    events.on( "thumbnail:click", selectMainImg );
 
     function selectMainImg (id) {
       var image = $elements.filter("[data-image-id=" + id + "]");
@@ -134,15 +134,15 @@ theme.ProductGallery = function (context, events) {
       const dominantOptions = theme.utils.productUtils.getDominantOptions(); // Option Names to update image filtering for when user selects a different one
 
        // INITALIZE : Declare initial config / start image gallery
-       $('.product-main-images .product-image-container').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        asNavFor: '.thumbnail-slider',
-        adaptiveHeight: true,
-        infinite: true,
-        speed: 1000
-      });
+      //  $('.product-main-images .product-image-container').slick({
+      //   slidesToShow: 1,
+      //   slidesToScroll: 1,
+      //   arrows: false,
+      //   asNavFor: '.thumbnail-slider',
+      //   adaptiveHeight: true,
+      //   infinite: false,
+      //   speed: 1000
+      // });
 
       // INITALIZE : Declare initial config / start image gallery
       $('#product-photos .thumbnail-slider').slick({
@@ -150,15 +150,14 @@ theme.ProductGallery = function (context, events) {
         arrows: true,
         slidesToShow: 3,
         slidesToScroll: 1,
-        asNavFor: '.product-image-container',
         nextArrow: '<button type="button" class="slick-next"><i class="fa fa-chevron-right"></i></button>',
         prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-chevron-left"></i></button>',
         //  centerMode: true
       });
 
-      $( '.thumbnail-slider .slick-slide' ).on( 'click', function () {
-        $( '.product-main-images .product-image-container' ).slick( 'slickGoTo', $( this ).data( 'slick-index') );
-      });
+      // $( '.thumbnail-slider .slick-slide' ).on( 'click', function () {
+        // $( '.product-main-images .product-image-container' ).slick( 'slickGoTo', $( this ).data( 'slick-index') );
+      // });
       // INITALIZE : FILTER + LISTENERS : Iterate Dominant Options & initialize
       dominantOptions.forEach( optionName => {
         const element = $( `.swatch-element.${optionName} input[checked]` );
