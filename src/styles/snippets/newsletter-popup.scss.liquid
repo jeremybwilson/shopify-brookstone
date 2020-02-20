@@ -202,3 +202,151 @@
     }
   }
 }
+
+.subscribe-modal {
+  display: none;
+  text-align: center;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  &.show-popup{
+    @include flexbox;
+  }
+  .subscribe--popup--form-error{
+    color: $light-red;
+    line-height: 12px;
+  }
+  .page-center-modal {
+      padding: 50px 65px;
+      background-color:$color--white;
+      max-width: 530px;
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      position: relative;
+
+      @include mq('phone-portrait'){
+        margin: 0 15px;
+        padding: 35px 35px;
+      }
+  }
+
+  .close {
+      background-image: url(https://cdn.shopify.com/s/files/1/0262/2226/4423/files/close.png?v=1579859086);
+      width: 22px;
+      height: 22px;
+      background-size: 22px;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      top: 8px;
+      cursor: pointer;
+      right: 12px;
+  }
+
+  .modal-content {
+    h3 {
+      color:$light-red;
+      @include fontSize(24px);
+      font-weight: $font-weight--book;
+      margin-bottom: 22px;
+      font-family: "bodoni-svtytwo-itc-tt-book";
+      text-transform: uppercase;
+      letter-spacing: 2px;  
+    }
+
+    form#newsletter--popup--form {
+      max-width:305px;
+      margin: 0px auto;
+
+      input {
+        width: 100%;
+        border-radius: 0px;
+        text-align: center;
+        height: 50px;
+        padding: 0 15px;
+        font-family: "BrandonGrotesque-Regular";
+        @include fontSize(16px);
+        letter-spacing: 0.5px;
+        border-color:$color--gray-5;
+      }
+    }
+
+    #footer-newsletter-submit-popup {
+      margin-top:19px;
+      background-color:$light-red;
+      text-transform: capitalize;
+      letter-spacing: 2px !important;
+      font-weight: $font-weight--medium;
+      font-size:18px !important;
+      border:0px;
+    }
+
+    .copyright-popup{
+      p {
+        @include fontSize(12px);
+        letter-spacing: 0.2px;
+        color:$color--gray-2;
+        line-height: 15px;
+        margin-top: 27px;
+        font-family: "BrandonGrotesque-Regular";
+
+        a{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .discount-offer{
+    >span:first-child {
+      letter-spacing: 1px;
+    }
+
+    .discount {
+      @include fontSize(60px);
+      font-family: "bodoni-svtytwo-itc-tt-book";
+      font-weight: $font-weight--medium;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      line-height: 53px;
+
+      @include mq('phone-portrait'){
+        @include fontSize(48px);
+      }
+    }
+
+    .appaly-link {
+      width: 100%;
+      @include fontSize(12px);
+      max-width: 100%;
+      border-bottom: 1px solid $color--gray-5;
+      padding: 0 0 15px 0;
+      margin-bottom: 19px;
+      text-transform: capitalize;
+      position: relative;
+      top: -3px;
+      letter-spacing: 0.5px;
+    }
+
+    span {
+      @include fontSize(14px);
+      font-weight: $font-weight--book;
+      max-width: 66%;
+      display: inline-block;
+      line-height: 21px;
+      text-transform: uppercase;
+      font-family: "BrandonGrotesque-Regular";
+      letter-spacing: 1px;
+
+      @include mq('phone-portrait'){
+        max-width:100%;
+      }
+    }
+  }
+}
