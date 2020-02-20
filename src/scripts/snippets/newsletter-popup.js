@@ -78,4 +78,55 @@ $(document).ready(function () {
             });
         }
     })();
+    (function Newsletterpop() {
+        var ui = {
+            popup: $('#myModal-newsletter-pop'),
+            formId: $('#newsletter--popup--form'),
+            email: $('#newsletter--popup--form input#email'),
+            close: $('#myModal-newsletter-pop .close'),
+            success: $('.subscribe--popup--form-response'),
+            error: $('.subscribe--popup--form-error'),
+        };
+        const cordialSettings = {
+            'channels.email.subscribeStatus': 'subscribed',
+            newsletter: true,
+            welcome_email: true,
+        }
+        const cordialOptions = { upsert: true }
+
+        var check_newsletter_pop = $.cookie('newsletter_pop');
+        if (check_newsletter_pop == null) {
+            if (!ui.popup.length > 0) {
+                return false;
+            }
+            ui.popup.addClass('show-popup');
+            ui.popup.fadeIn(200,'linear',function(){
+                $.cookie('newsletter_pop', 'expires_seven_days', { expires: 7 });
+            });
+            ui.close.click(function() {
+                ui.popup.removeClass('show-popup');
+                $(this).closest('#myModal-newsletter-pop').fadeOut();
+            });
+        }
+        
+        const regexEmail = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i);
+        if (ui.formId) {
+            ui.formId.submit((e) => {
+                e.preventDefault();
+
+                // CHECK : Validate Email
+                let validEmail = regexEmail.test(ui.email.val());
+                if (!validEmail) {
+                    ui.error.removeClass('hide');
+                } else {
+                    ui.error.addClass('hide');
+                    cordial.identify(ui.email.val())
+                    cordial.contact(cordialSettings, cordialOptions)
+                    cordial.event('subscribed', {'source': 'popup'})
+                    ui.email.val('');
+                    ui.success.removeClass('hide');
+                }
+            });         
+        }
+    })();
 });

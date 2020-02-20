@@ -1,0 +1,28 @@
+{{ '//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' | stylesheet_tag }}
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" defer="defer"></script>
+<div id="myModal-newsletter-pop" class="modal subscribe-modal">
+  <div class="page-center-modal">
+    <div class="modal-content">
+        <span class="close"></span>
+        <h3>Join The List</h3>
+        <div class="discount-offer">
+            <span>Enjoy</span>
+            <h2 class="discount">15 % Off</h2>
+            <span>Your Next Purchase When You Sign Up For Out Mailing List</span>
+            <span class="appaly-link">* Exclusions Apply</span>
+            <form class="newsletter-form" id="newsletter--popup--form">
+                <input class="form-field" type="email" aria-label="Enter Your Email address" id="email" name="email" placeholder="Enter Your Email Address">
+                <p class="subscribe--popup--form-error hide">Enter valid email</p>
+                <input class="subscribe-button" id="footer-newsletter-submit-popup" type="submit" value="Subscribe">
+            </div>
+            </form>
+            <div class="copyright-popup">
+                <p>By Providing your email address, you agree to our <br><a href="pages/privacy-policy" target="_blank">Privacy Policy</a> & <a href="">Terms of Service</a></p>
+            </div>
+            <div class="subscribe--popup--form-response hide">
+              You have successfully joined our newsletter
+            </div>
+        </div>
+    </div>
+  </div>
+</div> 
